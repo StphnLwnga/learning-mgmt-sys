@@ -6,9 +6,11 @@ export default function Home() {
       <p className='text-3xl font-medium text-sky-700'>
         Protected page viewable only to logged in users
       </p>
-      <SignedIn>
-        <UserButton afterSignOutUrl="/sign-in" showName />
-      </SignedIn>
+      <div className="absolute right-18 w-[97%] flex justify-end items-right top-5">
+        <SignedIn >
+          <UserButton afterSignOutUrl="/sign-in"  />
+        </SignedIn>
+      </div>
     </div>
   )
 }

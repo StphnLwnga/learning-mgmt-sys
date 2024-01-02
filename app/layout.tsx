@@ -3,7 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider" // Shadcn theme provider
-import { ModeToggle } from '@/components/ui/mode-toggle';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,11 +30,12 @@ export default function RootLayout({
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
             disableTransitionOnChange
           >
-            <ModeToggle/>
+            <div className='fixed right-28 top-4 z-50'>
+              <ModeToggle />
+            </div>
             {children}
           </ThemeProvider>
         </body>
