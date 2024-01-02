@@ -1,5 +1,12 @@
 import Sidebar from "./_components/sidebar";
 
+/**
+ * Render a dashboard layout with a sidebar and children components.
+ *
+ * @param {Object} props - The props for the DashboardLayout component.
+ * @param {React.ReactNode} props.children - The children components to render inside the layout.
+ * @return {JSX.Element} The rendered dashboard layout.
+ */
 const DashboardLayout = ({children}: {children: React.ReactNode}): JSX.Element => {
   return ( 
     <div className="h-full">

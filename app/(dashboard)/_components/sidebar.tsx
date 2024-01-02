@@ -4,7 +4,12 @@ import { useTheme } from "next-themes"
 import { useEffect } from "react";
 import Logo from "./logo";
 
-const Sidebar = () => {
+/**
+ * Renders the Sidebar component.
+ *
+ * @return {JSX.Element} The rendered Sidebar component.
+ */
+const Sidebar = (): JSX.Element => {
   const { theme } = useTheme();
 
   return (
