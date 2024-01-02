@@ -10,8 +10,8 @@ const Logo = ({src}: {src: string}): JSX.Element => {
   return (
     <div className="flex justify-center items-center">
       <Image 
-        height={120}
-        width={120}
+        height={140}
+        width={140}
         alt="logo"
         src={src}
       />
