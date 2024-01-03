@@ -32,8 +32,7 @@ const SidebarItem = ({
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
-    if (theme === "dark") setIsDarkTheme(true);
-    else if (theme === "light") setIsDarkTheme(false);
+    setIsDarkTheme(theme === "dark" ?? false);
   }, [theme]);
 
   const isActive = (pathname === "/" && href === "/")
@@ -44,17 +43,17 @@ const SidebarItem = ({
 
   return (
     <button onClick={onClick} type="button" className={cn(
-      "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+      "flex items-center gap-x-2 text-slate-600 text-sm font-[500] pl-6 transition-all hover:text-slate-700 hover:bg-slate-300/20",
       isActive && "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700",
-      isDarkTheme && "hover:bg-slate-700/20 hover:text-slate-300 text-slate-300",
+      isDarkTheme && "hover:bg-slate-700/20 hover:text-slate-400 text-slate-400",
     )}>
       <div className="flex items-center gap-x-2 py-4">
         <Icon
           size={22}
           className={cn(
-            "text-slate-500",
+            "text-slate-600",
             isActive && "text-sky-700",
-            isDarkTheme && "text-slate-300"
+            isDarkTheme && "text-slate-400"
           )}
         />
         {label}
