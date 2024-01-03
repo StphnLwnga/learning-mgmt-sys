@@ -19,7 +19,7 @@ const Sidebar = (): JSX.Element => {
       className={`h-full border-r flex flex-col overflow-y-auto shadow-sm ${isDarkTheme ? 'bg-[#020817]' : 'bg-white'}`}
     >
       <div className="-p-1">
-        <Logo src={isDarkTheme ? '/CourseNoma-logos_white.png' : '/CourseNoma-logos_black.png'} />
+        <Logo isDarkTheme={isDarkTheme} />
       </div>
       <div className="flex flex-col w-full">
         <SidebarRoutes/>
