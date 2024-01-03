@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useEffect } from "react"
 
 /**
  * Renders a mode toggle component.
@@ -18,25 +19,43 @@ import {
  * @return {JSX.Element} The rendered mode toggle component.
  */
 export function ModeToggle(): JSX.Element {
-  const { setTheme } = useTheme()
+  const { setTheme, theme } = useTheme();
+  const [currentTheme, setCurrentTheme] = React.useState(theme);
+
+  const toggleTheme = () => {
+    setTheme(currentTheme === "light" ? "dark" : "light");
+  }
+
+  useEffect(() => {
+    setCurrentTheme(theme)
+  }, [theme]);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button variant="ghost" size="icon" className="rounded-full" onClick={() => toggleTheme()}>
+      {theme === "light" &&
+        <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      }
+      {theme === "dark" &&
+        <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      }
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+    // <DropdownMenu>
+    //   <DropdownMenuTrigger asChild>
+    //     <Button variant="ghost" size="icon" className="rounded-full">
+    //       <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+    //       <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+    //       <span className="sr-only">Toggle theme</span>
+    //     </Button>
+    //   </DropdownMenuTrigger>
+    //   <DropdownMenuContent align="end">
+    //     <DropdownMenuItem onClick={() => setTheme("light")}>
+    //       Light
+    //     </DropdownMenuItem>
+    //     <DropdownMenuItem onClick={() => setTheme("dark")}>
+    //       Dark
+    //     </DropdownMenuItem>
+    //   </DropdownMenuContent>
+    // </DropdownMenu>
   )
 }
