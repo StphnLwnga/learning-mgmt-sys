@@ -1,9 +1,10 @@
 import { ClerkProvider } from '@clerk/nextjs'; // Authentication provider
+import { dark,neobrutalism } from '@clerk/themes';
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider" // Shadcn theme provider
-import { ModeToggle } from '@/components/mode-toggle';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +26,11 @@ export default function RootLayout({
   children: React.ReactNode
 }): React.ReactNode {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      // appearance={{
+      //   baseTheme: dark
+      // }}
+    >
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider
@@ -33,9 +38,9 @@ export default function RootLayout({
             defaultTheme="light"
             disableTransitionOnChange
           >
-            <div className='fixed right-28 top-4 z-50'>
+            {/* <div className='fixed right-28 top-4 z-50'>
               <ModeToggle />
-            </div>
+            </div> */}
             {children}
           </ThemeProvider>
         </body>

@@ -13,31 +13,33 @@ import { Button } from "@/components/ui/button"
  */
 export function ModeToggle(): JSX.Element {
   const { setTheme, theme } = useTheme();
-  const [currentTheme, setCurrentTheme] = useState(theme);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleTheme = (): void => {
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    setCurrentTheme(newTheme);
+    setTheme(isDarkTheme ? "light" : "dark");
+    setIsDarkTheme(!isDarkTheme);
   }
 
   useEffect(() => {
-    setCurrentTheme(theme)
+    setIsDarkTheme(theme === "dark");
   }, [theme]);
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="rounded-full"
-      onClick={toggleTheme}
-    >
-      {theme === "light" ? (
-        <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      ) : (
-        <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      )}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <div>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-full"
+        onClick={toggleTheme}
+      >
+        {!isDarkTheme ? (
+          <SunIcon color="#0369A1" className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 z-55" />
+        ) : (
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 z-55" />
+        )}
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    </div>
+
   )
 }

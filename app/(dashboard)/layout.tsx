@@ -15,11 +15,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }): JSX.Eleme
       <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-49">
         <Navbar />
       </div>
-      <div className="fixed right-12 w-[83%] flex justify-end items-right top-5">
+      {/* <div className="fixed right-12 w-[83%] flex justify-end items-right top-5">
         <SignedIn >
           <UserButton afterSignOutUrl="/sign-in" />
         </SignedIn>
-      </div>
+      </div> */}
       <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">
         <Sidebar />
       </div>

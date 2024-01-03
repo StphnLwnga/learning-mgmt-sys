@@ -13,7 +13,11 @@ import { Separator } from "@/components/ui/separator";
  */
 const Sidebar = (): JSX.Element => {
   const { theme } = useTheme();
-  const isDarkTheme = theme === "dark";
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark");
+  }, [theme]);
 
   return (
     <div
@@ -23,7 +27,7 @@ const Sidebar = (): JSX.Element => {
         <Logo isDarkTheme={isDarkTheme} />
       </div>
       <div className="flex flex-col w-full justify-center items-center">
-    <Separator className="w-[88%] -top-5" />
+        <Separator className="w-[88%] -top-5" />
       </div>
       <div className="flex flex-col w-full">
         <SidebarRoutes />
