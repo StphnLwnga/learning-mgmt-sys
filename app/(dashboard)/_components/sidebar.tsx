@@ -4,6 +4,7 @@ import { useTheme } from "next-themes"
 import Logo from "./logo";
 import SidebarRoutes from "./sidebar-routes";
 import { useEffect, useState } from "react";
+import { Separator } from "@/components/ui/separator";
 
 /**
  * Renders the Sidebar component.
@@ -18,11 +19,14 @@ const Sidebar = (): JSX.Element => {
     <div
       className={`h-full border-r flex flex-col overflow-y-auto shadow-sm ${isDarkTheme ? 'bg-[#020817]' : 'bg-white'}`}
     >
-      <div className="-p-1">
+      <div className="-p-1 flex flex-col">
         <Logo isDarkTheme={isDarkTheme} />
       </div>
+      <div className="flex flex-col w-full justify-center items-center">
+        <Separator className="my-1 w-40 -top-5" />
+      </div>
       <div className="flex flex-col w-full">
-        <SidebarRoutes/>
+        <SidebarRoutes />
       </div>
     </div>
   );
