@@ -14,6 +14,7 @@ const Logo = ({src}: {src: string}): JSX.Element => {
         width={160}
         alt="logo"
         src={src}
+        priority
       />
     </div>
   );
