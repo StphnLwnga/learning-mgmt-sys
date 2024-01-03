@@ -11,7 +11,7 @@ const Logo = ({src}: {src: string}): JSX.Element => {
     <div className="flex justify-center items-center">
       <Image 
         height={140}
-        width={140}
+        width={160}
         alt="logo"
         src={src}
       />
