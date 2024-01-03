@@ -10,14 +10,9 @@ import { useEffect, useState } from "react";
  *
  * @return {JSX.Element} The rendered Sidebar component.
  */
-const Sidebar = () => {
+const Sidebar = (): JSX.Element => {
   const { theme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    if (theme === "dark") setIsDarkTheme(true);
-    else if (theme === "light") setIsDarkTheme(false);
-  }, [theme]);
+  const isDarkTheme = theme === "dark";
 
   return (
     <div
