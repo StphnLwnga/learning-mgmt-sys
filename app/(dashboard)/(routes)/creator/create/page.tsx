@@ -113,7 +113,7 @@ const CreatePage = () => {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-[57%]">
+            <div className="flex items-center gap-x-[59%]">
               <Button
                 type="button"
                 variant="ghost"
