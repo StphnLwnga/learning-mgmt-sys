@@ -10,3 +10,49 @@ datasource db {
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
+model Course {
+  id          String  @id @default(uuid())
+  userId      String
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
+  price       Float?  @default(0.00)
+  isPublished Boolean @default(false)
+
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  attachments Attachment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  courses Course[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Attachment {
+  id   String @id @default(uuid())
+  name String
+  url  String @db.Text
+
+  Course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([courseId])
+}
+
+// MISC: Note relations: One-to-Many relations: Category-->Course[], Course-->Attachment[]
