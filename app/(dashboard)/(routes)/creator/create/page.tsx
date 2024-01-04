@@ -65,12 +65,13 @@ const CreatePage = () => {
   const onSubmit = async (values: z.infer<typeof createCourseSchema>) => {
     try {
       const response = await axios.post('/api/courses', values);
+      
       router.push(`/creator/courses/${response?.data.id}`);
       // toast.success('Course created successfully');
-      ({
+      toast({
         title: 'Success',
-        description: "Successfully created course!",
-        close: () => {resetForm();},
+        description: "Course successfully drafted!",
+        onClick: () => resetForm(),
       });
     } catch (e) {
       toast({
@@ -106,7 +107,7 @@ const CreatePage = () => {
                     />
                   </FormControl>
                   <FormDescription>
-                    What this course will be about
+                    What this course will be about...
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
