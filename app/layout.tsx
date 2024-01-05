@@ -3,9 +3,9 @@ import { dark, neobrutalism } from '@clerk/themes';
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from "@/components/theme-provider" // Shadcn theme provider
+import { ThemeProvider } from "@/components/providers/theme-provider" // Shadcn theme provider
 import { Toaster } from "@/components/ui/toaster";
-import ToastProvider from '@/components/toast-provider';
+import ToastProvider from '@/components/providers/toast-provider';
 
 const inter = Inter({ subsets: ['latin'] })
 
