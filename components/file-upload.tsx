@@ -5,6 +5,8 @@ import { UploadDropzone } from "@/lib/uploadthing";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
@@ -18,23 +20,36 @@ interface FileUploadProps {
  * @param {string} endpoint - the API endpoint for uploading files
  * @return {JSX.Element} the rendered file upload component
  */
-const FileUpload = ({ onChange, endpoint }: FileUploadProps) => {
+const FileUpload = ({ onChange, endpoint }: FileUploadProps): JSX.Element => {
   const router = useRouter();
 
   const { toast } = useToast();
 
-  const refresh = () => router.refresh();
+  const { theme } = useTheme();
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark" ?? false);
+  }, [theme]);
 
   return (
     <UploadDropzone
       endpoint={endpoint}
-      onClientUploadComplete={res => onChange(res[0].url)}
+      onClientUploadComplete={(res) => {
+        // console.log({res})
+        onChange(res?.[0].url)
+      }}
       onUploadError={err => (toast({
         title: 'Error',
         description: err?.message,
         variant: 'destructive',
-        action: <ToastAction onClick={refresh} altText="Try again">Try again</ToastAction>,
       }))}
+      appearance={{
+        label: {
+          color: isDarkTheme ? '#cbd5e1' : 'rgb(71 85 105)',
+        },
+      }}
     />
   );
 }
