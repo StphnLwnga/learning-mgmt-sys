@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import IconBadge from "@/components/icon-badge";
 import { LayoutDashboard } from "lucide-react";
 import TitleForm from "./_components/title-form";
+import DescriptionForm from "./_components/description-form";
 
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promise<JSX.Element> => {
@@ -55,6 +56,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
             </h2>
           </div>
           <TitleForm initialData={course} courseId={course.id} />
+          <DescriptionForm initialData={{ description: course.description || undefined }} courseId={course.id} />
         </div>
       </div>
     </div>
