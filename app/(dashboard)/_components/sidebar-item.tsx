@@ -46,7 +46,7 @@ const SidebarItem = ({
       "flex items-center gap-x-2 text-slate-600 text-sm font-[500] pl-6 transition-all hover:text-slate-700 hover:bg-slate-300/20",
       isActive && "text-sky-700 bg-sky-400/20 hover:bg-sky-200/20 hover:text-sky-700",
       isDarkTheme && "hover:bg-slate-700/20 hover:text-slate-300 text-slate-300",
-      isActive && isDarkTheme && "bg-sky-400/30 hover:bg-sky-400/30"
+      isActive && isDarkTheme && "bg-sky-300/30 hover:bg-sky-300/30"
     )}>
       <div className="flex items-center gap-x-2 py-4">
         <Icon
