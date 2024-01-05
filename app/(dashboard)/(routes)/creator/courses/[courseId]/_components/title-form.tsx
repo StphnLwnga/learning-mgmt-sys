@@ -91,7 +91,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
         >
           {isEditing
             ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
-            : (<>Edit <Pencil className='h-4 w-4 ml-2' /></>)
+            : (<>Edit Title <Pencil className='h-4 w-4 ml-2' /></>)
           }
         </Button>
       </div>

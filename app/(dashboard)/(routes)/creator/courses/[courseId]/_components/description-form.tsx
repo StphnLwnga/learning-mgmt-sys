@@ -6,7 +6,7 @@ import * as z from 'zod';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Pencil, Save, X } from 'lucide-react';
+import { Pencil, PlusCircle, Save, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from "@/lib/utils";
 import { Form, FormControl, FormDescription, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
@@ -93,7 +93,9 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
         >
           {isEditing
             ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
-            : (<>Edit <Pencil className='h-4 w-4 ml-2' /></>)
+            : !initialData.description
+              ? (<>Add Description <PlusCircle className='h-4 w-4 ml-2' /></>)
+              : (<>Edit Description <Pencil className='h-4 w-4 ml-2' /></>)
           }
         </Button>
       </div>
