@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import * as z from 'zod';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,6 +30,8 @@ const formSchema = z.object({
 });
 
 const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
+  const router = useRouter();
+
   const [isEditing, setIsEditing] = useState(false);
 
   const { theme } = useTheme();
@@ -61,13 +64,15 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
         title: 'Success',
         description: "Course title successfully updated!",
       });
+      toggleEdit();
+      router.refresh();
     } catch (error) {
       console.log("[COURSEID]", error);
       toast({
         title: 'Error',
         description: "Something went wrong!",
         variant: 'destructive',
-        action: <ToastAction onClick={resetForm} altText="Try again">Try again</ToastAction>,
+        action: <ToastAction onClick={reset} altText="Try again">Try again</ToastAction>,
       });
     }
   }
