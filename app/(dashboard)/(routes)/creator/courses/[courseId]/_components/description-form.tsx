@@ -15,12 +15,11 @@ import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from '@/components/ui/textarea';
+import { Course } from '@prisma/client';
 
 
 interface DescriptionFormProps {
-  initialData: {
-    description?: string,
-  }
+  initialData: Course;
   courseId: string;
 }
 
@@ -47,7 +46,9 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      description: initialData?.description || ""
+    },
   });
 
   const { toast } = useToast();
