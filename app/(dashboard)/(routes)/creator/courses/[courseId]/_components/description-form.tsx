@@ -29,6 +29,13 @@ const formSchema = z.object({
   })
 });
 
+/**
+ * Renders a form for editing the course description.
+ *
+ * @param {object} initialData - The initial data for the form.
+ * @param {string} courseId - The ID of the course.
+ * @returns {JSX.Element} - The JSX element representing the form.
+ */
 const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.Element => {
   const router = useRouter();
 
@@ -56,9 +63,16 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
   const { isSubmitting, isValid } = form.formState;
 
   const reset = () => {
-    setIsEditing(false)
+    // setIsEditing(false)
+    router.refresh();
   }
 
+/**
+ * Submit the form data asynchronously.
+ *
+ * @param {z.infer<typeof formSchema>} data - The data to be submitted.
+ * @return {Promise<void>} Promise that resolves when the submission is complete.
+ */
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, data);

@@ -29,6 +29,13 @@ const formSchema = z.object({
   })
 });
 
+/**
+ * Renders a form for updating the course title.
+ *
+ * @param {Object} initialData - The initial data for the form.
+ * @param {string} courseId - The ID of the course.
+ * @return {JSX.Element} - The JSX element representing the title form.
+ */
 const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
   const router = useRouter();
 
@@ -57,7 +64,13 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
     setIsEditing(false)
   }
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  /**
+   * Submits the form data to update the course title.
+   *
+   * @param {z.infer<typeof formSchema>} data - The form data to be submitted.
+   * @return {Promise<void>} - A promise that resolves when the update is successful.
+   */
+  const onSubmit = async (data: z.infer<typeof formSchema>): Promise<void> => {
     try {
       await axios.patch(`/api/courses/${courseId}`, data);
       toast({

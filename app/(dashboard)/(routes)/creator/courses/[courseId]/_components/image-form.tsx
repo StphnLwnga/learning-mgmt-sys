@@ -30,6 +30,13 @@ const formSchema = z.object({
   })
 });
 
+/**
+ * Renders a form for managing course images.
+ *
+ * @param {ImageFormProps} initialData - The initial data for the form.
+ * @param {string} courseId - The ID of the course.
+ * @return {JSX.Element} The rendered form component.
+ */
 const ImageForm = ({ initialData, courseId }: ImageFormProps): JSX.Element => {
   const router = useRouter();
 
@@ -61,7 +68,13 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps): JSX.Element => {
     router.refresh();
   }
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  /**
+   * Submits the form data to the API endpoint for updating a course.
+   *
+   * @param {z.infer<typeof formSchema>} data - The form data to be submitted.
+   * @return {Promise<void>} A promise that resolves when the update is successful.
+   */
+  const onSubmit = async (data: z.infer<typeof formSchema>): Promise<void> => {
     try {
       await axios.patch(`/api/courses/${courseId}`, data);
       toast({

@@ -7,6 +7,11 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+/**
+ * Renders the CoursesPage component.
+ *
+ * @return {JSX.Element} The rendered component.
+ */
 const CoursesPage = (): JSX.Element => {
   const { theme } = useTheme();
 

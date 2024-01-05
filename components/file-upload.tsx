@@ -11,6 +11,13 @@ interface FileUploadProps {
   endpoint: keyof typeof ourFileRouter;
 }
 
+/**
+ * Renders a file upload component.
+ *
+ * @param {FileUploadProps} onChange - a function to handle the change event
+ * @param {string} endpoint - the API endpoint for uploading files
+ * @return {JSX.Element} the rendered file upload component
+ */
 const FileUpload = ({ onChange, endpoint }: FileUploadProps) => {
   const router = useRouter();
 

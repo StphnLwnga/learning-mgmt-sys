@@ -10,6 +10,13 @@ import DescriptionForm from "./_components/description-form";
 import ImageForm from "./_components/image-form";
 
 
+/**
+ * Renders the CourseIdPage component.
+ *
+ * @param {Object} params - An object containing the courseId parameter.
+ * @param {string} params.courseId - The ID of the course.
+ * @return {Promise<JSX.Element>} The JSX Element representing the CourseIdPage component.
+ */
 const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promise<JSX.Element> => {
   const { userId } = auth();
 

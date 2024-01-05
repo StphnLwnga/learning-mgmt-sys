@@ -29,6 +29,14 @@ const createCourseSchema = z.object({
  * The form is created using the useForm hook from the react-hook-form library.
  * It uses the createCourseSchema to define the form validation rules and default values.
  */
+
+
+/**
+ * Submits a form with the given values to create a new course.
+ *
+ * @param {z.infer<typeof createCourseSchema>} values - The values of the form.
+ * @return {Promise<void>} - A promise that resolves when the form submission is complete.
+ */
 const CreatePage = () => {
   const router = useRouter();
 
@@ -62,10 +70,16 @@ const CreatePage = () => {
 
   const { isSubmitting, isValid } = form.formState;
 
+  /**
+   * Submits a form with the given values to create a new course.
+   *
+   * @param {z.infer<typeof createCourseSchema>} values - The values of the form.
+   * @return {Promise<void>} - A promise that resolves when the form submission is complete.
+   */
   const onSubmit = async (values: z.infer<typeof createCourseSchema>) => {
     try {
       const response = await axios.post('/api/courses', values);
-      
+
       router.push(`/creator/courses/${response?.data.id}`);
       // toast.success('Course created successfully');
       toast({
