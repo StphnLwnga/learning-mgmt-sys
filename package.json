@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node scripts/seed.ts"
+    "seed": "npx prisma db push && node scripts/seed.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.1",
