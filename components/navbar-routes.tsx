@@ -1,6 +1,6 @@
 "use client"
 
-import { SignOutButton, SignedIn, UserButton } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, UserButton, useAuth } from "@clerk/nextjs";
 import { ModeToggle } from "./ui/mode-toggle";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
@@ -24,18 +24,31 @@ const NavbarRoutes = (): JSX.Element => {
   }, [theme]);
 
   const [isInstructorMode, setIsInstructorMode] = useState(false);
+  const [navFromSwitch, setNavFromSwitch] = useState(false);
 
   const handleInstructorSwitch = () => {
+    setNavFromSwitch(true);
     setIsInstructorMode(!isInstructorMode);
   }
 
-  useEffect(() => {
-    console.log("Instructor mode: ", isInstructorMode);
-    router.push(isInstructorMode ? "/creator/courses" : "/");
-  }, [isInstructorMode]);
-
   const isCreatorPage = pathname?.startsWith("/creator");
   const isPlayerPage = pathname?.includes("/chapter");
+
+  useEffect(() => {
+    console.log("Instructor mode: ", isInstructorMode);
+    if (navFromSwitch)
+      router.push(isInstructorMode ? "/creator/courses" : "/");
+    // console.log({ isInstructorMode, navFromSwitch });
+    // setNavFromSwitch(false);
+  }, [isInstructorMode, navFromSwitch]);
+
+  useEffect(() => {
+    if (isCreatorPage || isPlayerPage) {
+      setIsInstructorMode(true);
+      setNavFromSwitch(false);
+    }
+    // console.log({ isInstructorMode, navFromSwitch });
+  }, [isCreatorPage, isInstructorMode, isPlayerPage, navFromSwitch]);
 
   return (
     <div className="flex gap-x-6 ml-auto items-center pr-4">
