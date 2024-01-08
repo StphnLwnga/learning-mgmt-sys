@@ -136,17 +136,17 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
               )}
             />
             <div className="flex justify-end gap-x-2">
-              {isSubmitted
-              ? (<LoadingCircular />)
-              : (<Button disabled={!isValid || isSubmitting} type="submit"
-                className={cn(
-                  "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                  isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
-                )}
-              >
-                Save
-                <Save className='h-4 w-4 ml-2' />
-              </Button>)}
+              {isSubmitting
+                ? (<LoadingCircular />)
+                : (<Button disabled={!isValid || isSubmitting} type="submit"
+                  className={cn(
+                    "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
+                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                  )}
+                >
+                  Save
+                  <Save className='h-4 w-4 ml-2' />
+                </Button>)}
             </div>
           </form>
         </Form>
