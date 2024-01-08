@@ -11,7 +11,7 @@ interface LoadingCircularProps {
 const LoadingCircular = ({ sx }: LoadingCircularProps): JSX.Element => {
   return (
     <Box sx={{display: 'flex', ...sx}}>
-      <CircularProgress className={cn('text-sky-300')} />
+      <CircularProgress className={cn('text-sky-300')} size={18} />
     </Box>
   );
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { SignOutButton, SignedIn, UserButton, useAuth } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "./ui/mode-toggle";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
