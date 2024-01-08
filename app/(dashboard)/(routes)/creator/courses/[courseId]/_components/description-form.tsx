@@ -16,11 +16,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from '@/components/ui/textarea';
 import { Course } from '@prisma/client';
+import LoadingCircular from '@/components/ui/loading-circular';
 
 
 interface DescriptionFormProps {
   initialData: Course;
   courseId: string;
+  userId: string;
 }
 
 const formSchema = z.object({
@@ -36,7 +38,7 @@ const formSchema = z.object({
  * @param {string} courseId - The ID of the course.
  * @returns {JSX.Element} - The JSX element representing the form.
  */
-const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.Element => {
+const DescriptionForm = ({ initialData, courseId, userId }: DescriptionFormProps): JSX.Element => {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -49,6 +51,8 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
     setIsDarkTheme(theme === "dark" ?? false);
   }, [theme]);
 
+  const isEditAuthorized = userId === initialData?.userId;
+
   const toggleEdit = () => setIsEditing(current => !current);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,20 +64,20 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
 
   const { toast } = useToast();
 
-  const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isValid, isSubmitted } = form.formState;
 
   const reset = () => {
     // setIsEditing(false)
     router.refresh();
   }
 
-/**
- * Submit the form data asynchronously.
- *
- * @param {z.infer<typeof formSchema>} data - The data to be submitted.
- * @return {Promise<void>} Promise that resolves when the submission is complete.
- */
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  /**
+   * Submit the form data asynchronously.
+   *
+   * @param {z.infer<typeof formSchema>} data - The data to be submitted.
+   * @return {Promise<void>} Promise that resolves when the submission is complete.
+   */
+  const onSubmit = async (data: z.infer<typeof formSchema>): Promise<void> => {
     try {
       await axios.patch(`/api/courses/${courseId}`, data);
       toast({
@@ -100,7 +104,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Description
-        <Button
+        {isEditAuthorized && (<Button
           variant="ghost"
           onClick={toggleEdit}
         // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
@@ -111,7 +115,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
               ? (<>Add Description <PlusCircle className='h-4 w-4 ml-2' /></>)
               : (<>Edit Description <Pencil className='h-4 w-4 ml-2' /></>)
           }
-        </Button>
+        </Button>)}
       </div>
       {!isEditing && (
         <p className={cn(
@@ -119,7 +123,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
           !initialData.description && "text-slate-500 italic",
           !initialData.description && isDarkTheme && "text-slate-400",
         )}>
-          {initialData.description || "No description provided"}
+          {initialData.description || "Description missing"}
         </p>
       )}
       {isEditing && (
@@ -142,18 +146,17 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps): JSX.E
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
-              <Button
-                disabled={!isValid || isSubmitting}
-                type="submit"
-                className={cn(
-                  "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                  isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
-                )}
-              >
-                Save
-                <Save className='h-4 w-4 ml-2' />
-              </Button>
+            <div className="flex justify-end gap-x-2">
+              {isSubmitting
+                ? (<LoadingCircular />)
+                : (<Button disabled={!isValid || isSubmitting} type="submit"
+                  className={cn(
+                    "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
+                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                  )}>
+                  Save
+                  <Save className='h-4 w-4 ml-2' />
+                </Button>)}
             </div>
           </form>
         </Form>

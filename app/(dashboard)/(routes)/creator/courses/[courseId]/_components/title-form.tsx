@@ -14,13 +14,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import LoadingCircular from '@/components/ui/loading-circular';
+import { Course } from '@prisma/client';
 
 
 interface TitleFormProps {
-  initialData: {
-    title: string,
-  }
+  initialData: Course;
   courseId: string;
+  userId: string;
 }
 
 const formSchema = z.object({
@@ -36,7 +37,7 @@ const formSchema = z.object({
  * @param {string} courseId - The ID of the course.
  * @return {JSX.Element} - The JSX element representing the title form.
  */
-const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
+const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Element => {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -53,12 +54,14 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      title: initialData?.title,
+    },
   });
 
   const { toast } = useToast();
 
-  const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isValid, isSubmitted } = form.formState;
 
   const reset = () => {
     setIsEditing(false)
@@ -97,7 +100,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Title
-        <Button
+        {userId === initialData?.userId && (<Button
           variant="ghost"
           onClick={toggleEdit}
         // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
@@ -106,7 +109,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
             ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
             : (<>Edit Title <Pencil className='h-4 w-4 ml-2' /></>)
           }
-        </Button>
+        </Button>)}
       </div>
       {!isEditing && (
         <p className="text-sm mt-2">
@@ -133,18 +136,19 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps): JSX.Element => {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
-              <Button
-                disabled={!isValid || isSubmitting}
-                type="submit"
-                className={cn(
-                  "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                  isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
-                )}
-              >
-                Save
-                <Save className='h-4 w-4 ml-2' />
-              </Button>
+            <div className="flex justify-end gap-x-2">
+              {isSubmitting
+                ? (<LoadingCircular />)
+                : (<Button type="submit" disabled={isSubmitted && !isValid}
+                  className={cn(
+                    "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
+                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                  )}
+                >
+                  Save
+                  <Save className='h-4 w-4 ml-2' />
+                </Button>)
+              }
             </div>
           </form>
         </Form>

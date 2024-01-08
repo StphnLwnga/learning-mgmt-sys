@@ -8,6 +8,7 @@ import { LayoutDashboard } from "lucide-react";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
 import ImageForm from "./_components/image-form";
+import CategoryForm from "./_components/category-form";
 
 
 /**
@@ -29,6 +30,10 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
   });
 
   if (!course) return redirect('/');
+
+  const categories = await db.category.findMany({
+    orderBy: { name: 'asc', },
+  });
 
   const requiredFields = [
     course.title, course.description, course.imageUrl, course.price, course.categoryId,
@@ -63,10 +68,16 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
               Customize your course
             </h2>
           </div>
-          <TitleForm initialData={course} courseId={course.id} />
-          <DescriptionForm initialData={course} courseId={course.id} />
-          <ImageForm initialData={course} courseId={course.id} />
-          {/* <TotalPriceForm initialData={{ price: course.price || undefined }} courseId={course.id} /> */}
+          <TitleForm initialData={course} courseId={course.id} userId={userId} />
+          <DescriptionForm initialData={course} courseId={course.id} userId={userId} />
+          <ImageForm initialData={course} courseId={course.id} userId={userId} />
+          <CategoryForm
+            initialData={course}
+            courseId={course.id}
+            options={categories.map((category) => ({ label: category.name, value: category.id }))}
+            userId={userId} 
+          />
+          {/* <TotalPriceForm initialData={{ price: course.price || undefined }} courseId={course.id} userId={userId} /> */}
         </div>
       </div>
     </div>

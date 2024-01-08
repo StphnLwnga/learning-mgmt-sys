@@ -15,6 +15,7 @@ import { X, ArrowRight } from "lucide-react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import LoadingCircular from '@/components/ui/loading-circular';
 // import toast from 'react-hot-toast';
 
 
@@ -68,7 +69,7 @@ const CreatePage = () => {
     router.push('/creator/courses');
   }
 
-  const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isValid, isSubmitted } = form.formState;
 
   /**
    * Submits a form with the given values to create a new course.
@@ -140,17 +141,19 @@ const CreatePage = () => {
                 Cancel
                 <X className='h-4 w-4 ml-2' />
               </Button>
-              <Button
-                type='submit'
-                disabled={!isValid || isSubmitting}
-                className={cn(
-                  "bg-sky-600 text-white hover:bg-sky-700",
-                  isDarkTheme && "bg-sky-400/20 text-slate-300 hover:bg-sky-400/50"
-                )}
-              >
-                Continue
-                <ArrowRight className='h-4 w-4 ml-2' />
-              </Button>
+              {isSubmitting
+                ? (<LoadingCircular />)
+                : (<Button type='submit' disabled={isSubmitted}
+                  className={cn(
+                    "bg-sky-600 text-white hover:bg-sky-700",
+                    isDarkTheme && "bg-sky-400/20 text-slate-300 hover:bg-sky-400/50"
+                  )}
+                >
+                  Continue
+                  <ArrowRight className='h-4 w-4 ml-2' />
+                </Button>)
+
+              }
             </div>
           </form>
         </Form>
