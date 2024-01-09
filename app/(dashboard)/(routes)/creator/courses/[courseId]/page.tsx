@@ -4,12 +4,13 @@ import { redirect } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import IconBadge from "@/components/icon-badge";
-import { CircleDollarSign, LayoutDashboard, ListChecks } from "lucide-react";
+import { CircleDollarSign, File, LayoutDashboard, ListChecks, Upload } from "lucide-react";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
 import ImageForm from "./_components/image-form";
 import CategoryForm from "./_components/category-form";
 import PriceForm from "./_components/price-form";
+import AttachmentForm from "./_components/attachment-form";
 
 /**
  * Renders the CourseIdPage component.
@@ -26,7 +27,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
   const { courseId } = params;
 
   const course = await db.course.findUnique({
-    where: { id: courseId, }
+    where: { id: courseId, },
+    include: {
+      // category: true,
+      attachments: { orderBy: { createdAt: 'desc' } },
+    },
   });
 
   if (!course) return redirect('/');
@@ -75,7 +80,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
             initialData={course}
             courseId={course.id}
             options={categories.map((category) => ({ label: category.name, value: category.id }))}
-            userId={userId} 
+            userId={userId}
           />
         </div>
         <div className="space-y-6">
@@ -98,6 +103,15 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
               </h2>
             </div>
             <PriceForm initialData={course} courseId={course.id} userId={userId} />
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={File} />
+              <h2 className="text-xl">
+                Resources & Attachments
+              </h2>
+            </div>
+            <AttachmentForm initialData={course} courseId={course.id} userId={userId} />
           </div>
         </div>
       </div>
