@@ -28,7 +28,7 @@ export async function POST( req: Request, { params }: { params: { courseId: stri
 
     return NextResponse.json(attachment);
   } catch (error) {
-    console.log("[ATTACHMENTS]", error);
+    console.log("[ATTACHMENTS_ADD]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
