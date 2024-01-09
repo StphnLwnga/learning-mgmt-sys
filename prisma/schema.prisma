@@ -25,9 +25,10 @@ model Course {
 
   attachments Attachment[]
   chapters    Chapter[]
+  purchases   Purchase[]
 
   createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  updatedAt   DateTime     @updatedAt()
 
   @@index([categoryId])
 }
@@ -39,7 +40,7 @@ model Category {
   courses   Course[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt()
 }
 
 model Attachment {
@@ -51,7 +52,7 @@ model Attachment {
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt()
 
   @@index([courseId])
 }
@@ -72,7 +73,7 @@ model Chapter {
   userProgress UserProgress[]
 
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  updatedAt    DateTime       @updatedAt()
 
   @@index([courseId])
 }
@@ -86,7 +87,7 @@ model MuxData {
   chapter    Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @updatedAt()
 
   @@index([chapterId])
 }
@@ -100,10 +101,32 @@ model UserProgress {
   chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @updatedAt()
 
   @@index([chapterId])
   @@unique([userId, chapterId])
+}
+
+model Purchase {
+  id          String   @id @default(uuid())
+  userId      String
+
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt()
+
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  stripeCustomerId String   @unique
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt()
 }
 
 // MISC: Note relations: One-to-Many relations: Category-->Course[], Course-->Attachment[], Course-->Chapter[], Chapter-->UserProgress[]
