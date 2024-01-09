@@ -113,7 +113,8 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
           (<div className="relative aspect-video mt-2">
             <Image
               alt="upload"
-              fill
+              width={320}
+              height={240}
               className="object-cover rounded-md"
               src={initialData.imageUrl}
             />
