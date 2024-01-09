@@ -12,47 +12,98 @@ datasource db {
 }
 
 model Course {
-  id          String  @id @default(uuid())
+  id          String       @id @default(uuid())
   userId      String
-  title       String  @db.Text
-  description String? @db.Text
-  imageUrl    String? @db.Text
-  price       Float?  @default(0.00)
-  isPublished Boolean @default(false)
+  title       String       @db.Text
+  description String?      @db.Text
+  imageUrl    String?      @db.Text
+  price       Float?       @default(0.00)
+  isPublished Boolean      @default(false)
 
-  Category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?
+  categoryId  String?
+  category    Category?    @relation(fields: [categoryId], references: [id])
 
   attachments Attachment[]
+  chapters    Chapter[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   @@index([categoryId])
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String @unique
+  id        String   @id @default(uuid())
+  name      String   @unique
 
-  courses Course[]
+  courses   Course[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Attachment {
-  id   String @id @default(uuid())
-  name String
-  url  String @db.Text
+  id        String   @id @default(uuid())
+  name      String
+  url       String   @db.Text
 
-  Course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId String
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([courseId])
 }
 
-// MISC: Note relations: One-to-Many relations: Category-->Course[], Course-->Attachment[]
+model Chapter {
+  id           String         @id @default(uuid())
+  title        String
+  description  String?        @db.Text
+  videoUrl     String?        @db.Text
+  position     Int
+  isPublished  Boolean        @default(false)
+  isFree       Boolean        @default(false)
+
+  courseId     String
+  course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  muxData      MuxData?
+  userProgress UserProgress[]
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([courseId])
+}
+
+model MuxData {
+  id         String   @id @default(uuid())
+  assetId    String
+  playbackId String?
+
+  chapterId  String   @unique
+  chapter    Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([chapterId])
+}
+
+model UserProgress {
+  id          String   @id @default(uuid())
+  userId      String
+  isCompleted Boolean  @default(false)
+
+  chapterId   String   @unique
+  chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([chapterId])
+  @@unique([userId, chapterId])
+}
+
+// MISC: Note relations: One-to-Many relations: Category-->Course[], Course-->Attachment[], Course-->Chapter[], Chapter-->UserProgress[]
