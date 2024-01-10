@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import * as z from 'zod';
 import axios from 'axios';
-import { File, Loader2, X } from 'lucide-react';
+import { File, Loader2, PlusCircle, X } from 'lucide-react';
 import { CaretSortIcon } from "@radix-ui/react-icons"
 import { useTheme } from 'next-themes';
 import { Attachment, Course } from '@prisma/client';
@@ -55,6 +55,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
 
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [collapsibleOpen, setCollapsibleOpen] = useState(true);
 
   const toggleEdit = () => setIsEditing(current => !current);
 
@@ -129,10 +130,13 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       <div className="font-medium flex items-center justify-between">
         Course Resources
         {userId === initialData?.userId && (
-          <Button variant="ghost" onClick={toggleEdit} >
+          <Button variant="ghost" onClick={toggleEdit}
+            size={isEditing ? "icon" : undefined}
+            className={cn(isEditing && "rounded-full")}
+          >
             {!isEditing
-              ? (<>Add a file <File className='h-4 w-4 ml-2' /></>)
-              : (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+              ? (<>Add a file <PlusCircle className='h-4 w-4 ml-2' /></>)
+              : (<X className='h-4 w-4' />)
             }
           </Button>
         )}
@@ -143,8 +147,8 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
             ? (<p className={cn("text-sm mt-2 italic text-slate-500", isDarkTheme && "text-slate-400")}>
               No attachments
             </p>)
-            : (<Collapsible>
-              <CollapsibleTrigger className='w-full'>
+            : (<Collapsible open={collapsibleOpen}>
+              <CollapsibleTrigger className='w-full' onClick={() => setCollapsibleOpen(!collapsibleOpen)}>
                 <div className={cn(
                   "flex items-center justify-between space-x-4 pr-3 pl-0 w-full text-sm mt-2 text-slate-700 py-2",
                   isDarkTheme && "text-slate-300"

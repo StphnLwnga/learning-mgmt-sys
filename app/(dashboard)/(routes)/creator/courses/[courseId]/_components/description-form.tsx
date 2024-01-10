@@ -107,10 +107,11 @@ const DescriptionForm = ({ initialData, courseId, userId }: DescriptionFormProps
         {isEditAuthorized && (<Button
           variant="ghost"
           onClick={toggleEdit}
-        // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
+          size={isEditing ? "icon" : undefined}
+          className={cn(isEditing && "rounded-full")}
         >
           {isEditing
-            ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+            ? (<X className='h-4 w-4' />)
             : !initialData.description
               ? (<>Add Description <PlusCircle className='h-4 w-4 ml-2' /></>)
               : (<>Edit Description <Pencil className='h-4 w-4 ml-2' /></>)

@@ -94,12 +94,14 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Price
-        {isEditAuthorized && (<Button
-          variant="ghost"
+        {isEditAuthorized && (
+        <Button variant="ghost"
           onClick={toggleEdit}
+          size={isEditing ? "icon" : undefined}
+            className={cn(isEditing && "rounded-full")}
         >
           {isEditing
-            ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+            ? (<X className='h-4 w-4' />)
             : !initialData.price
               ? (<>Add Price <PlusCircle className='h-4 w-4 ml-2' /></>)
               : (<>Edit Price <Pencil className='h-4 w-4 ml-2' /></>)
@@ -112,8 +114,8 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
           !initialData.price && "text-slate-500 italic",
           !initialData.price && isDarkTheme && "text-slate-400",
         )}>
-          {initialData.price || initialData.price === 0
-            ? formatPrice(initialData.price)
+          {initialData.price && initialData?.price > 0.00
+            ? formatPrice(initialData?.price)
             : "Free"}
         </p>
       )}

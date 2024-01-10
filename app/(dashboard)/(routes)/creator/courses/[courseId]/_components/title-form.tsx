@@ -103,10 +103,11 @@ const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Eleme
         {userId === initialData?.userId && (<Button
           variant="ghost"
           onClick={toggleEdit}
-        // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
+          size={isEditing ? "icon" : undefined}
+          className={cn(isEditing && "rounded-full")}
         >
           {isEditing
-            ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+            ? (<X className='h-4 w-4' />)
             : (<>Edit Title <Pencil className='h-4 w-4 ml-2' /></>)
           }
         </Button>)}

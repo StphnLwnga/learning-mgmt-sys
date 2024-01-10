@@ -100,10 +100,11 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
         {isEditAuthorized && (<Button
           variant="ghost"
           onClick={toggleEdit}
-        // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
+          size={isEditing ? "icon" : undefined}
+          className={cn(isEditing && "rounded-full")}
         >
           {isEditing
-            ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+            ? (<X className='h-4 w-4' />)
             : !initialData.categoryId
               ? (<>Select Category <PlusCircle className='h-4 w-4 ml-2' /></>)
               : (<>Change Category <Pencil className='h-4 w-4 ml-2' /></>)

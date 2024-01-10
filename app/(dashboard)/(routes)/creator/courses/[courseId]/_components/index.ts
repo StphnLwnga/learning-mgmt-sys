@@ -4,7 +4,8 @@ import ImageForm from "./image-form";
 import CategoryForm from "./category-form";
 import PriceForm from "./price-form";
 import AttachmentForm from "./attachment-form";
+import ChaptersForm from "./chapters-form";
 
 export {
-  AttachmentForm, CategoryForm, DescriptionForm, ImageForm, PriceForm, TitleForm,
+  AttachmentForm, CategoryForm, ChaptersForm, DescriptionForm, ImageForm, PriceForm, TitleForm, 
 }

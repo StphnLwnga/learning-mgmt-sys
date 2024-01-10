@@ -94,10 +94,11 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
         {userId === initialData?.userId && (<Button
           variant="ghost"
           onClick={toggleEdit}
-        // className={cn(isDarkTheme && "hover:bg-slate-500/20")}
+          size={isEditing ? "icon" : undefined}
+          className={cn(isEditing && "rounded-full")}
         >
           {isEditing
-            ? (<>Cancel <X className='h-4 w-4 ml-2' /></>)
+            ? (<X className='h-4 w-4' />)
             : !initialData.imageUrl
               ? (<>Add Image <PlusCircle className='h-4 w-4 ml-2' /></>)
               : (<>Edit Image <Pencil className='h-4 w-4 ml-2' /></>)
@@ -113,8 +114,7 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
           (<div className="relative aspect-video mt-2 flex items-center">
             <Image
               alt="upload"
-              width={320}
-              height={240}
+              fill
               className="object-cover rounded-md"
               src={initialData.imageUrl}
             />
