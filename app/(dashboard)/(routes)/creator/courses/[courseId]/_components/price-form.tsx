@@ -6,17 +6,15 @@ import * as z from 'zod';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Pencil, PlusCircle, Save, X } from 'lucide-react';
+import { Loader2, Pencil, PlusCircle, Save, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from "@/lib/utils";
-import { Form, FormControl, FormDescription, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { Textarea } from '@/components/ui/textarea';
 import { Course } from '@prisma/client';
-import LoadingCircular from '@/components/ui/loading-circular';
 import { formatPrice } from '@/lib/format';
 
 
@@ -59,7 +57,7 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
 
   const { isSubmitting, isValid, isSubmitted } = form.formState;
 
-  const reset = () =>  router.refresh();
+  const reset = () => router.refresh();
 
   /**
    * Submit the form data asynchronously.
@@ -95,18 +93,19 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
       <div className="font-medium flex items-center justify-between">
         Course Price
         {isEditAuthorized && (
-        <Button variant="ghost"
-          onClick={toggleEdit}
-          size={isEditing ? "icon" : undefined}
+          <Button variant="ghost"
+            onClick={toggleEdit}
+            size={isEditing ? "icon" : undefined}
             className={cn(isEditing && "rounded-full")}
-        >
-          {isEditing
-            ? (<X className='h-4 w-4' />)
-            : !initialData.price
-              ? (<>Add Price <PlusCircle className='h-4 w-4 ml-2' /></>)
-              : (<>Edit Price <Pencil className='h-4 w-4 ml-2' /></>)
-          }
-        </Button>)}
+            disabled={isSubmitting}
+          >
+            {isEditing
+              ? (<X className='h-4 w-4' />)
+              : !initialData.price
+                ? (<>Add Price <PlusCircle className='h-4 w-4 ml-2' /></>)
+                : (<>Edit Price <Pencil className='h-4 w-4 ml-2' /></>)
+            }
+          </Button>)}
       </div>
       {!isEditing && (
         <p className={cn(
@@ -143,7 +142,7 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
             />
             <div className="flex justify-end gap-x-2">
               {isSubmitting
-                ? (<LoadingCircular />)
+                ? (<Loader2 className="h-6 w-6 animate-spin mr-2" />)
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",

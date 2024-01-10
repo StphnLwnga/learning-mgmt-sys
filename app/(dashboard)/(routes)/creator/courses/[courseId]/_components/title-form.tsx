@@ -6,15 +6,14 @@ import * as z from 'zod';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Pencil, Save, X } from 'lucide-react';
+import { Loader2, Pencil, Save, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from "@/lib/utils";
-import { Form, FormControl, FormDescription, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import LoadingCircular from '@/components/ui/loading-circular';
 import { Course } from '@prisma/client';
 
 
@@ -139,7 +138,7 @@ const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Eleme
             />
             <div className="flex justify-end gap-x-2">
               {isSubmitting
-                ? (<LoadingCircular />)
+                ? (<Loader2 className="w-6 h-6 mr-2" />)
                 : (<Button type="submit" disabled={isSubmitted && !isValid}
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",

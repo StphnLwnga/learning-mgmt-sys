@@ -10,12 +10,10 @@ import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import Link from "next/link";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, Loader2 } from "lucide-react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import LoadingCircular from '@/components/ui/loading-circular';
 // import toast from 'react-hot-toast';
 
 
@@ -142,7 +140,7 @@ const CreatePage = () => {
                 <X className='h-4 w-4 ml-2' />
               </Button>
               {isSubmitting
-                ? (<LoadingCircular />)
+                ? (<Loader2 className= "w-6 h-6 mr-2" />)
                 : (<Button type='submit' disabled={isSubmitted}
                   className={cn(
                     "bg-sky-600 text-white hover:bg-sky-700",

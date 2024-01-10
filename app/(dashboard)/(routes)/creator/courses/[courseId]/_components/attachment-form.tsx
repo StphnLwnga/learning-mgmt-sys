@@ -132,7 +132,10 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
         {userId === initialData?.userId && (
           <Button variant="ghost" onClick={toggleEdit}
             size={isEditing ? "icon" : undefined}
-            className={cn(isEditing && "rounded-full")}
+            className={cn(
+              isEditing && "rounded-full",
+              !isDarkTheme && "hover:bg-slate-400",
+            )}
           >
             {!isEditing
               ? (<>Add a file <PlusCircle className='h-4 w-4 ml-2' /></>)
