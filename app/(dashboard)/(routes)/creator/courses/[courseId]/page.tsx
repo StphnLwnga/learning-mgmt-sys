@@ -5,12 +5,9 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import IconBadge from "@/components/icon-badge";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks, Upload } from "lucide-react";
-import TitleForm from "./_components/title-form";
-import DescriptionForm from "./_components/description-form";
-import ImageForm from "./_components/image-form";
-import CategoryForm from "./_components/category-form";
-import PriceForm from "./_components/price-form";
-import AttachmentForm from "./_components/attachment-form";
+import {
+  AttachmentForm, CategoryForm, DescriptionForm, ImageForm, PriceForm, TitleForm, ChaptersForm,
+} from './_components';
 
 /**
  * Renders the CourseIdPage component.
@@ -27,9 +24,10 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
   const { courseId } = params;
 
   const course = await db.course.findUnique({
-    where: { id: courseId, },
+    where: { id: courseId, userId},
     include: {
       // category: true,
+      chapters: { orderBy: { position: 'asc' } },
       attachments: { orderBy: { createdAt: 'desc' } },
     },
   });
@@ -41,7 +39,12 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
   });
 
   const requiredFields = [
-    course.title, course.description, course.imageUrl, course.price, course.categoryId,
+    course.title,
+    course.description, 
+    course.imageUrl, 
+    course.price, 
+    course.categoryId, 
+    course.chapters.some(chapter => chapter.isPublished),
   ];
 
   const totalField = requiredFields.length;
@@ -91,9 +94,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
                 Course Chapters
               </h2>
             </div>
-            <div>
-              TODO: Chapters
-            </div>
+            <ChaptersForm initialData={course} courseId={course.id} userId={userId} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">
