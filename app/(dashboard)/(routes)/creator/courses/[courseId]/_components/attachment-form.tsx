@@ -163,7 +163,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
               <CollapsibleContent>
                 {initialData.attachments.length > 0 && initialData.attachments.map(attachment => (
                   <div key={attachment.id} className={cn(
-                    "flex items-center p-4 w-full text-sm bg-sky-100 border-sky-200 text-sky-700 rounded-md my-3",
+                    "flex items-center p-2 w-full text-sm bg-sky-100 border-sky-200 text-sky-700 rounded-md my-4",
                     isDarkTheme && ""
                   )}
                   >
