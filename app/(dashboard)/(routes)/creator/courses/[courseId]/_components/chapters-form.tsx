@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Course, Chapter } from '@prisma/client';
+import { ChaptersList } from '.';
 
 
 interface ChaptersFormProps {
@@ -48,6 +49,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
   const isEditAuthorized = userId === initialData?.userId;
 
   const [isCreating, setIsCreating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const toggleCreateChapter = () => setIsCreating(current => !current);
 
@@ -75,9 +77,11 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
       await axios.post(`/api/courses/${courseId}/chapters`, data);
       toast({
         title: 'Success',
+        className: "bg-emerald-700 border-0 border-slate-200",
         description: "Chapter successfully added",
       });
       toggleCreateChapter();
+      form.reset();
       router.refresh();
     } catch (error) {
       console.log("[COURSEID]", error);
@@ -90,11 +94,49 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
     }
   }
 
+  const onReorder = async (updateData: { id: string, position: number }[]): Promise<void> => {
+    setIsUpdating(true);
+    try {
+      await axios.patch(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updateData,
+      });
+      toast({
+        title: 'Course Chapters',
+        description: "Chapters reordered successfully!",
+        className: "bg-emerald-700 border-0 border-slate-200",
+      });
+      router.refresh();
+    } catch (error) {
+      console.log("[CHAPTER_REORDER]", error)
+      toast({
+        title: 'Error',
+        description: "Failed to reorder chapters!",
+        variant: 'destructive',
+        action: <ToastAction onClick={reset} altText="Try again">Try again</ToastAction>,
+      });
+    } finally {
+      setIsUpdating(false);
+    }
+  }
+
   return (
     <div className={cn(
-      "mt-6 border bg-slate-100 rounded-md p-4",
+      "relative mt-6 border bg-slate-100 rounded-md p-4",
       isDarkTheme && "bg-sky-300/30"
     )}>
+      {isUpdating && (
+        <div className={cn(
+          "absolute h-full w-full bg-slate-500/20 top-0 right-0 flex items-center justify-center",
+          isDarkTheme && "bg-slate-900/60",
+        )}>
+          <Loader2
+            className={cn(
+              "animate-spin mx-auto my-auto h-20 w-20",
+              !isDarkTheme && "text-sky-700",
+            )}
+          />
+        </div>
+      )}
       <div className="font-medium flex items-center justify-between">
         Course Chapters
         {isEditAuthorized && (
@@ -156,6 +198,12 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
           )}
         >
           {!initialData.chapters.length && "No chapters published"}
+          <ChaptersList
+            onEdit={() => { }}
+            onReorder={onReorder}
+            items={initialData.chapters || []}
+            isDarkTheme={isDarkTheme}
+          />
         </div>
       )}
       {!isCreating && (
