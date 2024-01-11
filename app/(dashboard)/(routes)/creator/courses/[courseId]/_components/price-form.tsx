@@ -71,6 +71,7 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
       toast({
         title: 'Success',
         description: "Course price successfully set!",
+        className: "bg-emerald-700 border-0 border-slate-200",
       });
       toggleEdit();
       router.refresh();

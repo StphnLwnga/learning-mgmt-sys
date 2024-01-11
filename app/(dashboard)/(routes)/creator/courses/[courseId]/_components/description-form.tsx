@@ -81,6 +81,7 @@ const DescriptionForm = ({ initialData, courseId, userId }: DescriptionFormProps
       toast({
         title: 'Success',
         description: "Course description successfully updated!",
+        className: "bg-emerald-700 border-0 border-slate-200",
       });
       toggleEdit();
       router.refresh();

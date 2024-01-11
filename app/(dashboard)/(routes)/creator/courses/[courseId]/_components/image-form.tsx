@@ -70,6 +70,7 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
       toast({
         title: 'Success',
         description: "Image successfully uploaded!",
+        className: "bg-emerald-700 border-0 border-slate-200",
       });
       toggleEdit();
       router.refresh();
