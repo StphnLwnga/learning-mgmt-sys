@@ -104,11 +104,14 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
           variant="ghost"
           onClick={toggleEdit}
           size={isEditing ? "icon" : undefined}
-          className={cn(isEditing && "rounded-full")}
+          className={cn(
+            !isDarkTheme && "hover:bg-slate-300",
+            isEditing && "rounded-full",
+          )}
         >
           {isEditing
             ? (<X className='h-4 w-4' />)
-            : (<>Edit Title <Pencil className='h-4 w-4 ml-2' /></>)
+            : (<>Edit chapter title <Pencil className='h-4 w-4 ml-2' /></>)
           }
         </Button>
       </div>
