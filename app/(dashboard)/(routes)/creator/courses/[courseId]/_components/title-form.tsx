@@ -139,7 +139,7 @@ const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Eleme
             />
             <div className="flex justify-end gap-x-2">
               {isSubmitting
-                ? (<Loader2 className="w-6 h-6 mr-2" />)
+                ? (<Loader2 className="w-6 h-6 mr-2 animate-spin" />)
                 : (<Button type="submit" disabled={isSubmitted && !isValid}
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",

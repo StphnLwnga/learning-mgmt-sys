@@ -137,7 +137,7 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
             />
             <div className="flex justify-end gap-x-2">
               {isSubmitting
-                ? (<Loader2 className="h-6 w-6 mr-2" />)
+                ? (<Loader2 className="h-6 w-6 mr-2 animate-spin" />)
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
