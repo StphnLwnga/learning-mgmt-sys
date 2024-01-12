@@ -32,7 +32,7 @@ export const Editor = ({ onChange, value }: EditorProps): JSX.Element => {
 
   return (
     <div className={cn(
-      "bg-white text-slate-800",
+      "bg-white h-15 rounded",
       isDarkTheme && "bg-[#020817] text-slate-300",
     )}>
       <ReactQuill
