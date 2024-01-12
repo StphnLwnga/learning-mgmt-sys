@@ -8,13 +8,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2, Pencil, PlusCircle, Save, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
+
+import { Chapter } from '@prisma/client';
 import { cn } from "@/lib/utils";
 import { Form, FormControl, FormField, FormMessage, FormLabel, FormItem } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from '@/components/ui/textarea';
-import { Chapter } from '@prisma/client';
+import { Editor } from '@/components/editor';
+import { Preview } from '@/components/preview';
 
 
 interface ChapterDescriptionFormProps {
@@ -123,7 +126,10 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
           !initialData.description && "text-slate-500 italic",
           !initialData.description && isDarkTheme && "text-slate-400",
         )}>
-          {initialData.description || "Description missing"}
+          {initialData?.description
+            ? (<Preview value={initialData?.description} />)
+            : "Description missing"
+          }
         </p>
       )}
       {isEditing && (
@@ -136,11 +142,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="Chapter description "
-                      {...field}
-                    />
+                    <Editor {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +150,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
             />
             <div className="flex justify-end gap-x-2">
               {isSubmitting
-                ? (<Loader2 className="h-6 w-6 mr-2" />)
+                ? (<Loader2 className="h-6 w-6 mr-2 animate-spin" />)
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
