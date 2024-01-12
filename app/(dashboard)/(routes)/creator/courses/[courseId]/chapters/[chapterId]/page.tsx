@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import IconBadge from "@/components/icon-badge";
+import { ChapterTitleForm } from "./_components";
 
 
 interface ChapterIdPageProps {
@@ -69,6 +69,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
                 Chapter Details
               </h2>
             </div>
+            <ChapterTitleForm initialData={chapter} courseId={courseId} />
           </div>
         </div>
       </div>
