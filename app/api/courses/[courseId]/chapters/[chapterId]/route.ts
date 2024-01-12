@@ -2,6 +2,15 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+/**
+ * Updates a chapter in the database.
+ *
+ * @param {Request} req - The HTTP request object.
+ * @param {Object} params - The parameters object.
+ * @param {string} params.courseId - The ID of the course.
+ * @param {string} params.chapterId - The ID of the chapter.
+ * @return {Promise<NextResponse>} The updated chapter.
+ */
 export async function PATCH(req: Request, { params }: { params: { courseId: string; chapterId: string } }): Promise<NextResponse> {
   const { courseId, chapterId } = params;
 
