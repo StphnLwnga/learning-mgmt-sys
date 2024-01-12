@@ -36,7 +36,7 @@ const createCourseSchema = z.object({
  * @param {z.infer<typeof createCourseSchema>} values - The values of the form.
  * @return {Promise<void>} - A promise that resolves when the form submission is complete.
  */
-const CreatePage = () => {
+const CreatePage = (): JSX.Element => {
   const router = useRouter();
 
   const { theme } = useTheme();
@@ -141,7 +141,7 @@ const CreatePage = () => {
                 <X className='h-4 w-4 ml-2' />
               </Button>
               {isSubmitting
-                ? (<Loader2 className= "w-6 h-6 mr-2" />)
+                ? (<Loader2 className="w-6 h-6 mr-2 animate-spin" />)
                 : (<Button type='submit' disabled={isSubmitted}
                   className={cn(
                     "bg-sky-600 text-white hover:bg-sky-700",
