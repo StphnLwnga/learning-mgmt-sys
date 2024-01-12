@@ -78,7 +78,7 @@ const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Eleme
       toast({
         title: 'Success',
         description: "Course title successfully updated!",
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();

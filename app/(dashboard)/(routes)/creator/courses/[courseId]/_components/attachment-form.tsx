@@ -75,7 +75,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       toast({
         title: 'Success',
         description: "Resource successfully added!",
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -103,7 +103,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       toast({
         title: 'Attachment Deleted',
         description: "Attachment deleted successfully!",
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {

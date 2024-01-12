@@ -77,7 +77,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
       await axios.post(`/api/courses/${courseId}/chapters`, data);
       toast({
         title: 'Success',
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
         description: "Chapter successfully added",
       });
       toggleCreateChapter();
@@ -109,7 +109,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
       toast({
         title: 'Course Chapters',
         description: "Chapters reordered successfully!",
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
