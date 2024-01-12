@@ -6,28 +6,19 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
   const { courseId, chapterId } = params;
 
   try {
-    const {userId} = auth();
+    const { userId } = auth();
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
     const courseOwner = await db.course.findUnique({
-      where: {
-        id: courseId, userId
-      }
+      where: { id: courseId, userId },
     });
     if (!courseOwner) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { title } = await req.json();
+    const { isPublished, ...values } = await req.json();
 
     const chapter = await db.chapter.update({
-      where: {
-        id: chapterId, courseId
-      },
-      data: {
-        title
-      },
-      select: {
-        id: true, title: true
-      }
+      where: { id: chapterId, courseId },
+      data: { ...values, },
     });
 
     return NextResponse.json(chapter);
