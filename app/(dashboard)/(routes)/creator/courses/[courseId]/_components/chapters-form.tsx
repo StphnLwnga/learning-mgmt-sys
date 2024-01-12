@@ -94,6 +94,12 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
     }
   }
 
+  /**
+   * Updates the order of chapters in a course asynchronously.
+   *
+   * @param {Array<{ id: string, position: number }>} updateData - An array of objects containing the id and position of chapters to be updated.
+   * @return {Promise<void>} - A Promise that resolves when the chapters are reordered successfully.
+   */
   const onReorder = async (updateData: { id: string, position: number }[]): Promise<void> => {
     setIsUpdating(true);
     try {
@@ -117,6 +123,10 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
     } finally {
       setIsUpdating(false);
     }
+  }
+
+  const onEdit = async (id: string): Promise<void> => {
+    router.push(`/creator/courses/${courseId}/chapters/${id}`);
   }
 
   return (
@@ -199,7 +209,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
         >
           {!initialData.chapters.length && "No chapters published"}
           <ChaptersList
-            onEdit={() => { }}
+            onEdit={onEdit}
             onReorder={onReorder}
             items={initialData.chapters || []}
             isDarkTheme={isDarkTheme}
