@@ -30,6 +30,8 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
       data: { ...values, },
     });
 
+    // TODO: Handle video upload
+
     return NextResponse.json(chapter);
   } catch (error) {
     console.log('[CHAPTER_TITLE_API]', error);
