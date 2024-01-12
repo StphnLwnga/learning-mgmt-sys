@@ -85,7 +85,7 @@ const CreatePage = () => {
         title: 'Success',
         description: "Course successfully drafted!",
         onClick: () => resetForm(),
-        className: "bg-emerald-700 border-0 border-slate-200",
+        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
     } catch (e) {
       toast({
