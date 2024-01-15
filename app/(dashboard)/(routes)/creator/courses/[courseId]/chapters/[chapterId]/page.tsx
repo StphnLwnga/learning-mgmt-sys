@@ -2,11 +2,11 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import IconBadge from "@/components/icon-badge";
-import { ChapterDescriptionForm, ChapterTitleForm } from "./_components";
+import { ChapterAccessForm, ChapterDescriptionForm, ChapterTitleForm } from "./_components";
 
 
 interface ChapterIdPageProps {
@@ -71,6 +71,13 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
             </div>
             <ChapterTitleForm initialData={chapter} courseId={courseId} />
             <ChapterDescriptionForm initialData={chapter} courseId={courseId} />
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={Eye} />
+              <h2 className="text-xl">Access Settings</h2>
+            </div>
+            <ChapterAccessForm initialData={chapter} courseId={courseId} chapterId={chapterId} />
           </div>
         </div>
       </div>
