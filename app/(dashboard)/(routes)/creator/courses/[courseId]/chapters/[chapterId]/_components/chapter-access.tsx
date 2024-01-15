@@ -32,7 +32,14 @@ const formSchema = z.object({
   isFree: z.boolean().default(false),
 });
 
-
+/**
+* Renders the ChapterAccessForm component.
+*
+* @param {ChapterAccessFormProps} initialData - The initial data for the form.
+* @param {string} courseId - The ID of the course.
+* @param {string} chapterId - The ID of the chapter.
+* @returns {JSX.Element} The rendered ChapterAccessForm component.
+*/
 const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFormProps): JSX.Element => {
   const router = useRouter();
 
