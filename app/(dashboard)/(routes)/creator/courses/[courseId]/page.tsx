@@ -68,7 +68,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mt-16">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mt-6">
         <div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
