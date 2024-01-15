@@ -2,11 +2,11 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import IconBadge from "@/components/icon-badge";
-import { ChapterAccessForm, ChapterDescriptionForm, ChapterTitleForm } from "./_components";
+import { ChapterAccessForm, ChapterDescriptionForm, ChapterTitleForm, ChapterVideoForm } from "./_components";
 
 
 interface ChapterIdPageProps {
@@ -16,6 +16,12 @@ interface ChapterIdPageProps {
   }
 }
 
+/**
+ * Retrieves the ChapterIdPage component.
+ *
+ * @param {ChapterIdPageProps} params - The parameters for the component.
+ * @return {Promise<JSX.Element>} A Promise that resolves to the ChapterIdPage component.
+ */
 const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Element> => {
   const { userId } = auth();
   if (!userId) return redirect('/');
@@ -60,7 +66,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <div className="space-y-4">
           <div>
             <div className="flex items-center gap-x-2">
@@ -79,6 +85,13 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
             </div>
             <ChapterAccessForm initialData={chapter} courseId={courseId} chapterId={chapterId} />
           </div>
+        </div>
+        <div>
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={Video} />
+            <h2 className="text-xl">Chapter Video</h2>
+          </div>
+          <ChapterVideoForm initialData={chapter} chapterId={chapterId} courseId={courseId} />
         </div>
       </div>
     </div>
