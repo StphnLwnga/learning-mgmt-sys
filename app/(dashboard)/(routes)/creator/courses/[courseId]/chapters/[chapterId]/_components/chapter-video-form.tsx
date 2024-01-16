@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import * as z from 'zod';
 import axios from 'axios';
+import MuxPlayer from "@mux/mux-player-react"
 import { ImageIcon, Pencil, PlusCircle, VideoIcon, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Chapter, Course, MuxData } from '@prisma/client';
@@ -105,7 +106,7 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVideoForm
           </div>)
           :
           (<div className="relative aspect-video mt-2 flex items-center">
-            Video Upload Player!
+            <MuxPlayer playbackId={initialData.muxData?.playbackId || ""} />
           </div>)
         )}
       {isEditing && (
@@ -123,7 +124,7 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVideoForm
       )}
       {initialData.videoUrl && !isEditing && (
         <div className="text-xs text-muted-foreground mt-2">
-          Videos cna take a few minutes to process. Refresh page if video doesn&apos;t appear.
+          Videos can take a few minutes to process. Refresh page if video doesn&apos;t appear.
         </div>
       )}
     </div>
