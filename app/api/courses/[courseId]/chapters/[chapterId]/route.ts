@@ -65,7 +65,60 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
 
     return NextResponse.json(chapter);
   } catch (error) {
-    console.log('[CHAPTER_TITLE_API]', error);
+    console.log('[CHAPTER_EDIT_API]', error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+/**
+ * Delete a chapter from a course.
+ *
+ * @param {Request} req - the request object
+ * @param {Object} params - the parameters object
+ * @param {string} params.courseId - the ID of the course
+ * @param {string} params.chapterId - the ID of the chapter
+ * @return {Promise<NextResponse>} a promise that resolves to a NextResponse object
+ */
+export async function DELETE(req: Request, { params }: { params: { courseId: string; chapterId: string } }): Promise<NextResponse> {
+  const { courseId, chapterId } = params;
+
+  try {
+    // Check if user authorized
+    const { userId } = auth();
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+
+    // Check if user owns course
+    const ownCourse = await db.course.findUnique({ where: { id: courseId, userId }, });
+    if (!ownCourse) return new NextResponse("Unauthorized", { status: 401 });
+
+    // Find chapter in database, return 404 if non-existent
+    const chapter = await db.chapter.findUnique({ where: { id: chapterId, courseId, }, });
+    if (!chapter) return new NextResponse("Chapter not found", { status: 404 });
+
+    // Check if chapter has Mux data and delete from Mux & databse
+    if (chapter.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({ where: { chapterId, }, });
+      if (existingMuxData) {
+        await Video.Assets.del(existingMuxData.assetId);
+        await db.muxData.delete({ where: { chapterId, }, });
+      }
+    }
+
+    // Delete chapter from database
+    const deletedChapter = await db.chapter.delete({ where: { id: chapterId, courseId, }, });
+
+    // Course needs 1 chapter to be considered published. Unpublish whole course if not the case
+    const pubChaptersInCourse = await db.chapter.findMany({ where: { courseId, isPublished: true }, },);
+    if (!pubChaptersInCourse || pubChaptersInCourse.length === 0) {
+      await db.course.update({
+        where: { id: courseId, userId },
+        data: { isPublished: false, },
+      });
+    };
+
+    return NextResponse.json(deletedChapter);
+  } catch (error) {
+    console.error("[DELETE_CHAPTER_API]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
