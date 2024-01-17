@@ -7,7 +7,13 @@ import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 import IconBadge from "@/components/icon-badge";
 import Banner from "@/components/banner";
-import { ChapterAccessForm, ChapterDescriptionForm, ChapterTitleForm, ChapterVideoForm } from "./_components";
+import {
+  ChapterAccessForm,
+  ChapterActions,
+  ChapterDescriptionForm,
+  ChapterTitleForm,
+  ChapterVideoForm
+} from "./_components";
 
 
 interface ChapterIdPageProps {
@@ -74,6 +80,11 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
                   Complete all fields {completionText}
                 </span>
               </div>
+              <ChapterActions
+                initialData={chapter}
+                courseId={courseId}
+                disabled={!isChapterComplete}
+              />
             </div>
           </div>
         </div>
