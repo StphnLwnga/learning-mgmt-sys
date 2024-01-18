@@ -22,6 +22,14 @@ interface ChapterActionsProps {
   disabled: boolean;
 }
 
+/**
+ * Renders the chapter actions component.
+ *
+ * @param {ChapterActionsProps} initialData - The initial data for the component.
+ * @param {string} courseId - The ID of the course.
+ * @param {boolean} disabled - Indicates if the component is disabled.
+ * @return {JSX.Element} - The chapter actions component.
+ */
 const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps): JSX.Element => {
   const router = useRouter();
 
@@ -40,13 +48,18 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
 
   const reset = () => router.refresh();
 
-  const handlePublishing = async ({ isPublished }: { isPublished: boolean }) => {
+  /**
+   * Handles the publishing/unpublishing of the chapter.
+   *
+   * @return {Promise<void>} - A Promise that resolves when the publishing/unpublishing is complete.
+   */
+  const handlePublishing = async (): Promise<void> => {
     setIsLoading(true);
     try {
-      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, { isPublished: !isPublished });
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/${isPublished ? 'unpublish' : 'publish'}`);
       toast({
         title: 'Success',
-        description: isPublished ? "Chapter successfully published!" : "Chapter successfully unpublished!",
+        description: isPublished ? "Chapter successfully unpublished!" : "Chapter successfully published!",
         className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
@@ -63,7 +76,12 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
     }
   }
 
-  const handleDelete = async () => {
+  /**
+   * Deletes a chapter from a course.
+   *
+   * @return {Promise<void>} - Returns a promise that resolves when the chapter is successfully deleted.
+   */
+  const handleDelete = async (): Promise<void> => {
     setIsLoading(true);
     try {
       await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
@@ -93,10 +111,10 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
         ? (<Loader2 className="h-5 w-5 animate-spin" />)
         : (
           <>
-            <Button variant="outline"
-              onClick={() => handlePublishing({ isPublished })}
+            <Button size="sm"
+              variant="outline"
+              onClick={handlePublishing}
               disabled={disabled}
-              size="sm"
             >
               {isPublished ? "Unpublish" : "Publish"}
             </Button>
