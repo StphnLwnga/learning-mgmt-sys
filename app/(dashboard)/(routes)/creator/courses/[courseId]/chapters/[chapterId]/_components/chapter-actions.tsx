@@ -16,7 +16,6 @@ import { ToastAction } from "@/components/ui/toast";
 import ConfirmModal from "@/components/modals/confirm-modal";
 
 
-
 interface ChapterActionsProps {
   initialData: Chapter;
   courseId: string;
@@ -48,7 +47,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
       toast({
         title: 'Success',
         description: isPublished ? "Chapter successfully published!" : "Chapter successfully unpublished!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
@@ -71,9 +70,10 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
       toast({
         title: 'Success',
         description: "Chapter successfully published!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
-      router.push(`creator/courses/${courseId}`);
+      router.refresh();
+      router.push(`/creator/courses/${courseId}`);
     } catch (error) {
       console.error("[CHAPTER_ACTIONS]", error);
       toast({
@@ -90,7 +90,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
   return (
     <div className="flex items-center gap-x-2">
       {isLoading
-        ? (<Loader2 className="h-4 w-4 animate-spin" />)
+        ? (<Loader2 className="h-5 w-5 animate-spin" />)
         : (
           <>
             <Button variant="outline"
