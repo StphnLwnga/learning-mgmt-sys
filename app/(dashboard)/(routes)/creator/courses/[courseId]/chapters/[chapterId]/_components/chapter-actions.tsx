@@ -87,7 +87,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
       await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
       toast({
         title: 'Success',
-        description: "Chapter successfully published!",
+        description: "Chapter successfully deleted!",
         className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
