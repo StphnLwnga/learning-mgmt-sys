@@ -2,15 +2,13 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import IconBadge from "@/components/icon-badge";
-import { CircleDollarSign, File, LayoutDashboard, ListChecks, Upload } from "lucide-react";
+import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 
 import Banner from "@/components/banner";
 import {
-  AttachmentForm, CategoryForm, DescriptionForm, ImageForm, PriceForm, TitleForm, ChaptersForm,
+  Actions, AttachmentForm, CategoryForm, DescriptionForm, ImageForm, PriceForm, TitleForm, ChaptersForm,
 } from './_components';
-import Actions from "./_components/actions";
 
 /**
  * Renders the CourseIdPage component.

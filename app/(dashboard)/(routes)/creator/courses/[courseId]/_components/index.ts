@@ -6,8 +6,9 @@ import PriceForm from "./price-form";
 import AttachmentForm from "./attachment-form";
 import ChaptersForm from "./chapters-form";
 import ChaptersList from "./chapters-list";
+import Actions from "./actions";
 
 export {
-  AttachmentForm, CategoryForm, ChaptersList, ChaptersForm, 
-  DescriptionForm, ImageForm, PriceForm, TitleForm, 
+  Actions, AttachmentForm, CategoryForm, ChaptersList, ChaptersForm,
+  DescriptionForm, ImageForm, PriceForm, TitleForm,
 }
