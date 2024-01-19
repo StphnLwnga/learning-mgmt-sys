@@ -5,7 +5,13 @@ import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
+
+import { useCoursesData } from "@/lib/hooks";
+import { Skeleton } from "@/components/ui/skeleton"
+import { DataTable, columns } from "./_components";
+
 
 /**
  * Renders the CoursesPage component.
@@ -13,17 +19,16 @@ import { useState, useEffect } from "react";
  * @return {JSX.Element} The rendered component.
  */
 const CoursesPage = (): JSX.Element => {
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { courses } = useCoursesData();
 
   return (
     <div className="p-6">
-      <Link href='/creator/create'>
+      {courses
+        ? <DataTable columns={columns} data={courses} />
+        : <Skeleton className="w-full h-[80vh] rounded" />
+      }
+
+      {/* <Link href='/creator/create'>
         <Button
           variant="outline"
           className={cn(
@@ -34,7 +39,7 @@ const CoursesPage = (): JSX.Element => {
           New Course
           <Plus className="ml-2 h-4 w-4" />
         </Button>
-      </Link>
+      </Link> */}
     </div>
   );
 }
