@@ -71,7 +71,7 @@ const Actions = ({ initialData, courseId, disabled }: ActionsProps): JSX.Element
         className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
-      router.push(`/`);
+      router.push(`/creator/courses`);
     } catch (error) {
       console.error("[COURSE_ACTIONS]", error);
       toast({
