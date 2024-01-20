@@ -15,6 +15,8 @@ import {
 } from "@tanstack/react-table"
 import { PlusCircle } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
 import {
   Table,
   TableBody,
@@ -29,13 +31,15 @@ import { Input } from "@/components/ui/input"
 import TooltipComponent from "@/components/tooltip-component";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  isDarkTheme: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isDarkTheme
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -69,8 +73,12 @@ export function DataTable<TData, TValue>({
         <TooltipComponent
           tooltipTrigger={
             <Link href={`/creator/create`}>
-              <Button variant="ghost" className="rounded-full p-3">
-                <PlusCircle className="h-6 w-5" />
+              <Button 
+              variant="ghost" 
+              className={cn("p-3", !isDarkTheme && "text-muted-foreground")}
+              >
+                Add a course
+                <PlusCircle className="ml-2 h-6 w-5" />
               </Button>
             </Link>
           }
