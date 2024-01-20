@@ -1,28 +1,23 @@
 import { redirect } from 'next/navigation';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Course } from "@prisma/client";
+import { Course, Category } from "@prisma/client";
 
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 
-/**
- * Fetches data from the API and updates the courses state.
- *
- * @return {Promise<void>} Promise that resolves when the data is fetched and the courses state is updated.
- */
-export function useCoursesData(): { courses: Course[] } {
+export function useCategoryData(): { categories: Category[] } {
   const { toast } = useToast();
 
-  const [courses, setCourses] = useState<Course[] | []>([]);
+  const [categories, setCategories] = useState<Category[] | []>([]);
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
       try {
-        const { data }: { data: Course[] } = await axios.get(`/api/categories`);
-        setCourses(data);
+        const { data }: { data: Category[] } = await axios.get(`/api/categories`);
+        setCategories(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching categories data:", error);
         toast({
           title: 'Error',
           description: "Something went wrong!",
@@ -35,5 +30,5 @@ export function useCoursesData(): { courses: Course[] } {
     fetchData();
   }, []);
 
-  return { courses };
+  return { categories };
 }
