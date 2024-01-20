@@ -36,8 +36,18 @@ export async function GET(req: Request): Promise<NextResponse> {
   try {
     const { userId } = auth();
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
-    
-    const courses = await db.course.findMany({ where: { userId } });
+
+    const courses = await db.course.findMany({
+      where: { userId, },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
     return NextResponse.json(courses);
   } catch (error) {
     console.log("[COURSES]", error);
