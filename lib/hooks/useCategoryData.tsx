@@ -6,6 +6,7 @@ import { Course, Category } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 
+
 export function useCategoryData(): { categories: Category[] } {
   const { toast } = useToast();
 
