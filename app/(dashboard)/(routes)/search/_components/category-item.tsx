@@ -1,10 +1,8 @@
-import { Key } from "react";
 import { IconType } from "react-icons";
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 
 import { cn } from "@/lib/utils";
-// import { Badge } from "@/components/ui/badge";
 
 interface CategoryItemProps {
   label: string;
@@ -12,15 +10,7 @@ interface CategoryItemProps {
   icon?: IconType;
 }
 
-//     margin-right: 8px;
-// margin-top: 2px;
-// border-radius: 50%;
-// padding: 4px;
-// width: auto;
-// /* height: 18px; */
-// font-size: xx-small;
-
-const CategoryBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+const CategoryBadge = styled(Badge)<BadgeProps>(() => ({
   '& .MuiBadge-badge': {
     marginRight: "8px",
     marginTop: "2px",
@@ -32,7 +22,14 @@ const CategoryBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
-
+/**
+ * Renders a category item with label, value, and optional icon.
+ *
+ * @param {string} label - The label of the category item.
+ * @param {string} value - The value of the category item.
+ * @param {React.ElementType} Icon - The optional icon component.
+ * @return {JSX.Element} The rendered category item.
+ */
 const CategoryItem = ({ label, value, icon: Icon }: CategoryItemProps): JSX.Element => {
   return (
     <div className="">
