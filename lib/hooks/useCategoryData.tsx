@@ -1,12 +1,16 @@
 import { redirect } from 'next/navigation';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Course, Category } from "@prisma/client";
+import { Category } from "@prisma/client";
 
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 
-
+/**
+ * Retrieves category data from the API and returns the categories.
+ *
+ * @return {{ categories: Category[] }} The categories retrieved from the API
+ */
 export function useCategoryData(): { categories: Category[] } {
   const { toast } = useToast();
 
