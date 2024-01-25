@@ -66,12 +66,12 @@ const CategoryItem = ({ label, value, isDarkTheme, icon: Icon }: CategoryItemPro
     <div className="">
       <CategoryBadge badgeContent={0} color="primary" >
         <button type="button"
+          onClick={onClick}
           className={cn(
             `flex items-center gap-x-1 rounded-full px-3 py-2 text-sm font-medium border border-slate-200 hover:border-sky-700 transition`,
             isSelected && "border-sky-700 bg-sky-200/20 text-sky-800",
             isSelected && isDarkTheme && "border-sky-700 bg-sky-300/30 text-slate-200",
           )}
-          onClick={onClick}
         >
           {Icon && <Icon size={20} />}
           <div className="truncate">

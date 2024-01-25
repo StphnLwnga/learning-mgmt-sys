@@ -1,11 +1,11 @@
 "use client"
 
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import { Category } from "@prisma/client";
 
 import CategoryItem from "./category-item";
 import { categoryIconMap } from "./category-icon-map";
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
 
 interface CategoriesProps {
   items: Category[];
