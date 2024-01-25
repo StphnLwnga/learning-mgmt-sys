@@ -4,12 +4,22 @@ import { Category } from "@prisma/client";
 
 import CategoryItem from "./category-item";
 import { categoryIconMap } from "./category-icon-map";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 interface CategoriesProps {
   items: Category[];
 }
 
 const Categories = ({ items }: CategoriesProps): JSX.Element => {
+  const { theme } = useTheme();
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark" ?? false);
+  }, [theme]);
+
   return (
     <div className="flex items-center gap-x-4 gap-y-3 pb-2 flex-wrap justify-start">
       {items.map(item => (
@@ -18,6 +28,7 @@ const Categories = ({ items }: CategoriesProps): JSX.Element => {
           label={item.name}
           icon={categoryIconMap[item.name]}
           value={item.id}
+          isDarkTheme={isDarkTheme}
         />
       ))}
     </div>
