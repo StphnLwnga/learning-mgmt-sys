@@ -14,7 +14,7 @@ const Navbar = (): JSX.Element => {
   }, [theme]);
 
   return (
-    <div className={`p-4 border-b h-full flex items-center shadow-sm ${isDarkTheme ? 'bg-[#020817]' : 'bg-white'}`}>
+    <div className={`p-4 border-b h-full flex items-center shadow-sm`}>
       <MobileSidebar isDarkTheme={isDarkTheme} />
       <NavbarRoutes />
     </div>
