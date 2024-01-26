@@ -11,7 +11,7 @@ import { ToastAction } from "@/components/ui/toast";
  *
  * @return {Promise<void>} Promise that resolves when the data is fetched and the courses state is updated.
  */
-export function useCoursesData(): { courses: Course[] } {
+export function useCoursesData(): { courses: Course[] | [] } {
   const { toast } = useToast();
 
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -19,7 +19,7 @@ export function useCoursesData(): { courses: Course[] } {
   useEffect(() => {
     async function fetchData(): Promise<void> {
       try {
-        const { data }: { data: Course[] } = await axios.get(`/api/categories`);
+        const { data }: { data: Course[] } = await axios.get(`/api/courses`);
         setCourses(data);
       } catch (error) {
         console.error("Error fetching data:", error);
