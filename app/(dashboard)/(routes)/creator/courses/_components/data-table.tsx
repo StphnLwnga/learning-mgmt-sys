@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
     },
-  })
+  });
 
   return (
     <div>
@@ -65,17 +65,15 @@ export function DataTable<TData, TValue>({
         <Input
           placeholder="Filter titles..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
+          onChange={e => table.getColumn("title")?.setFilterValue(e.target.value)}
           className="max-w-sm"
         />
         <TooltipComponent
           tooltipTrigger={
             <Link href={`/creator/create`}>
-              <Button 
-              variant="ghost" 
-              className={cn("p-3", !isDarkTheme && "text-muted-foreground")}
+              <Button
+                variant="ghost"
+                className={cn("p-3", !isDarkTheme && "text-muted-foreground")}
               >
                 Add a course
                 <PlusCircle className="ml-2 h-6 w-5" />
