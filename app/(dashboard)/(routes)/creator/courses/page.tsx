@@ -11,8 +11,6 @@ import { DataTable, columns } from "./_components";
 const CoursesPage = (): JSX.Element => {
   const { courses } = useCoursesData();
 
-  console.log(courses)
-
   const { theme } = useTheme();
 
   const [isDarkTheme, setIsDarkTheme] = useState(false);
