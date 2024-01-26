@@ -128,6 +128,7 @@ const TitleForm = ({ initialData, courseId, userId }: TitleFormProps): JSX.Eleme
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
+                      className="focus-visible:ring-slate-200"
                       disabled={isSubmitting}
                       placeholder="e.g. Advanced Web Development "
                       {...field}

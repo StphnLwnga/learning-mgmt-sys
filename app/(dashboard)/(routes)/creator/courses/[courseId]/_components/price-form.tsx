@@ -130,6 +130,7 @@ const PriceForm = ({ initialData, courseId, userId }: PriceFormProps): JSX.Eleme
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Input
+                      className="focus-visible:ring-slate-200"
                       disabled={isSubmitting}
                       placeholder="Set course price"
                       type="number"

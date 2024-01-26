@@ -115,6 +115,7 @@ const CreatePage = (): JSX.Element => {
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
+                      className="focus-visible:ring-slate-200"
                       placeholder="e.g. The Complete 2024 Web Development Bootcamp"
                       disabled={isSubmitting}
                       {...field}

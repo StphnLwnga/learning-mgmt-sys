@@ -131,6 +131,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
+                      className="focus-visible:ring-slate-200"
                       disabled={isSubmitting}
                       placeholder="Chapter title..."
                       {...field}

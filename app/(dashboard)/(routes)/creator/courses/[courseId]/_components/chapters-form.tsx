@@ -173,6 +173,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
                   <FormLabel>Chapter</FormLabel>
                   <FormControl>
                     <Input
+                      className="focus-visible:ring-slate-200"
                       disabled={isSubmitting}
                       placeholder="e.g. Introduction to the course"
                       {...field}
