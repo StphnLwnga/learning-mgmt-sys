@@ -89,11 +89,12 @@ body,
   background-color: transparent;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  z-index: 49;
 }
 
 .main-body {
   position: relative;
-  z-index: -100;
+  z-index: 48;
 }
 
 @import "~@uploadthing/react/styles.css";
