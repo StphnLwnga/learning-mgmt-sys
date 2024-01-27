@@ -14,6 +14,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
+interface CategoriesProps {
+  items: Category[];
+  isDarkTheme: boolean
+}
 
 /**
  * Renders a list of category items based on the provided items array.
@@ -21,18 +25,11 @@ import { Loader2 } from "lucide-react";
  * @param {Array<Category>} items - The array of category items to be rendered.
  * @return {JSX.Element} The JSX element representing the rendered category items.
  */
-const Categories = ({ items }: { items: Category[] }): JSX.Element => {
-  const { theme } = useTheme();
-
+const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
   const ref = useRef<null | HTMLDivElement>(null);
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLeftZero, setIsLeftZero] = useState(true);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   useEffect(() => {
     setIsLoaded(items.length > 0);

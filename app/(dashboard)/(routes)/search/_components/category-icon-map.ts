@@ -1,14 +1,10 @@
 import { Category } from "@prisma/client";
 import { IconType } from "react-icons";
 import {
-  FcAssistant,
   FcAutomatic,
   FcAutomotive,
   FcBiomass,
   FcBiotech,
-  FcBriefcase,
-  FcBullish,
-  FcBusiness,
   FcBusinessman,
   FcBusinesswoman,
   FcCamcorderPro,
@@ -17,8 +13,6 @@ import {
   FcCommandLine,
   FcCurrencyExchange,
   FcDataConfiguration,
-  FcDataEncryption,
-  FcDataProtection,
   FcDatabase,
   FcDepartment,
   FcDeployment,
@@ -27,15 +21,13 @@ import {
   FcElectronics,
   FcEngineering, FcFilmReel, FcGallery, FcGlobe, FcGraduationCap, FcHome,
   FcInTransit,
-  FcManager, FcMindMap, FcMoneyTransfer, FcMultipleDevices, FcMusic, FcOldTimeCamera,
+  FcManager, FcMindMap, FcMoneyTransfer, FcMultipleDevices, FcMusic, 
   FcOnlineSupport,
   FcOrganization,
   FcPanorama,
-  FcReadingEbook,
-  FcSalesPerformance, FcShop, FcSignature, FcSpeaker, FcSportsMode,
+  FcSalesPerformance, FcShop, FcSignature, FcSportsMode,
   FcStackOfPhotos,
   FcStatistics,
-  FcSupport,
   FcViewDetails
 } from "react-icons/fc";
 import { TbPlant2 } from "react-icons/tb";
@@ -43,9 +35,7 @@ import { RiMentalHealthFill } from "react-icons/ri";
 import { FaLanguage, FaUserNurse } from "react-icons/fa6";
 import { VscLaw, VscTelescope } from "react-icons/vsc";
 import { GiCampCookingPot, GiChemicalDrop, GiPlantRoots, GiSparkles } from "react-icons/gi";
-import { TbToolsKitchen2 } from "react-icons/tb";
 import {BsTools} from "react-icons/bs"
-import { MdAgriculture } from "react-icons/md";
 
 
 export const categoryIconMap: Record<Category["name"], IconType> = {
@@ -69,7 +59,7 @@ export const categoryIconMap: Record<Category["name"], IconType> = {
   "Architecture & Interior Design": FcHome,
   "Fashion & Textile Design": FcCloth,
   "Graphic Design & Photography": FcStackOfPhotos,
-  "Music & Audio Production": FcSpeaker,
+  "Music & Audio Production": FcMusic,
   "Performing Arts & Filmmaking": FcFilmReel,
   "Visual Effects & Motion Graphics": FcCamcorderPro,
   "Alternative Medicine & Wellness Practices": TbPlant2,
