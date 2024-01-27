@@ -86,7 +86,7 @@ const CategoryItem = ({ item, isDarkTheme, icon: Icon }: CategoryItemProps): JSX
           )}
         >
           {Icon && <Icon size={20} />}
-          <div className="truncate">
+          <div className={cn("truncate", !isDarkTheme && "text-slate-600")}>
             {label}
           </div>
         </button>
