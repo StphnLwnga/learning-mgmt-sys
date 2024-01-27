@@ -1,5 +1,12 @@
 import { db } from "@/lib/db";
 
+/**
+ * Retrieves the progress percentage for a user in a specific course.
+ *
+ * @param {string} userId - The ID of the user
+ * @param {string} courseId - The ID of the course
+ * @return {Promise<number>} The progress percentage
+ */
 export const getProgress = async (userId: string, courseId: string): Promise<number> => {
   try {
     if (!userId || !courseId) return 0;
