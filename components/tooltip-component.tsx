@@ -35,7 +35,7 @@ const TooltipComponent = ({ tooltipTrigger, tooltipContent }: TooltipComponentPr
       <Tooltip>
         <TooltipTrigger>{tooltipTrigger}</TooltipTrigger>
         <TooltipContent className={cn(
-          "bg-sky-300/30 text-sky-700 text-sm",
+          "bg-sky-300/30 text-sky-700 text-sm z-5000",
           isDarkTheme && "bg-sky-300/30 text-slate-200"
         )}>
           {tooltipContent}
