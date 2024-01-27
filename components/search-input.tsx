@@ -16,6 +16,7 @@ const SearchInput = ({ isDarkTheme }: SearchInputProps): JSX.Element => {
       <Search
         className={cn(
           "h-4 w-4 absolute top-3 left-3",
+          !isDarkTheme && 'text-slate-600',
         )}
       />
       <Input
