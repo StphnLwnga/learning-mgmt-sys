@@ -10,13 +10,18 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request): Promise<NextResponse> {
   try {
     const categories = await db.category.findMany({
-      include: { courses: true, },
+      include: {
+        courses: {
+          select: { id: true },
+        },
+      },
       orderBy: [
         { courses: { _count: 'desc', }, },
         { name: 'asc', },
       ],
+      // take: 7,
     });
-    
+
     return NextResponse.json(categories);
   } catch (error) {
     console.log("[CATEGORIES]", error);
