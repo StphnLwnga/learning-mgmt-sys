@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
-import { FaCircleArrowRight, FaRegCircleRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight, FaCircleArrowRight, FaRegCircleRight } from "react-icons/fa6";
 
 import { Category } from "@prisma/client";
 import { Button } from "@/components/ui/button";
@@ -24,21 +24,66 @@ import { Loader2 } from "lucide-react";
 const Categories = ({ items }: { items: Category[] }): JSX.Element => {
   const { theme } = useTheme();
 
+  const ref = useRef<null | HTMLDivElement>(null);
+
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isLeftZero, setIsLeftZero] = useState(true);
 
   useEffect(() => {
     setIsDarkTheme(theme === "dark" ?? false);
   }, [theme]);
 
   useEffect(() => {
-    console.log({ items_loaded: items.length === 0 });
     setIsLoaded(items.length > 0);
   }, [items]);
 
+  /**
+   * Handles the scroll behavior.
+   *
+   * @param {number} scrollOffset - the amount to scroll
+   * @return {void} 
+   */
+  const handleScroll = (scrollOffset: number): void => {
+    if (ref && ref.current) {
+      ref.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
+
+      const { scrollLeft } = ref.current;
+      if (scrollLeft === 0) setIsLeftZero(!isLeftZero);
+    }
+  }
+
   return (
     <div className="flex items-center gap-x-2 gap-y-3">
-      <div className="flex items-center gap-x-4 gap-y-3 pr-4 justify-start overflow-x-clip ">
+      <div className={cn(`pt-3`, !isLeftZero && 'pt-5')}>
+        <TooltipComponent
+          tooltipTrigger={
+            <Button
+              disabled={isLeftZero}
+              variant="ghost"
+              onClick={() => handleScroll(-800)}
+              className={cn(
+                `rounded-full`,
+                isLoaded && !isLeftZero && 'animate-bounce'
+              )}
+            >
+              <FaChevronLeft
+                className={cn(
+                  "h-6 w-6 text-slate-400",
+                  isLoaded && "text-[#0268A3]",
+                  isLoaded && isDarkTheme && "text-sky-300/30",
+                )}
+              />
+            </Button>
+          }
+          tooltipContent="Scroll for more"
+        />
+      </div>
+
+      <div
+        ref={ref}
+        className="flex items-center gap-x-4 gap-y-3 pr-4 pt-[8px] justify-start scroll-container"
+      >
         {isLoaded ? (
           <>
             {items.map((item) => (
@@ -54,7 +99,8 @@ const Categories = ({ items }: { items: Category[] }): JSX.Element => {
           <>
             {Array(5).fill('_').map((_, index) => (
               <Skeleton key={index} className={
-                `flex items-center justify-center gap-x-1 w-[280px] h-10 rounded-full px-3 py-2 ring-slate-200 border border-slate-200 transition`
+                `flex items-center justify-center gap-x-1 w-[280px] h-10 rounded-full 
+                px-3 py-2 ring-slate-200 border border-slate-200 transition`
               }>
                 <Loader2 className="h-4 w-4 animate-spin text-slate-400" />
               </Skeleton>
@@ -62,14 +108,19 @@ const Categories = ({ items }: { items: Category[] }): JSX.Element => {
           </>
         )}
       </div>
-      <div className="ml-0">
+
+      <div className={cn(`pt-3`, isLoaded && 'pt-5')}>
         <TooltipComponent
           tooltipTrigger={
             <Button
               variant="ghost"
-              className={cn(`rounded-full`, isLoaded && 'animate-bounce')}
+              onClick={() => handleScroll(800)}
+              className={cn(
+                `rounded-full`,
+                isLoaded && !isLeftZero && 'animate-bounce'
+              )}
             >
-              <FaRegCircleRight
+              <FaChevronRight
                 className={cn(
                   "h-6 w-6 text-slate-400",
                   isLoaded && "text-[#0268A3]",
@@ -78,9 +129,10 @@ const Categories = ({ items }: { items: Category[] }): JSX.Element => {
               />
             </Button>
           }
-          tooltipContent="View all categories"
+          tooltipContent="Scroll for more"
         />
       </div>
+
     </div>
   );
 }
