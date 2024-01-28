@@ -114,7 +114,7 @@ const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
               onClick={() => handleScroll(800)}
               className={cn(
                 `rounded-full`,
-                isLoaded && !isLeftZero && 'animate-bounce'
+                isLoaded && 'animate-bounce'
               )}
             >
               <FaChevronRight

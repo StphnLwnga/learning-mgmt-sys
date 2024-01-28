@@ -21,7 +21,7 @@ const Sidebar = (): JSX.Element => {
 
   return (
     <div
-      className={`h-full border-r flex flex-col overflow-y-auto shadow-sm ${isDarkTheme ? 'bg-[#020817]' : 'bg-white'}`}
+      className={`h-full border-r flex flex-col overflow-y-auto shadow-sm bg-transparent`}
     >
       <div className="-p-1 flex flex-col">
         <Logo isDarkTheme={isDarkTheme} />
