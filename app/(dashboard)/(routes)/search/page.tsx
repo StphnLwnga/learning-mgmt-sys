@@ -1,32 +1,34 @@
-"use client"
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-
-import { useCategoryData } from "@/lib/hooks";
+import { CoursesWithProgressWithCategory, getCourses } from "@/actions/get-courses";
 import SearchInput from "@/components/search-input";
+import CoursesList from "@/components/courses-list";
 
 import Categories from "./_components/categories";
 
 
-const SearchPage = (): JSX.Element => {
-  const { categories } = useCategoryData();
+interface SearchPageProps {
+  searchParams: {
+    title: string;
+    categoryId: string;
+  }
+};
 
-  const { theme } = useTheme();
+const SearchPage = async ({ searchParams }: SearchPageProps): Promise<JSX.Element> => {
+  const { userId } = auth();
+  if (!userId) return redirect("/");
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const courses: CoursesWithProgressWithCategory[] | [] = await getCourses({ userId, ...searchParams });
 
   return (
     <>
       <div className="px-6 pt-6 md:hidden md:mb-0 block">
-        <SearchInput isDarkTheme={isDarkTheme} />
+        <SearchInput />
       </div>
-      <div className="p-6">
-        <Categories items={categories} isDarkTheme={isDarkTheme} />
+      <div className="p-6 space-y-4">
+        <Categories />
+        <CoursesList items={courses} />
       </div>
     </>
   );
