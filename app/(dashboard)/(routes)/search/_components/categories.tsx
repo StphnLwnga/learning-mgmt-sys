@@ -2,38 +2,41 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { Loader2 } from "lucide-react";
 import { FaChevronLeft, FaChevronRight, FaCircleArrowRight, FaRegCircleRight } from "react-icons/fa6";
 
 import { Category } from "@prisma/client";
+
+import { cn } from "@/lib/utils";
+import { useCategoryData } from "@/lib/hooks";
+
 import { Button } from "@/components/ui/button";
+import TooltipComponent from "@/components/tooltip-component";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import CategoryItem from "./category-item";
 import { categoryIconMap } from "./category-icon-map";
-import TooltipComponent from "@/components/tooltip-component";
-import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
 
-interface CategoriesProps {
-  items: Category[];
-  isDarkTheme: boolean
-}
 
-/**
- * Renders a list of category items based on the provided items array.
- *
- * @param {Array<Category>} items - The array of category items to be rendered.
- * @return {JSX.Element} The JSX element representing the rendered category items.
- */
-const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
+const Categories = (): JSX.Element => {
   const ref = useRef<null | HTMLDivElement>(null);
+
+  const { categories } = useCategoryData();
+
+  const { theme } = useTheme();
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark" ?? false);
+  }, [theme]);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLeftZero, setIsLeftZero] = useState(true);
 
   useEffect(() => {
-    setIsLoaded(items.length > 0);
-  }, [items]);
+    setIsLoaded(categories.length > 0);
+  }, [categories]);
 
   /**
    * Handles the scroll behavior.
@@ -73,7 +76,7 @@ const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
               />
             </Button>
           }
-          tooltipContent="Scroll for more"
+          tooltipContent="Scroll categories"
         />
       </div>
 
@@ -83,11 +86,11 @@ const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
       >
         {isLoaded ? (
           <>
-            {items.map((item) => (
+            {categories.map((category) => (
               <CategoryItem
-                key={item?.id}
-                icon={categoryIconMap[item?.name]}
-                item={item}
+                key={category?.id}
+                icon={categoryIconMap[category?.name]}
+                item={category}
                 isDarkTheme={isDarkTheme}
               />
             ))}
@@ -126,7 +129,7 @@ const Categories = ({ items, isDarkTheme }: CategoriesProps): JSX.Element => {
               />
             </Button>
           }
-          tooltipContent="Scroll for more"
+          tooltipContent="Scroll categories"
         />
       </div>
 
