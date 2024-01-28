@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
@@ -9,12 +10,17 @@ import { cn } from "@/lib/utils";
 import { useDebounce } from "@/lib/hooks";
 import { Input } from "@/components/ui/input";
 
-interface SearchInputProps {
-  isDarkTheme: boolean;
-}
 
-const SearchInput = ({ isDarkTheme }: SearchInputProps): JSX.Element => {
+const SearchInput = (): JSX.Element => {
+  const { theme } = useTheme();
+
   const [value, setValue] = useState<undefined | string>();
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark" ?? false);
+  }, [theme]);
 
   const debouncedValue = useDebounce(value, 500);
 
