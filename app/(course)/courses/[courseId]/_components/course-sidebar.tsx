@@ -30,7 +30,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
   try {
     return (
       <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-        <div className="p-8 flex flex-col border-b">
+        <div className="pt-8 pb-6 px-8 flex flex-col border-b">
           <h1 className="font-semibold">
             {course.title}
           </h1>
