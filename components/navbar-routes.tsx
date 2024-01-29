@@ -32,29 +32,29 @@ const NavbarRoutes = (): JSX.Element => {
     setIsInstructorMode(!isInstructorMode);
   }
 
-  const isCreatorPage = pathname?.startsWith("/creator");
-  const isPlayerPage = pathname?.includes("/chapter");
+  const isCreatorPage = pathname?.startsWith("/creator") || pathname?.includes("/creator/courses");
+  const isPlayerPage = pathname?.startsWith("/courses");
   const isSearchPage = pathname === "/search";
 
   useEffect(() => {
-    console.log("Instructor mode: ", isInstructorMode);
+    console.log("Instructor mode: ", isInstructorMode, {pathname});
     if (navFromSwitch)
       router.push(isInstructorMode ? "/creator/courses" : "/");
     // setNavFromSwitch(false);
-  }, [isInstructorMode, navFromSwitch]);
+  }, [isInstructorMode, navFromSwitch, pathname, router]);
 
   useEffect(() => {
-    if (isCreatorPage || isPlayerPage) {
+    if (isCreatorPage) {
       setIsInstructorMode(true);
       setNavFromSwitch(false);
     }
-  }, [isCreatorPage, isInstructorMode, isPlayerPage, navFromSwitch]);
+  }, [isCreatorPage, isInstructorMode, navFromSwitch]);
 
   return (
-    <>
+    <div className="z-55 flex w-full">
       {isSearchPage && (
         <div className="hidden md:block">
-          <SearchInput isDarkTheme={isDarkTheme} />
+          <SearchInput />
         </div>
       )}
       <div className="flex gap-x-6 ml-auto items-center pr-4">
@@ -75,7 +75,7 @@ const NavbarRoutes = (): JSX.Element => {
           <UserButton afterSignOutUrl="/sign-in" />
         </SignedIn>
       </div>
-    </>
+    </div>
   );
 }
 
