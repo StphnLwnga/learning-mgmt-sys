@@ -5,6 +5,7 @@ import { Course } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getProgress } from "@/actions/get-progress";
 import CourseSidebar from "./_components/course-sidebar";
+import CourseNavbar from "./_components/course-navbar";
 
 interface CourseLayoutProps {
   children: React.ReactNode;
@@ -44,10 +45,13 @@ const CourseLayout = async ({ children, params }: CourseLayoutProps): Promise<JS
 
     return (
       <div className="h-full">
+        <div className="h-[80px] md:80-pl fixed inset-y-0 w-full z-55">
+          <CourseNavbar course={course} progressCount={progressCount} />
+        </div>
         <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
           <CourseSidebar course={course} progressCount={progressCount} />
         </div>
-        <main className="md:pl-80 h-full">
+        <main className="md:pl-80 pt-[80px] h-full">
           {children}
         </main>
       </div>
