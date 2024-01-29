@@ -2,8 +2,9 @@
 "use client"
 
 import { usePathname, useRouter } from "next/navigation";
-import { Check, ChevronRight, Lock } from "lucide-react";
+import { Check, ChevronRight, Lock, PlayCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FaCircleRight } from "react-icons/fa6";
 
 interface CourseSidebarItemProps {
   id: string;
@@ -17,11 +18,11 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
   const pathname = usePathname();
   const router = useRouter();
 
-  const Icon = isLocked ? Lock : (isCompleted ? Check : ChevronRight);
+  const Icon = isLocked ? Lock : (isCompleted ? Check : PlayCircle);
 
   const isActive = pathname?.includes(id);
 
-  const onClick = (): void => router.push(`/courses/${courseId}/${id}`);
+  const onClick = (): void => router.push(`/courses/${courseId}/chapters/${id}`);
 
   return (
     <button type="button"
@@ -45,7 +46,7 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
       </div>
       <div
         className={cn(
-          "ml-auto opacity-0 border-2 border-slate-70 h-full transition-all",
+          "ml-auto opacity-0 border-2 border-slate-700 h-full transition-all",
           isActive && "opacity-100",
           isCompleted && "border-emerald-700",
         )}
