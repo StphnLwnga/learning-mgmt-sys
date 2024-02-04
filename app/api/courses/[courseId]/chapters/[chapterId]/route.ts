@@ -118,7 +118,7 @@ export async function DELETE(req: Request, { params }: { params: { courseId: str
 
     return NextResponse.json(deletedChapter);
   } catch (error) {
-    console.error("[DELETE_CHAPTER_API]", error);
+    console.log("[DELETE_CHAPTER_API]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

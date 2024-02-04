@@ -32,7 +32,7 @@ const NavbarRoutes = (): JSX.Element => {
     setIsInstructorMode(!isInstructorMode);
   }
 
-  const isCreatorPage = pathname?.startsWith("/creator") || pathname?.includes("/creator/courses");
+  const isCreatorPage = pathname?.startsWith("/creator") || pathname?.startsWith("/creator/courses");
   const isPlayerPage = pathname?.startsWith("/courses");
   const isSearchPage = pathname === "/search";
 
