@@ -1,8 +1,19 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
+
+import { cn } from "@/lib/utils";
+
 import { getChapter } from "@/actions/get-chapter";
+
 import Banner from "@/components/banner";
+import { Separator } from "@/components/ui/separator";
+import { Preview } from "@/components/preview";
+
 import VideoPlayer from "./_components/video-player";
+import CourseEnrollButton from "./_components/course-enroll-button";
+import CourseProgressButton from "./_components/course-progress-button";
+import AttachmentLink from "./_components/attachment-link";
+
 
 const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId: string } }): Promise<JSX.Element> => {
   const { courseId, chapterId } = params;
@@ -23,13 +34,13 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId
   return (
     <div className="">
       {userProgress?.isCompleted && (
-        <Banner 
+        <Banner
           variant="success"
           label="Course completed."
         />
       )}
       {isLocked && (
-        <Banner 
+        <Banner
           variant="warning"
           label="Purchase this course to continue watching."
         />
@@ -45,6 +56,31 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
           />
+        </div>
+        <div>
+          <div className="flex flex-col md:flex-row items-center justify-between p-4">
+            <h2 className="text-2xl font-semibold mb-2">
+              {chapter.title}
+            </h2>
+            {purchase
+              ? (<CourseProgressButton />)
+              : (<CourseEnrollButton courseId={courseId} price={course.price!} />)
+            }
+          </div>
+          <Separator />
+          <div className="">
+            <Preview value={chapter.description!} />
+          </div>
+          {!!attachments.length && (
+            <>
+              <Separator />
+              <div className="p-4">
+                {attachments.map(attachment => (
+                  <AttachmentLink key={attachment.id} attachment={attachment} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
