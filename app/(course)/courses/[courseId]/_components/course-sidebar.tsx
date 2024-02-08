@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Chapter, Course, UserProgress } from "@prisma/client";
 import { db } from "@/lib/db";
 import CourseSidebarItem from "./course-sidebar-item";
+import CourseProgress from "@/components/course-progress";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -19,8 +20,6 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
 
   if (!userId) return redirect("/");
 
-  // Get purchase for that course
-  // Use userId and courseId unique constraint
   const purchase = await db.purchase.findUnique({
     where: {
       userId_courseId: { userId, courseId: course.id },
@@ -34,7 +33,11 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
           <h1 className="font-semibold">
             {course.title}
           </h1>
-          {/* @todo: Check purchase & add progress */}
+          {purchase && (
+            <div className="mt-10">
+              <CourseProgress value={progressCount} variant="success" />
+            </div>
+          )}
         </div>
         <div className="flex flex-col w-full">
           {course.chapters.map(chapter => (

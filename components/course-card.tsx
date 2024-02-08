@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { BookOpen } from "lucide-react";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-import IconBadge from "./icon-badge";
-import { BookOpen } from "lucide-react";
 import { formatPrice } from "@/lib/format";
+import IconBadge from "@/components/icon-badge";
+import CourseProgress from "@/components/course-progress";
 
 interface CourseCardProps {
   id: string;
@@ -51,9 +52,11 @@ const CourseCard: React.FC<CourseCardProps> = (
           </div>
           {progress !== null
             ? (
-              <div className="">
-                TODO: Progress Component
-              </div>
+              <CourseProgress
+                size="sm"
+                value={progress}
+                variant={progress === 100 ? "success" : "default"}
+              />
             )
             : (
               <p className="text-sm md:text-xs font-medium text-slate-700">
