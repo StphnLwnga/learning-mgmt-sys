@@ -44,8 +44,12 @@ const Banner = ({ label, variant }: BannerProps) => {
 
   return (
     <div className={cn(bannerVariants({ variant }))}>
-      <Icon className="h-4 w-4 mr-2" />
-      {label}
+      <Icon className="h-4 w-4 mr-2 text-white" />
+      <span className={cn(
+        "text-white",
+      )}>
+        {label}
+      </span>
     </div>
   );
 }
