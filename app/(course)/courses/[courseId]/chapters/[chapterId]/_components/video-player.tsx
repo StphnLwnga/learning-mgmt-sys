@@ -32,12 +32,41 @@ const VideoPlayer = ({
   
   const { theme } = useTheme();
 
+  const confetti = useConfettiStore();
+
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     setIsDarkTheme(theme === "dark" ?? false);
   }, [theme]);
+
+  const onEnd = async () => {
+    try {
+      if (completeOnEnd){
+        await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
+          isCompleted: true,
+        });
+
+        if (!nextChapterId) confetti.onOpen();
+
+        toast({
+          title: "Success",
+          description: "Marked as completed",
+          className: "text-white",
+        });
+        router.refresh();
+
+        if (nextChapterId) router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+      }
+    } catch (error) {
+      console.log("[COURSE_PROGRESS]", error);  
+      toast({
+        title: "Error",
+        description: "Something went wrong!",
+      })
+    }
+  }
 
   return (
     <div className="relative aspect-video">
@@ -65,7 +94,7 @@ const VideoPlayer = ({
           title={title}
           playbackId={playbackId}
           onCanPlay={() => setIsReady(true)}
-          onEnded={() => {}}
+          onEnded={onEnd}
           autoPlay
           // className={cn(
           //   !isReady && "hidden",
