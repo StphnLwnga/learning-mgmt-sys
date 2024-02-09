@@ -96,9 +96,6 @@ const VideoPlayer = ({
           onCanPlay={() => setIsReady(true)}
           onEnded={onEnd}
           autoPlay
-          // className={cn(
-          //   !isReady && "hidden",
-          // )}
         />
       )}
     </div>
