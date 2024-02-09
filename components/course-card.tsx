@@ -56,6 +56,7 @@ const CourseCard: React.FC<CourseCardProps> = (
                 size="sm"
                 value={progress}
                 variant={progress === 100 ? "success" : "default"}
+                color={progress === 100 ? "success" : "primary"}
               />
             )
             : (
