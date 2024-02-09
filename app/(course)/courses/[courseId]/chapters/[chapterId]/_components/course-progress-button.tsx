@@ -38,14 +38,14 @@ const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted 
         isCompleted: !isCompleted,
       });
 
-      // if (!isCompleted && !nextChapterId) confetti.onOpen();
+      if (!isCompleted && !nextChapterId) confetti.onOpen();
 
       if(!isCompleted && nextChapterId) router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
 
       toast({
         title: "Success",
         description: `${isCompleted ? "Marked as not completed" : "Marked as completed"}`,
-        className: "bg-emerald-500",
+        className: "bg-emerald-500 text-white",
       });
 
       router.refresh();
