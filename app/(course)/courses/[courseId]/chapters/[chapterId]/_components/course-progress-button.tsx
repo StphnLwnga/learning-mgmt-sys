@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
@@ -36,7 +38,7 @@ const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted 
         isCompleted: !isCompleted,
       });
 
-      if (!isCompleted && !nextChapterId) confetti.onOpen();
+      // if (!isCompleted && !nextChapterId) confetti.onOpen();
 
       if(!isCompleted && nextChapterId) router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
 
@@ -45,7 +47,7 @@ const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted 
         description: `${isCompleted ? "Marked as not completed" : "Marked as completed"}`,
         className: "bg-emerald-500",
       });
-      
+
       router.refresh();
     } catch (error) {
       console.log("[COURSE_PROGRESS]", error);
@@ -66,7 +68,7 @@ const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted 
       disabled={isLoading}
       onClick={onClick}
     >
-      {isCompleted ? "Not Completed" : "Mark as Complete"}
+      {isCompleted ? "Mark as Not Completed" : "Mark as Complete"}
       <Icon className="ml-2 h-4 w-4" />
     </Button>
   );

@@ -35,7 +35,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
           </h1>
           {purchase && (
             <div className="mt-10">
-              <CourseProgress value={progressCount} variant="success" />
+              <CourseProgress value={progressCount} variant="success" color="success" />
             </div>
           )}
         </div>

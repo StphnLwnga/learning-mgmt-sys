@@ -36,7 +36,7 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId
       {userProgress?.isCompleted && (
         <Banner
           variant="success"
-          label="Course completed."
+          label="Chapter completed."
         />
       )}
       {isLocked && (
