@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/providers/theme-provider" // Shadcn theme provider
 import { Toaster } from "@/components/ui/toaster";
 import ToastProvider from '@/components/providers/toast-provider';
+import { ConfettiProvider } from '@/components/providers/confetti-provider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -40,6 +41,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <ConfettiProvider />
             <Toaster />
             {/* <ToastProvider /> */}
           </ThemeProvider>

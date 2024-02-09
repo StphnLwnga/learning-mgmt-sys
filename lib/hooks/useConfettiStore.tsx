@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { create } from "zustand";
 
-export const useConfettiStore = () => {
-  const [confetti, setConfetti] = useState(false);
+type ConfettiStore = {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+};
 
-  useEffect(() => {
-    setConfetti(true);
-  }, []);
-
-  return confetti;
-}
+export const useConfettiStore = create<ConfettiStore>((set) => ({
+  isOpen: false,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+}));
