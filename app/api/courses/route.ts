@@ -16,9 +16,11 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     const { title } = await req.json();
 
-    const isAuthorized = isInstructor(userId);
+    // const isAuthorized = isInstructor(userId);
 
-    if (!userId || !isAuthorized) return new NextResponse("Unauthorized", { status: 401 });
+    // if (!userId || !isAuthorized) return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) throw new Error("Unauthorized");
+
 
     const course = await db.course.create({
       data: { userId, title, }

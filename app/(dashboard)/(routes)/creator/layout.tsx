@@ -7,7 +7,7 @@ import { isInstructor } from "@/lib/instructor";
 const CreatorLayout = ({children}: {children: React.ReactNode}) => {
   const {userId} = auth();
 
-  if (!isInstructor(userId)) return redirect("/");
+  // if (!isInstructor(userId)) return redirect("/");
 
   return (<>{children}</>);
 }

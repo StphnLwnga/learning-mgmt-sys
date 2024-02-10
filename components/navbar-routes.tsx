@@ -43,7 +43,6 @@ const NavbarRoutes = (): JSX.Element => {
   const isSearchPage = pathname === "/search";
 
   useEffect(() => {
-    console.log("Instructor mode: ", isInstructorMode, { pathname });
     if (navFromSwitch)
       router.push(isInstructorMode ? "/creator/courses" : "/");
     // setNavFromSwitch(false);
@@ -64,7 +63,7 @@ const NavbarRoutes = (): JSX.Element => {
         </div>
       )}
       <div className="flex gap-x-6 ml-auto items-center pr-4">
-        {userId && isInstructor(userId) && (
+        {/* {userId && isInstructor(userId) && ( */}
           <div className="flex items-center space-x-2">
             <Switch
               checked={isInstructorMode} id="instructor-mode"
@@ -77,7 +76,7 @@ const NavbarRoutes = (): JSX.Element => {
               Instructor Mode
             </Label>
           </div>
-        )}
+        {/* )} */}
         <ModeToggle />
         <SignedIn>
           <UserButton afterSignOutUrl="/sign-in" />
