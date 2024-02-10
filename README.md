@@ -1,4 +1,4 @@
-# [Learning Management System Demo](https://learning-mgmt-sys.vercel.app/)
+# [Learning Management System Demo 🔗](https://learning-mgmt-sys.vercel.app/)
 
 ## Setup
 
