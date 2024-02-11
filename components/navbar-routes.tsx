@@ -14,6 +14,7 @@ import { isInstructor } from "@/lib/instructor";
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import SearchInput from "./search-input";
+import Settings from "./settings";
 
 const NavbarRoutes = (): JSX.Element => {
   const { userId } = useAuth();
@@ -77,6 +78,7 @@ const NavbarRoutes = (): JSX.Element => {
             </Label>
           </div>
         {/* )} */}
+        <Settings />
         <ModeToggle />
         <SignedIn>
           <UserButton afterSignOutUrl="/sign-in" />
