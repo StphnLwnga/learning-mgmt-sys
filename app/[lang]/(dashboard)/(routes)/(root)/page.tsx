@@ -2,27 +2,29 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import { getDashboardCourses } from "@/actions/get-dashboard-courses";
+import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
 import CoursesList from "@/components/courses-list";
 import InfoCard from "./_components/infocard";
 import { CheckCircle, Clock } from "lucide-react";
 
-export default async function Dashboard(): Promise<JSX.Element> {
+export default async function Dashboard({ params }: { params: { lang: Locale } }): Promise<JSX.Element> {
   const { userId } = auth();
   if (!userId) return redirect('/');
 
-  const { completedCourses, coursesInProgress } = await getDashboardCourses(userId);
+  const dicProps = await getDictionary(params.lang); // usage: {dicProps.<prop1>.<prop2>}
 
-  const items = [...coursesInProgress, ...completedCourses];
+  const { completedCourses, coursesInProgress } = await getDashboardCourses(userId);
 
   return (
     <div className="h-full p-6 space-y-4">
       <div className="grid grid-cols sm:grid-cols-2 gap-4">
-        <InfoCard 
+        <InfoCard
           icon={Clock}
           label="In Progress"
           numebrOfItems={coursesInProgress.length}
         />
-        <InfoCard 
+        <InfoCard
           icon={CheckCircle}
           label="Completed"
           numebrOfItems={completedCourses.length}
