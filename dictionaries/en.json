@@ -18,6 +18,10 @@
     "inProgress": "In Progress",
     "completed": "Completed"
   },
+  "analytics": {
+    "totalRevenue": "Total Revenue",
+    "totalSales": "Total Sales"
+  },
   "course": {
     "course": "Course",
     "courses": "Courses",
