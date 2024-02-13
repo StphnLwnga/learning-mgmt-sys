@@ -26,31 +26,33 @@ function getLocale(request: NextRequest): string | undefined {
   return locale
 }
 
+
 /**
- * A middleware that checks for missing locale in the pathname and redirects if necessary.
+ * A middleware that checks for supported locale in the pathname and redirects if there is no locale.
  *
- * @param {NextMiddleware} next - the next middleware function
- * @return {NextMiddleware} the next middleware function
+ * @param {NextMiddleware} next - The next middleware function in the chain
+ * @return {Promise<void>} A promise representing the completion of the middleware operation
  */
-export const withLang: MiddlewareFactory = (next: NextMiddleware): NextMiddleware => {
+export const withLang: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const pathname = request.nextUrl.pathname
-    const pathnameIsMissingLocale = i18n.locales.every(
-      locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+      // Check if there is any supported locale in the pathname
+    const { pathname } = request.nextUrl
+
+    console.log("pathname", pathname)
+
+    let {locales} = i18n
+
+    const pathnameHasLocale = locales.some(
+      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     )
 
-    // Redirect if there is no locale
-    if (pathnameIsMissingLocale) {
-      const locale = getLocale(request)
-      return NextResponse.redirect(
-        new URL(
-          `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-          request.url
-        )
-      );
-    }
+    if (pathnameHasLocale) return;
 
-    return next(request, _next);
+    // Redirect if there is no locale
+    const locale = getLocale(request);
+    request.nextUrl.pathname = `/${locale}${pathname}`;
+    // e.g. If incoming request is /search, the new URL is now /en/search
+    return Response.redirect(request.nextUrl);
   }
 }
 

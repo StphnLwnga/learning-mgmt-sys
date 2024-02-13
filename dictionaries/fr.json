@@ -1,5 +1,54 @@
 {
-  "main": {
-    "header": "Bienvenue sur l'application !"
-  }
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "browse": "Parcourir",
+    "analytics": "Analytique"
+  },
+  "navbar": {
+    "instructorMode": "Mode Instructeur",
+    "language": "Langue",
+    "logout": "Se déconnecter",
+    "navbarTooltips": {
+      "lightMode": "Mode lumière",
+      "darkMode": "Mode sombre"
+    },
+    "settings": "Paramètres"
+  },
+  "infocard": {
+    "inProgress": "En cours",
+    "completed": "Complété"
+  },
+  "course": {
+    "course": "Cours",
+    "courses": "Cours",
+    "filterTitles": "Filtrer par titre...",
+    "addCourse": "Ajouter un cours",
+    "title": "Titre",
+    "attachments": "Pièces jointes",
+    "description": "Description",
+    "category": "Catégorie",
+    "price": "Prix",
+    "publish": "Publier",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "noResults": "Aucun résultat",
+    "previous": "Précédente",
+    "next": "Suivante",
+    "courseTooltips": {
+      "createCourse": "Créer un cours"
+    },
+    "courseCreate": {
+      "courseTitle": "Titre de cours",
+      "courseTileDescription": "Quel nom souhaiteriez-vous donner à votre cours? Ne vous inquiétez pas, vous pourrez modifier cela plus tard.",
+      "courseTitleInputDescription": "De quoi parlera ce cours...",
+      "courseDescription": "Description du cours"
+    }
+  },
+  "languages": {
+    "english": "Anglaise",
+    "french": "Française",
+    "swahili": "Swahili"
+  },
+  "cancel": "Annuler",
+  "continue": "Continuer"
 }

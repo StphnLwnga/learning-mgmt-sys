@@ -1,5 +1,54 @@
 {
-  "main": {
-    "header": "Karibu kwenye programu!"
-  }
+  "sidebar": {
+    "dashboard": "Dashibodi",
+    "browse": "Vinjari",
+    "analytics": "Uchanganuzi"
+  },
+  "navbar": {
+    "instructorMode": "Hali ya Mwalimu",
+    "language": "Lugha",
+    "logout": "Ondoka",
+    "navbarTooltips": {
+      "lightMode": "Hali ya mwanga",
+      "darkMode": "Hali ya giza"
+    },
+    "settings": "Mipangilio"
+  },
+  "infocard": {
+    "inProgress": "Inaendelea",
+    "completed": "Imekamilika"
+  },
+  "course": {
+    "course": "Kozi",
+    "courses": "Kozi",
+    "filterTitles": "Vichujio vyeo...",
+    "addCourse": "Ongeza kozi",
+    "title": "Kichwa",
+    "attachments": "Viambatisho",
+    "description": "Maelezo",
+    "category": "Kategoria",
+    "price": "Bei",
+    "publish": "Kuchapisha",
+    "published": "Imechapishwa",
+    "draft": "Rasimu",
+    "noResults": "Hakuna matokeo",
+    "previous": "Iliyotangulia",
+    "next": "Inayofuata",
+    "courseTooltips": {
+      "createCourse": "Unda kozi"
+    },
+    "courseCreate": {
+      "courseTitle": "Kichwa cha Kozi",
+      "courseTileDescription": "Je, ungependa kutaja kozi gani? Usijali, unaweza kubadilisha hii baadaye.",
+      "courseTitleInputDescription": "Je, kozi hii itahusu nini...",
+      "courseDescription": "Maelezo ya Kozi"
+    }
+  },
+  "languages": {
+    "english": "Kiingereza",
+    "french": "Kifaransa",
+    "swahili": "Kiswahili"
+  },
+  "cancel": "Ghairi",
+  "continue": "Endelea"
 }
