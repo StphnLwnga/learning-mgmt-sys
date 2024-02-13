@@ -18,6 +18,10 @@
     "inProgress": "Inaendelea",
     "completed": "Imekamilika"
   },
+  "analytics": {
+    "totalRevenue": "Jumla ya Mapato",
+    "totalSales": "Jumla ya Mauzo"
+  },
   "course": {
     "course": "Kozi",
     "courses": "Kozi",

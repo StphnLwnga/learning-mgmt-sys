@@ -18,6 +18,10 @@
     "inProgress": "En cours",
     "completed": "Complété"
   },
+  "analytics": {
+    "totalRevenue": "Revenus totaux",
+    "totalSales": "Ventes totales"
+  },
   "course": {
     "course": "Cours",
     "courses": "Cours",
