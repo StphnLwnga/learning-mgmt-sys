@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider" // Shadcn 
 import { Toaster } from "@/components/ui/toaster";
 import ToastProvider from '@/components/providers/toast-provider';
 import { ConfettiProvider } from '@/components/providers/confetti-provider';
+import React from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,7 +42,13 @@ export default function RootLayout({
             defaultTheme="light"
             disableTransitionOnChange
           >
-            {children}
+            {React.Children.map(children, (child, i) => {
+              if (React.isValidElement(child)) {
+                return React.cloneElement(child, {
+                  key: child.props.id || child.props.children,
+                })
+              }
+            })}
             <ConfettiProvider />
             <Toaster />
             {/* <ToastProvider /> */}
