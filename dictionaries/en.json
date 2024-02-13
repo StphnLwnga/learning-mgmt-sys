@@ -1,5 +1,54 @@
 {
-  "main": {
-    "header": "Welcome to the app!"
-  }
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "browse": "Browse",
+    "analytics": "Analytics"
+  },
+  "navbar": {
+    "instructorMode": "Instructor Mode",
+    "language": "Language",
+    "logout": "Logout",
+    "navbarTooltips": {
+      "lightMode": "Light Mode",
+      "darkMode": "Dark Mode"
+    },
+    "settings": "Settings"
+  },
+  "infocard": {
+    "inProgress": "In Progress",
+    "completed": "Completed"
+  },
+  "course": {
+    "course": "Course",
+    "courses": "Courses",
+    "filterTitles": "Filter titles...",
+    "addCourse": "Add a course",
+    "title": "Title",
+    "attachments": "Attachments",
+    "description": "Description",
+    "category": "Category",
+    "price": "Price",
+    "publish": "Publish",
+    "published": "Published",
+    "draft": "Draft",
+    "noResults": "No Results.",
+    "previous": "Previous",
+    "next": "Next",
+    "courseTooltips": {
+      "createCourse": "Create a course"
+    },
+    "courseCreate": {
+      "courseTitle": "Course Title",
+      "courseTileDescription": "What would you like to name your course? Don't worry, you can change this later",
+      "courseTitleInputDescription": "What this course will be about...",
+      "courseDescription": "Course Description"
+    }
+  },
+  "languages": {
+    "english": "English",
+    "french": "French",
+    "swahili": "Swahili"
+  },
+  "cancel": "Cancel",
+  "continue": "Continue"
 }
