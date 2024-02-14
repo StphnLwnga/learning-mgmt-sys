@@ -9,7 +9,7 @@ import { Locale } from "@/i18n";
 const routesWithLocale = (routes: NavRoute[], locale: Locale, dict: Record<string, any>) => {
   return routes.map((route: NavRoute) => ({
     ...route,
-    label: dict.sidebar[route.label.toLowerCase()],
+    label: dict.sidebar[route.label.toLowerCase()] as string,
     href: `/${locale}${route.href}`,
   }));
 }
