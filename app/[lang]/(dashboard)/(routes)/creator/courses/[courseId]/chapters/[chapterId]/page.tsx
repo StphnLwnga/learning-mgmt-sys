@@ -14,12 +14,14 @@ import {
   ChapterTitleForm,
   ChapterVideoForm
 } from "./_components";
+import { Locale } from "@/i18n";
 
 
 interface ChapterIdPageProps {
   params: {
     courseId: string;
     chapterId: string;
+    lang: Locale;
   }
 }
 
@@ -30,10 +32,10 @@ interface ChapterIdPageProps {
  * @return {Promise<JSX.Element>} A Promise that resolves to the ChapterIdPage component.
  */
 const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Element> => {
-  const { userId } = auth();
-  if (!userId) return redirect('/');
+  const { chapterId, courseId, lang } = params;
 
-  const { chapterId, courseId } = params;
+  const { userId } = auth();
+  if (!userId) return redirect(`${lang}/`);
 
   const chapter = await db.chapter.findUnique({
     where: { id: chapterId, courseId, },
@@ -65,7 +67,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`/creator/courses/${courseId}`}
+              href={`${lang}/creator/courses/${courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />

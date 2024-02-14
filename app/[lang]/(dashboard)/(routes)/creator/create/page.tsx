@@ -14,6 +14,7 @@ import { X, ArrowRight, Loader2 } from "lucide-react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Locale } from '@/i18n';
 // import toast from 'react-hot-toast';
 
 
@@ -28,26 +29,14 @@ const createCourseSchema = z.object({
  * The form is created using the useForm hook from the react-hook-form library.
  * It uses the createCourseSchema to define the form validation rules and default values.
  */
-
-
-/**
- * Submits a form with the given values to create a new course.
- *
- * @param {z.infer<typeof createCourseSchema>} values - The values of the form.
- * @return {Promise<void>} - A promise that resolves when the form submission is complete.
- */
-const CreatePage = (): JSX.Element => {
+const CreatePage = ({ params }: { params: { lang: Locale } }): JSX.Element => {
   const router = useRouter();
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const { lang } = params;
 
   const { toast } = useToast();
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   // Create the form using the useForm hook
   const form = useForm<z.infer<typeof createCourseSchema>>({
@@ -64,7 +53,7 @@ const CreatePage = (): JSX.Element => {
 
   const cancelForm = () => {
     resetForm();
-    router.push('/creator/courses');
+    router.push(`${lang}/creator/courses`);
   }
 
   const { isSubmitting, isValid, isSubmitted } = form.formState;
@@ -79,13 +68,13 @@ const CreatePage = (): JSX.Element => {
     try {
       const response = await axios.post('/api/courses', values);
 
-      router.push(`/creator/courses/${response?.data.id}`);
+      router.push(`${lang}/creator/courses/${response?.data.id}`);
       // toast.success('Course created successfully');
       toast({
         title: 'Success',
         description: "Course successfully drafted!",
         onClick: () => resetForm(),
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
     } catch (e) {
       toast({
@@ -102,7 +91,7 @@ const CreatePage = (): JSX.Element => {
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
         <h1 className="text-2xl">Course Title</h1>
-        <p className={cn("text-sm", isDarkTheme ? "text-slate-400" : "text-slate-600")}>
+        <p className={cn("text-sm", resolvedTheme === 'dark' ? "text-slate-400" : "text-slate-600")}>
           What would you like to name your course? Don&apos;t worry, you can change this later
         </p>
         <Form {...form}>
@@ -134,7 +123,7 @@ const CreatePage = (): JSX.Element => {
                 variant="ghost"
                 className={cn(
                   "text-slate-600 hover:text-slate-700",
-                  isDarkTheme && "text-slate-200 hover:text-slate-300"
+                  resolvedTheme === 'dark' && "text-slate-200 hover:text-slate-300"
                 )}
                 onClick={cancelForm}
               >
@@ -146,7 +135,7 @@ const CreatePage = (): JSX.Element => {
                 : (<Button type='submit' disabled={isSubmitted}
                   className={cn(
                     "bg-sky-600 text-white hover:bg-sky-700",
-                    isDarkTheme && "bg-sky-400/20 text-slate-300 hover:bg-sky-400/50"
+                    resolvedTheme === 'dark' && "bg-sky-400/20 text-slate-300 hover:bg-sky-400/50"
                   )}
                 >
                   Continue
