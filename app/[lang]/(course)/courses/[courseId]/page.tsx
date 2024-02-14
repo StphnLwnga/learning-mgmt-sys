@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { Locale } from "@/i18n";
 
-const CourseIdPage = async ({ params }: { params: { courseId: string; } }): Promise<JSX.Element> => {
-  const { courseId } = params;
+const CourseIdPage = async ({ params }: { params: { courseId: string; lang: Locale } }): Promise<JSX.Element> => {
+  const { courseId, lang } = params;
 
   const course = await db.course.findUnique({
     where: { id: courseId },
@@ -14,9 +15,9 @@ const CourseIdPage = async ({ params }: { params: { courseId: string; } }): Prom
     },
   });
 
-  if (!course) return redirect("/");
+  if (!course) return redirect(`/${lang}`);
 
-  return redirect(`/courses/${course.id}/chapters/${course.chapters[0].id}`);
+  return redirect(`/${lang}/courses/${course.id}/chapters/${course.chapters[0].id}`);
 }
 
 export default CourseIdPage;

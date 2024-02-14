@@ -5,6 +5,7 @@ import { Chapter, Course, UserProgress } from "@prisma/client";
 import { db } from "@/lib/db";
 import CourseSidebarItem from "./course-sidebar-item";
 import CourseProgress from "@/components/course-progress";
+import { Locale } from "@/i18n";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -13,12 +14,13 @@ interface CourseSidebarProps {
     })[];
   };
   progressCount: number;
+  lang: Locale;
+  t: Record<string, any>;
 }
 
-const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Promise<JSX.Element> => {
+const CourseSidebar = async ({ course, progressCount, lang, t }: CourseSidebarProps): Promise<JSX.Element> => {
   const { userId } = auth();
-
-  if (!userId) return redirect("/");
+  if (!userId) return redirect(`/${lang}`);
 
   const purchase = await db.purchase.findUnique({
     where: {
@@ -35,7 +37,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
           </h1>
           {purchase && (
             <div className="mt-10">
-              <CourseProgress value={progressCount} variant="success" color="success" />
+              <CourseProgress t={t} value={progressCount} variant="success" color="success" />
             </div>
           )}
         </div>
@@ -47,6 +49,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
               courseId={course.id}
               isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
               isLocked={!chapter.isFree && !purchase}
+              lang={lang}
             />
           ))}
         </div>
@@ -54,7 +57,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps): Pro
     );
   } catch (error) {
     console.log("Failed to fetch purchase", error);
-    return redirect('/');
+    return redirect(`/${lang}`);
   }
 }
 
