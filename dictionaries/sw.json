@@ -26,6 +26,7 @@
   "course": {
     "course": "Kozi",
     "courses": "Kozi",
+    "complete": "Kamilika",
     "filterTitles": "Vichujio vyeo...",
     "addCourse": "Ongeza kozi",
     "title": "Kichwa",
@@ -47,11 +48,22 @@
       "courseTileDescription": "Je, ungependa kutaja kozi gani? Usijali, unaweza kubadilisha hii baadaye.",
       "courseTitleInputDescription": "Je, kozi hii itahusu nini...",
       "courseDescription": "Maelezo ya Kozi"
+    },
+    "courseId": {
+      "setup": "Mpangilio wa Kozi",
+      "completeFields": "Tafadhali kamilisha sehemu zote",
+      "customize": "Geuza kozi yako kukufaa",
+      "chapters": "Sura za kozi",
+      "sell": "Uza kozi yako",
+      "resources": "Rasilimali na Viambatisho"
     }
   },
   "dataColumn": {
-    "openMenu": "Open Menu",
-    "edit": "Edit"
+    "openMenu": "Fungua Menyu",
+    "edit": "Hariri"
+  },
+  "searchInput": {
+    "placeholder": "Tafuta kichwa cha kozi..."
   },
   "languages": {
     "english": "Kiingereza",
