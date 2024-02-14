@@ -1,6 +1,12 @@
-import { Layout, Compass, List, BarChart } from "lucide-react";
+import { Layout, Compass, List, BarChart, LucideIcon } from "lucide-react";
 
-export const guestRoutes = [
+export type NavRoute = {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+export const guestRoutes: NavRoute[] = [
   {
     label: "Dashboard",
     href: "/",
