@@ -12,9 +12,16 @@ import {
 import Logo from "./logo";
 import { Separator } from "@/components/ui/separator";
 import Sidebar from "./sidebar";
+import { Locale } from "@/i18n";
+
+interface MobileSidebarProps  {
+  isDarkTheme: boolean
+  lang: Locale
+  dict: Record<string, any>
+}
 
 
-const MobileSidebar = ({ isDarkTheme }: { isDarkTheme: boolean }): JSX.Element => {
+const MobileSidebar = ({ isDarkTheme, lang, dict }: MobileSidebarProps): JSX.Element => {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
@@ -26,7 +33,7 @@ const MobileSidebar = ({ isDarkTheme }: { isDarkTheme: boolean }): JSX.Element =
         />
       </SheetTrigger>
       <SheetContent side="left" className="p-0" >
-        <Sidebar />
+        <Sidebar dict={dict} lang={lang} />
       </SheetContent>
     </Sheet>
   );

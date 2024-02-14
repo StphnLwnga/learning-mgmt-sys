@@ -3,15 +3,15 @@
 import { useTheme } from "next-themes"
 import Logo from "./logo";
 import SidebarRoutes from "./sidebar-routes";
-import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
+import { Locale } from "@/i18n";
 
 /**
  * Renders the Sidebar component.
  *
  * @return {JSX.Element} The rendered Sidebar component.
  */
-const Sidebar = (): JSX.Element => {
+const Sidebar = ({lang, dict}: {lang: Locale, dict: Record<string, any>}): JSX.Element => {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -25,7 +25,7 @@ const Sidebar = (): JSX.Element => {
         <Separator className="w-[88%] -top-5" />
       </div>
       <div className="flex flex-col w-full">
-        <SidebarRoutes />
+        <SidebarRoutes lang={lang} dict={dict} />
       </div>
     </div>
   );
