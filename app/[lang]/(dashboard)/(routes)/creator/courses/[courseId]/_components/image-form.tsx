@@ -41,13 +41,7 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const toggleEdit = () => setIsEditing(current => !current);
 
@@ -70,7 +64,7 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
       toast({
         title: 'Success',
         description: "Image successfully uploaded!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -88,7 +82,7 @@ const ImageForm = ({ initialData, courseId, userId }: ImageFormProps): JSX.Eleme
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Image

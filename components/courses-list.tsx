@@ -13,14 +13,6 @@ interface CoursesListProps {
 }
 
 const CoursesList = ({ items }: CoursesListProps): JSX.Element => {
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
-
   return (
     <div className="">
       {items.length > 0

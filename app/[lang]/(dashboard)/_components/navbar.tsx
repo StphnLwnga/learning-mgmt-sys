@@ -6,16 +6,11 @@ import NavbarRoutes from "@/components/navbar-routes";
 import { useState, useEffect } from "react";
 
 const Navbar = (): JSX.Element => {
-  const { theme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark");
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className={`p-4 border-b h-full flex items-center shadow-sm`}>
-      <MobileSidebar isDarkTheme={isDarkTheme} />
+      <MobileSidebar isDarkTheme={resolvedTheme === 'dark'} />
       <NavbarRoutes />
     </div>
   );

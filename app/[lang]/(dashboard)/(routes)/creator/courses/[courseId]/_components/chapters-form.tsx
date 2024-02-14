@@ -38,13 +38,7 @@ const formSchema = z.object({
 const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX.Element => {
   const router = useRouter();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const isEditAuthorized = userId === initialData?.userId;
 
@@ -77,7 +71,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
       await axios.post(`/api/courses/${courseId}/chapters`, data);
       toast({
         title: 'Success',
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
         description: "Chapter successfully added",
       });
       toggleCreateChapter();
@@ -109,7 +103,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
       toast({
         title: 'Course Chapters',
         description: "Chapters reordered successfully!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
@@ -132,17 +126,17 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
   return (
     <div className={cn(
       "relative mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       {isUpdating && (
         <div className={cn(
           "absolute h-full w-full bg-slate-500/20 top-0 right-0 flex items-center justify-center",
-          isDarkTheme && "bg-slate-900/60",
+          resolvedTheme === 'dark' && "bg-slate-900/60",
         )}>
           <Loader2
             className={cn(
               "animate-spin mx-auto my-auto h-20 w-20",
-              !isDarkTheme && "text-sky-700",
+              resolvedTheme !== 'dark' && "text-sky-700",
             )}
           />
         </div>
@@ -191,7 +185,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                    resolvedTheme === 'dark' && "text-slate-900 hover:text-slate-200 bg-slate-100"
                   )}>
                   Add
                   <PlusCircle className='h-4 w-4 ml-2' />
@@ -205,7 +199,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
           className={cn(
             "text-sm mt-2",
             !initialData.chapters.length && "text-slate-500 italic",
-            !initialData.chapters.length && isDarkTheme && "text-slate-400",
+            !initialData.chapters.length && resolvedTheme === 'dark' && "text-slate-400",
           )}
         >
           {!initialData.chapters.length && "No chapters published"}
@@ -213,7 +207,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
             onEdit={onEdit}
             onReorder={onReorder}
             items={initialData.chapters || []}
-            isDarkTheme={isDarkTheme}
+            isDarkTheme={resolvedTheme === 'dark'}
           />
         </div>
       )}

@@ -25,14 +25,9 @@ const Actions = ({ initialData, courseId, disabled }: ActionsProps): JSX.Element
 
   const { toast } = useToast();
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const { isPublished } = initialData;
 
@@ -45,7 +40,7 @@ const Actions = ({ initialData, courseId, disabled }: ActionsProps): JSX.Element
       toast({
         title: 'Success',
         description: isPublished ? "Course successfully unpublished!" : "Course successfully published!",
-        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
@@ -68,7 +63,7 @@ const Actions = ({ initialData, courseId, disabled }: ActionsProps): JSX.Element
       toast({
         title: 'Success',
         description: "Course successfully deleted!",
-        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
       router.push(`/creator/courses`);
