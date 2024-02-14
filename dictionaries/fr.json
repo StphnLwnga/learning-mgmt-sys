@@ -26,6 +26,7 @@
   "course": {
     "course": "Cours",
     "courses": "Cours",
+    "complete": "Complet",
     "filterTitles": "Filtrer par titre...",
     "addCourse": "Ajouter un cours",
     "title": "Titre",
@@ -47,11 +48,22 @@
       "courseTileDescription": "Quel nom souhaiteriez-vous donner à votre cours? Ne vous inquiétez pas, vous pourrez modifier cela plus tard.",
       "courseTitleInputDescription": "De quoi parlera ce cours...",
       "courseDescription": "Description du cours"
+    },
+    "courseId": {
+      "setup": "Configuration du cours",
+      "completeFields": "Veuillez remplir les champs",
+      "customize": "Personnalisez votre cours",
+      "chapters": "Chapitres du cours",
+      "sell": "Vendez votre cours",
+      "resources": "Ressources et pièces jointes"
     }
   },
   "dataColumn": {
-    "openMenu": "Open Menu",
-    "edit": "Edit"
+    "openMenu": "Ouvrir le menu",
+    "edit": "Modifier"
+  },
+  "searchInput": {
+    "placeholder": "Rechercher le titre du cours..."
   },
   "languages": {
     "english": "Anglaise",
