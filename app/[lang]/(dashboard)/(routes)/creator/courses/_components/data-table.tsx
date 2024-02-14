@@ -43,7 +43,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns, lang, t,
 }: DataTableProps<TData, TValue>) {
-  const { courses } = useCoursesData();
+  const { courses } = useCoursesData(lang!);
 
   const { resolvedTheme } = useTheme();
 
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
         />
         <TooltipComponent
           tooltipTrigger={
-            <Link href={`${lang || "en"}/creator/create`}>
+            <Link href={`/${lang || "en"}/creator/create`}>
               <Button
                 variant="ghost"
                 className={cn("p-3", resolvedTheme !== 'dark' && "text-muted-foreground")}

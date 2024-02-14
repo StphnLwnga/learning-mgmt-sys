@@ -20,7 +20,7 @@ const ColumnCell = ({ id, lang, t }: ColumnCellProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <Link href={`${lang}/creator/courses/${id}`}>
+        <Link href={`/${lang}/creator/courses/${id}`}>
           <DropdownMenuItem className="justify-center hover:cursor-pointer">
             <Pencil className="h-4 w-4 mr-2" />
             {t.dataColumn.edit}

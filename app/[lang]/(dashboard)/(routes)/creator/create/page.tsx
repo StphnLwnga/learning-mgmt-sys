@@ -53,7 +53,7 @@ const CreatePage = ({ params }: { params: { lang: Locale } }): JSX.Element => {
 
   const cancelForm = () => {
     resetForm();
-    router.push(`${lang}/creator/courses`);
+    router.push(`/${lang}/creator/courses`);
   }
 
   const { isSubmitting, isValid, isSubmitted } = form.formState;
@@ -68,7 +68,7 @@ const CreatePage = ({ params }: { params: { lang: Locale } }): JSX.Element => {
     try {
       const response = await axios.post('/api/courses', values);
 
-      router.push(`${lang}/creator/courses/${response?.data.id}`);
+      router.push(`/${lang}/creator/courses/${response?.data.id}`);
       // toast.success('Course created successfully');
       toast({
         title: 'Success',
