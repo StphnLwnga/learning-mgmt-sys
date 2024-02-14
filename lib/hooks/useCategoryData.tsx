@@ -7,6 +7,7 @@ import { Category, Course } from "@prisma/client";
 
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Locale } from '@/i18n';
 
 export interface CategoriesProps {
   categories: Category & { courses: Course[] }[];
@@ -17,7 +18,7 @@ export interface CategoriesProps {
  *
  * @return {{ categories: Category[] }} The categories retrieved from the API
  */
-export function useCategoryData(): { categories: Category[]; }{
+export function useCategoryData(lang?: Locale): { categories: Category[]; }{
   const { toast } = useToast();
 
   const [categories, setCategories] = useState([]);
@@ -33,7 +34,7 @@ export function useCategoryData(): { categories: Category[]; }{
           title: 'Error',
           description: "Something went wrong!",
           variant: 'destructive',
-          action: <ToastAction onClick={redirect('/')} altText="Try again">Try again</ToastAction>,
+          action: <ToastAction onClick={redirect(`/${lang || 'en'}`)} altText="Try again">Try again</ToastAction>,
         });
       }
     }

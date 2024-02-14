@@ -7,13 +7,14 @@ import { Course } from "@prisma/client";
 
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Locale } from '@/i18n';
 
 /**
  * Fetches data from the API and updates the courses state.
  *
  * @return {Promise<void>} Promise that resolves when the data is fetched and the courses state is updated.
  */
-export function useCoursesData(): { courses: Course[] | [] } {
+export function useCoursesData(lang: Locale): { courses: Course[] | [] } {
   const { toast } = useToast();
 
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -29,7 +30,7 @@ export function useCoursesData(): { courses: Course[] | [] } {
           title: 'Error',
           description: "Something went wrong!",
           variant: 'destructive',
-          action: <ToastAction onClick={redirect('/')} altText="Try again">Try again</ToastAction>,
+          action: <ToastAction onClick={redirect(`/${lang}`)} altText="Try again">Try again</ToastAction>,
         });
       }
     }
