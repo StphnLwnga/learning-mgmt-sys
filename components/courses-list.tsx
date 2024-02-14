@@ -12,9 +12,10 @@ import { Locale } from "@/i18n";
 interface CoursesListProps {
   items: CoursesWithProgressWithCategory[];
   lang: Locale;
+  t: Record<string, any>;
 }
 
-const CoursesList = ({ items, lang }: CoursesListProps): JSX.Element => {
+const CoursesList = ({ items, lang, t }: CoursesListProps): JSX.Element => {
   return (
     <div className="">
       {items.length > 0
@@ -30,6 +31,7 @@ const CoursesList = ({ items, lang }: CoursesListProps): JSX.Element => {
                 progress={course.progress}
                 category={course?.category?.name!}
                 lang={lang}
+                t={t}
               />
             ))}
           </div>
