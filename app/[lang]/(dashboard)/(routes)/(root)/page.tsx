@@ -9,7 +9,7 @@ import InfoCard from "./_components/infocard";
 import { CheckCircle, Clock } from "lucide-react";
 
 export default async function Dashboard({ params }: { params: { lang: Locale } }): Promise<JSX.Element> {
-  const {lang} = params;
+  const { lang } = params;
 
   const { userId } = auth();
   if (!userId) return redirect(`/${lang}`);
@@ -33,7 +33,10 @@ export default async function Dashboard({ params }: { params: { lang: Locale } }
           variant="success"
         />
       </div>
-      <CoursesList items={[...coursesInProgress, ...completedCourses]} />
+      <CoursesList
+        lang={lang}
+        items={[...coursesInProgress, ...completedCourses]}
+      />
     </div>
   )
 }

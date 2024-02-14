@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/format";
 import IconBadge from "@/components/icon-badge";
 import CourseProgress from "@/components/course-progress";
+import { Locale } from "@/i18n";
 
 interface CourseCardProps {
   id: string;
@@ -16,14 +17,15 @@ interface CourseCardProps {
   price: number;
   progress: number | null;
   category: string;
+  lang: Locale;
 }
 
 const CourseCard: React.FC<CourseCardProps> = (
-  { id, title, imageUrl, chaptersLength, price, progress, category }: CourseCardProps
+  { id, title, imageUrl, chaptersLength, price, progress, category, lang }: CourseCardProps
 ) => {
 
   return (
-    <Link href={`/courses/${id}`}>
+    <Link href={`${lang}/courses/${id}`}>
       <div className="group hover:shadow-sm transition overflow:hidden border rounded-lg p-3 h-full">
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
           <Image
