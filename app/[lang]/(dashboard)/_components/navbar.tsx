@@ -16,7 +16,7 @@ const Navbar = ({ lang, dict }: { lang: Locale, dict: Record<string, any> }): JS
         dict={dict}
         lang={lang}
       />
-      <NavbarRoutes />
+      <NavbarRoutes lang={lang} t={dict}/>
     </div>
   );
 }
