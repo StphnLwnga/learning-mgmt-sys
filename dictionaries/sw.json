@@ -49,6 +49,10 @@
       "courseDescription": "Maelezo ya Kozi"
     }
   },
+  "dataColumn": {
+    "openMenu": "Open Menu",
+    "edit": "Edit"
+  },
   "languages": {
     "english": "Kiingereza",
     "french": "Kifaransa",

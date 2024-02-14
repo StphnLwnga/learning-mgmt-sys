@@ -49,6 +49,10 @@
       "courseDescription": "Course Description"
     }
   },
+  "dataColumn": {
+    "openMenu": "Open Menu",
+    "edit": "Edit"
+  },
   "languages": {
     "english": "English",
     "french": "French",
