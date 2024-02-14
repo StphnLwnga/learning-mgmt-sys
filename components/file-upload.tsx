@@ -25,13 +25,7 @@ const FileUpload = ({ onChange, endpoint }: FileUploadProps): JSX.Element => {
 
   const { toast } = useToast();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   return (
     <UploadDropzone
@@ -47,7 +41,7 @@ const FileUpload = ({ onChange, endpoint }: FileUploadProps): JSX.Element => {
       }))}
       appearance={{
         label: {
-          color: isDarkTheme ? '#cbd5e1' : 'rgb(71 85 105)',
+          color: resolvedTheme === 'dark' ? '#cbd5e1' : 'rgb(71 85 105)',
         },
       }}
     />

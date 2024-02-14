@@ -23,13 +23,7 @@ const Categories = (): JSX.Element => {
 
   const { categories } = useCategoryData();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLeftZero, setIsLeftZero] = useState(true);
@@ -71,7 +65,7 @@ const Categories = (): JSX.Element => {
                 className={cn(
                   "h-6 w-6 text-slate-400",
                   isLoaded && "text-[#0268A3]",
-                  isLoaded && isDarkTheme && "text-sky-300/30",
+                  isLoaded && resolvedTheme === 'dark' && "text-sky-300/30",
                 )}
               />
             </Button>
@@ -91,7 +85,7 @@ const Categories = (): JSX.Element => {
                 key={category?.id}
                 icon={categoryIconMap[category?.name]}
                 item={category}
-                isDarkTheme={isDarkTheme}
+                isDarkTheme={resolvedTheme === 'dark'}
               />
             ))}
           </>
@@ -124,7 +118,7 @@ const Categories = (): JSX.Element => {
                 className={cn(
                   "h-6 w-6 text-slate-400",
                   isLoaded && "text-[#0268A3]",
-                  isLoaded && isDarkTheme && "text-sky-300/30",
+                  isLoaded && resolvedTheme === 'dark' && "text-sky-300/30",
                 )}
               />
             </Button>

@@ -45,13 +45,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -75,7 +69,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       toast({
         title: 'Success',
         description: "Resource successfully added!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -103,7 +97,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       toast({
         title: 'Attachment Deleted',
         description: "Attachment deleted successfully!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
@@ -127,7 +121,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Resources
@@ -136,7 +130,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
             size={isEditing ? "icon" : undefined}
             className={cn(
               isEditing && "rounded-full",
-              !isDarkTheme && "hover:bg-slate-400",
+              resolvedTheme !== 'dark' && "hover:bg-slate-400",
             )}
           >
             {!isEditing
@@ -149,14 +143,14 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
       {!isEditing && (
         <>
           {initialData.attachments.length === 0
-            ? (<p className={cn("text-sm mt-2 italic text-slate-500", isDarkTheme && "text-slate-400")}>
+            ? (<p className={cn("text-sm mt-2 italic text-slate-500", resolvedTheme === 'dark' && "text-slate-400")}>
               No attachments
             </p>)
             : (<Collapsible open={collapsibleOpen}>
               <CollapsibleTrigger className='w-full' onClick={() => setCollapsibleOpen(!collapsibleOpen)}>
                 <div className={cn(
                   "flex items-center justify-between space-x-4 pr-3 pl-0 w-full text-sm mt-2 text-slate-700 py-2",
-                  isDarkTheme && "text-slate-300"
+                  resolvedTheme === 'dark' && "text-slate-300"
                 )}>
                   {`${initialData.attachments.length} attachment${initialData.attachments.length > 1 ? 's' : ''}`}
                   <CaretSortIcon className="h-5 w-5" />
@@ -166,7 +160,7 @@ const AttachmentForm = ({ initialData, courseId, userId }: AttachmentFormProps):
                 {initialData.attachments.length > 0 && initialData.attachments.map(attachment => (
                   <div key={attachment.id} className={cn(
                     "flex items-center p-2 w-full text-sm bg-sky-100 border-sky-200 text-sky-700 rounded-md my-4",
-                    isDarkTheme && ""
+                    resolvedTheme === 'dark' && ""
                   )}
                   >
                     <File className="h-4 w-4 mr-2 flex-shrink-0" />

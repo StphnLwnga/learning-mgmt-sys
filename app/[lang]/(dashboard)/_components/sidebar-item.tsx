@@ -28,12 +28,7 @@ const SidebarItem = ({
 }: SidebarItemProps): JSX.Element => {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const isActive = (pathname === "/" && href === "/")
     || pathname === href
@@ -45,8 +40,8 @@ const SidebarItem = ({
     <button onClick={onClick} type="button" className={cn(
       "flex items-center gap-x-2 text-slate-600 text-sm font-[500] pl-6 transition-all hover:text-slate-700 hover:bg-slate-300/20",
       isActive && "text-sky-700 bg-sky-400/20 hover:bg-sky-200/20 hover:text-sky-700",
-      isDarkTheme && "hover:bg-slate-700/20 hover:text-slate-300 text-slate-300",
-      isActive && isDarkTheme && "bg-sky-300/30 hover:bg-sky-300/30"
+      resolvedTheme === 'dark' && "hover:bg-slate-700/20 hover:text-slate-300 text-slate-300",
+      isActive && resolvedTheme === 'dark' && "bg-sky-300/30 hover:bg-sky-300/30"
     )}>
       <div className="flex items-center gap-x-2 py-4">
         <Icon
@@ -54,7 +49,7 @@ const SidebarItem = ({
           className={cn(
             "text-slate-600",
             isActive && "text-sky-700",
-            isDarkTheme && "text-slate-200"
+            resolvedTheme === 'dark' && "text-slate-200"
           )}
         />
         {label}
@@ -62,7 +57,7 @@ const SidebarItem = ({
       <div className={
         cn(
           "ml-auto opacity-0 border-2 border-sky-700 h-[3.4rem] transition-all",
-          isDarkTheme && "border-slate-300",
+          resolvedTheme === 'dark' && "border-slate-300",
           isActive && "opacity-100"
         )} />
     </button>

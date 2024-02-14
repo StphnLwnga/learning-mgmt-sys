@@ -12,15 +12,9 @@ import { Input } from "@/components/ui/input";
 
 
 const SearchInput = (): JSX.Element => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const [value, setValue] = useState<undefined | string>();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const debouncedValue = useDebounce(value, 500);
 
@@ -47,7 +41,7 @@ const SearchInput = (): JSX.Element => {
       <Search
         className={cn(
           "h-4 w-4 absolute top-3 left-3",
-          !isDarkTheme && 'text-slate-600',
+          resolvedTheme !== 'dark' && 'text-slate-600',
         )}
       />
       <Input
@@ -56,7 +50,7 @@ const SearchInput = (): JSX.Element => {
         placeholder="Search course title..."
         className={cn(
           "w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200",
-          isDarkTheme && "bg-sky-300/30"
+          resolvedTheme === 'dark' && "bg-sky-300/30"
         )}
       />
     </div>

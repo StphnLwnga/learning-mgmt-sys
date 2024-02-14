@@ -25,14 +25,6 @@ const colorByVariant = {
 }
 
 const CourseProgress = ({ size, value, variant, color }: CourseProgressProps) => {
-  // const { theme } = useTheme();
-
-  // const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  // useEffect(() => {
-  //   setIsDarkTheme(theme === "dark" ?? false);
-  // }, [theme]);
-
   return (
     <div className="">
       {/* <Progress value={value} variant={variant} className="h-2" /> */}
@@ -57,7 +49,6 @@ const CourseProgress = ({ size, value, variant, color }: CourseProgressProps) =>
           "font-medium mt-2 text-sky-700",
           sizeByVariant[size || "default"],
           colorByVariant[variant || "default"],
-          // isDarkTheme && "text-emerald-500",
         )}
       >
         {Math.round(value)}% Complete

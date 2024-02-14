@@ -21,13 +21,7 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
   const pathname = usePathname();
   const router = useRouter();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const Icon = isLocked ? Lock : (isCompleted ? Check : PlayCircle);
 
@@ -41,10 +35,10 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
       className={cn(
         "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/30",
         isActive && "text-slate-700 bg-slate-200/20 hover:text-slate-700 hover:bg-slate-200/20",
-        isDarkTheme && "text-slate-500 hover:bg-slate-700/20 hover:text-slate-400",
+        resolvedTheme === 'dark' && "text-slate-500 hover:bg-slate-700/20 hover:text-slate-400",
         isCompleted && "text-emerald-500 hover:text-emerald:700",
         isActive && isCompleted && "bg-emerald-200/20",
-        isActive && isDarkTheme && "text-slate-200 hover:text-slate-300 bg-sky-300/30 hover:bg-sky-300/30",
+        isActive && resolvedTheme === 'dark' && "text-slate-200 hover:text-slate-300 bg-sky-300/30 hover:bg-sky-300/30",
       )}
     >
       <div className="flex items-center gap-x-2 py-4">
@@ -52,9 +46,9 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
           className={cn(
             "text-slate-500",
             isActive && "text-slate-700",
-            isDarkTheme && "text-slate-400 hover:bg-slate-700/20 hover:text-slate-300",
+            resolvedTheme === 'dark' && "text-slate-400 hover:bg-slate-700/20 hover:text-slate-300",
             isCompleted && "text-emerald-700",
-            isActive && isDarkTheme && "text-slate-200 hover:text-slate-100 ",
+            isActive && resolvedTheme === 'dark' && "text-slate-200 hover:text-slate-100 ",
           )}
         />
         {label}
@@ -63,7 +57,7 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
         className={cn(
           "ml-auto opacity-0 border-2 border-slate-700 h-full transition-all",
           isActive && "opacity-100",
-          isActive && isDarkTheme && "border-slate-200",
+          isActive && resolvedTheme === 'dark' && "border-slate-200",
           isCompleted && "border-emerald-700",
         )}
       />

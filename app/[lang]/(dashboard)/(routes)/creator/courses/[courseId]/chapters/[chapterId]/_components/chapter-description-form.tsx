@@ -41,14 +41,9 @@ const formSchema = z.object({
 const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFormProps): JSX.Element => {
   const router = useRouter();
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const toggleEdit = () => setIsEditing(current => !current);
 
@@ -80,7 +75,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
       toast({
         title: 'Success',
         description: "Course description successfully updated!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -98,7 +93,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Chapter Description
@@ -108,7 +103,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
           disabled={isSubmitting}
           aria-label={isEditing ? "Cancel" : "Edit"}
           className={cn(
-            !isDarkTheme && "hover:bg-slate-300",
+            resolvedTheme !== 'dark' && "hover:bg-slate-300",
             isEditing && "rounded-full",
           )}
         >
@@ -124,7 +119,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
         <p className={cn(
           "text-sm mt-2",
           !initialData.description && "text-slate-500 italic",
-          !initialData.description && isDarkTheme && "text-slate-400",
+          !initialData.description && resolvedTheme === 'dark' && "text-slate-400",
         )}>
           {initialData?.description
             ? (<Preview value={initialData?.description} />)
@@ -154,7 +149,7 @@ const ChapterDescriptionForm = ({ initialData, courseId }: ChapterDescriptionFor
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                    resolvedTheme === 'dark' && "text-slate-900 hover:text-slate-200 bg-slate-100"
                   )}>
                   Save
                   <Save className='h-4 w-4 ml-2' />

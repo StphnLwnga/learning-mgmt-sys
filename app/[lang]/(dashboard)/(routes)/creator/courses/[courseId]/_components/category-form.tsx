@@ -30,13 +30,7 @@ const formSchema = z.object({
 const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormProps): JSX.Element => {
   const router = useRouter();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const isEditAuthorized = userId === initialData?.userId;
 
@@ -71,7 +65,7 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
       toast({
         title: 'Success',
         description: "Course category successfully updated!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -91,7 +85,7 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Course Category
@@ -114,7 +108,7 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
         <p className={cn(
           "text-sm mt-2",
           !initialData.categoryId && "text-slate-500 italic",
-          !initialData.categoryId && isDarkTheme && "text-slate-400",
+          !initialData.categoryId && resolvedTheme === 'dark' && "text-slate-400",
         )}>
           {selectedOption?.label || "Uncategorized"}
         </p>
@@ -141,7 +135,7 @@ const CategoryForm = ({ initialData, courseId, userId, options }: CategoryFormPr
                 : (<Button disabled={!isValid || isSubmitting} type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                    resolvedTheme === 'dark' && "text-slate-900 hover:text-slate-200 bg-slate-100"
                   )}
                 >
                   Save

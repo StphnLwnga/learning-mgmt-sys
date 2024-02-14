@@ -43,14 +43,9 @@ const formSchema = z.object({
 const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFormProps): JSX.Element => {
   const router = useRouter();
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const toggleEdit = () => setIsEditing(current => !current);
 
@@ -82,7 +77,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
       toast({
         title: 'Success',
         description: "Chapter access settings succeeesfully updated!",
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -100,7 +95,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Chapter Access
@@ -110,7 +105,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
           disabled={isSubmitting}
           aria-label={isEditing ? "Cancel" : "Edit"}
           className={cn(
-            !isDarkTheme && "hover:bg-slate-300",
+            resolvedTheme !== 'dark' && "hover:bg-slate-300",
             isEditing && "rounded-full",
           )}
         >
@@ -125,7 +120,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
       </div>
       {!isEditing &&
         (initialData.isFree
-          ? (<Badge className={cn(isDarkTheme && "bg-[#020817] text-slate-100 hover:bg-[#020817]",)}>
+          ? (<Badge className={cn(resolvedTheme === 'dark' && "bg-[#020817] text-slate-100 hover:bg-[#020817]",)}>
             Free
           </Badge>)
           : (<p className="text-sm mt-2 italic">This chapter is not free</p>)
@@ -143,7 +138,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
               render={({ field }) => (
                 <FormItem className={cn(
                   "flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4",
-                  isDarkTheme && 'border-slate-200 border-opacity-50',
+                  resolvedTheme === 'dark' && 'border-slate-200 border-opacity-50',
                 )}>
                   <FormControl>
                     <Checkbox
@@ -151,7 +146,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
                       onCheckedChange={field.onChange}
                       className={cn(
                         "data-[state=checked]:bg-sky-700 border border-sky-700",
-                        isDarkTheme && "data-[state=checked]:bg-slate-200 border border-slate-200",
+                        resolvedTheme === 'dark' && "data-[state=checked]:bg-slate-200 border border-slate-200",
                       )}
                     />
                   </FormControl>
@@ -171,7 +166,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterAccessFo
                   type="submit"
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                    resolvedTheme === 'dark' && "text-slate-900 hover:text-slate-200 bg-slate-100"
                   )}
                 >
                   Save

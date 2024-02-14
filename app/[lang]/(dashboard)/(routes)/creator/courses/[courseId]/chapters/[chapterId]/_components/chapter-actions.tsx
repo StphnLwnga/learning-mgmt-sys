@@ -35,14 +35,9 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
 
   const { toast } = useToast();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const { resolvedTheme } = useTheme();
+  
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const { isPublished, id: chapterId, } = initialData;
 
@@ -60,7 +55,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
       toast({
         title: 'Success',
         description: isPublished ? "Chapter successfully unpublished!" : "Chapter successfully published!",
-        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
     } catch (error) {
@@ -88,7 +83,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
       toast({
         title: 'Success',
         description: "Chapter successfully deleted!",
-        className: `${isDarkTheme && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
       router.push(`/creator/courses/${courseId}`);

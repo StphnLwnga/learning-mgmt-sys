@@ -22,13 +22,7 @@ interface TooltipComponentProps {
 * @return {JSX.Element} The rendered tooltip component.
 */
 const TooltipComponent = ({ tooltipTrigger, tooltipContent }: TooltipComponentProps): JSX.Element => {
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   return (
     <TooltipProvider>
@@ -36,7 +30,7 @@ const TooltipComponent = ({ tooltipTrigger, tooltipContent }: TooltipComponentPr
         <TooltipTrigger>{tooltipTrigger}</TooltipTrigger>
         <TooltipContent className={cn(
           "bg-sky-300/30 text-sky-700 text-sm z-5000",
-          isDarkTheme && "bg-sky-300/30 text-slate-200"
+          resolvedTheme === 'dark' && "bg-sky-300/30 text-slate-200"
         )}>
           {tooltipContent}
         </TooltipContent>

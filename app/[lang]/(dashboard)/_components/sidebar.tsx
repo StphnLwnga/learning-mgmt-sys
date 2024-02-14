@@ -12,19 +12,14 @@ import { Separator } from "@/components/ui/separator";
  * @return {JSX.Element} The rendered Sidebar component.
  */
 const Sidebar = (): JSX.Element => {
-  const { theme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark");
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   return (
     <div
       className={`h-full border-r flex flex-col overflow-y-auto shadow-sm bg-transparent`}
     >
       <div className="-p-1 flex flex-col">
-        <Logo isDarkTheme={isDarkTheme} />
+        <Logo isDarkTheme={resolvedTheme === 'dark'} />
       </div>
       <div className="flex flex-col w-full justify-center items-center">
         <Separator className="w-[88%] -top-5" />

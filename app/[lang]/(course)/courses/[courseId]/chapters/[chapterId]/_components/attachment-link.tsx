@@ -15,12 +15,7 @@ interface AttachmentLinkProps {
 }
 
 const AttachmentLink = ({ attachment: { id, name, url } }: AttachmentLinkProps) => {
-  const { theme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   return (
     <a key={id}
@@ -28,8 +23,8 @@ const AttachmentLink = ({ attachment: { id, name, url } }: AttachmentLinkProps) 
       target="_blank"
       className={cn(
         "flex items-center p-3 w-full border rounded-md hover:underline text-sky-700",
-        isDarkTheme && "text-sky-300/20",
-        !isDarkTheme ? "bg-sky-200" : "",
+        resolvedTheme === 'dark' && "text-sky-300/20",
+        resolvedTheme !== 'dark' ? "bg-sky-200" : "",
       )}
     >
       <File />

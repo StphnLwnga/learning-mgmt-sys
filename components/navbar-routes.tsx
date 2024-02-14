@@ -23,13 +23,7 @@ const NavbarRoutes = (): JSX.Element => {
 
   const router = useRouter();
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const [isInstructorMode, setIsInstructorMode] = useState(false);
   const [navFromSwitch, setNavFromSwitch] = useState(false);
@@ -69,10 +63,10 @@ const NavbarRoutes = (): JSX.Element => {
             <Switch
               checked={isInstructorMode} id="instructor-mode"
               onCheckedChange={handleInstructorSwitch}
-              className={cn("data-[state=checked]:bg-sky-700", isDarkTheme && "data-[state=checked]:bg-sky-300/30")}
+              className={cn("data-[state=checked]:bg-sky-700", resolvedTheme === 'dark' && "data-[state=checked]:bg-sky-300/30")}
             />
             <Label htmlFor="instructor-mode"
-              className={cn("text-slate-600 hover:text-slate-700", isDarkTheme && "text-slate-200 hover:text-slate-300")}
+              className={cn("text-slate-600 hover:text-slate-700", resolvedTheme === 'dark' && "text-slate-200 hover:text-slate-300")}
             >
               Instructor Mode
             </Label>

@@ -35,14 +35,9 @@ const Settings = () => {
   const { signOut } = useClerk();
   const router = useRouter();
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("English");
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   return (
     <TooltipComponent
@@ -66,7 +61,7 @@ const Settings = () => {
                       <DropdownMenuSub key={`sub-${i}`}>
                         <DropdownMenuSubTrigger className="hover:cursor-pointer gap-x-1">
                           {item.icon && (
-                            <IconBadge icon={item.icon} variant={isDarkTheme ? "ghostDark" : "ghostLight"} />
+                            <IconBadge icon={item.icon} variant={resolvedTheme === 'dark' ? "ghostDark" : "ghostLight"} />
                           )}
                           {item.name}
                         </DropdownMenuSubTrigger>
@@ -95,7 +90,7 @@ const Settings = () => {
                           onClick={() => item.name === "Logout" && signOut(() => router.push("/"))}
                         >
                           {item.icon && (
-                            <IconBadge icon={item.icon} variant={isDarkTheme ? "ghostDark" : "ghostLight"} />
+                            <IconBadge icon={item.icon} variant={resolvedTheme === 'dark' ? "ghostDark" : "ghostLight"} />
                           )}
                           {item.name}
                         </DropdownMenuItem>

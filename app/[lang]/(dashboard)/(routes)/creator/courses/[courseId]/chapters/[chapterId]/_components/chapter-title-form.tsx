@@ -40,13 +40,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
+  const { resolvedTheme } = useTheme();
 
   const toggleEdit = () => setIsEditing(current => !current);
 
@@ -78,7 +72,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
       toast({
         title: 'Success',
         description: `Chapter: ${title} successfully updated!`,
-        className: `${isDarkTheme ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
+        className: `${resolvedTheme === 'dark' ? 'bg-emerald-500' : 'bg-emerald-500 text-slate-100'} border-0 border-slate-200`,
       });
       toggleEdit();
       router.refresh();
@@ -96,7 +90,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
   return (
     <div className={cn(
       "mt-6 border bg-slate-100 rounded-md p-4",
-      isDarkTheme && "bg-sky-300/30"
+      resolvedTheme === 'dark' && "bg-sky-300/30"
     )}>
       <div className="font-medium flex items-center justify-between">
         Chapter Title
@@ -105,7 +99,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
           onClick={toggleEdit}
           size={isEditing ? "icon" : undefined}
           className={cn(
-            !isDarkTheme && "hover:bg-slate-300",
+            resolvedTheme !== 'dark' && "hover:bg-slate-300",
             isEditing && "rounded-full",
           )}
         >
@@ -147,7 +141,7 @@ const ChapterTitleForm = ({ initialData, courseId }: ChapterTitleFormProps): JSX
                 : (<Button type="submit" disabled={isSubmitted && !isValid}
                   className={cn(
                     "text-slate-600 hover:text-slate-700 bg-sky-400/20 hover:bg-sky-500/20",
-                    isDarkTheme && "text-slate-900 hover:text-slate-200 bg-slate-100"
+                    resolvedTheme === 'dark' && "text-slate-900 hover:text-slate-200 bg-slate-100"
                   )}
                 >
                   Save

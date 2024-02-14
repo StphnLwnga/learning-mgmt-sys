@@ -34,14 +34,6 @@ const iconMap = {
 const Banner = ({ label, variant }: BannerProps) => {
   const Icon = iconMap[variant || "warning"];
 
-  const { theme } = useTheme();
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
-
   return (
     <div className={cn(bannerVariants({ variant }))}>
       <Icon className="h-4 w-4 mr-2 text-white" />

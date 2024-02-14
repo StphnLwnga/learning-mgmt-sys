@@ -20,20 +20,14 @@ interface EditorProps {
  * @returns {JSX.Element} The rendered editor component.
  */
 export const Editor = ({ onChange, value }: EditorProps): JSX.Element => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const ReactQuill = useMemo(() => dynamic(() => import("react-quill"), { ssr: false }), []);
-
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   return (
     <div className={cn(
       "bg-white h-15 rounded",
-      isDarkTheme && "bg-[#020817] text-slate-300",
+      resolvedTheme === 'dark' && "bg-[#020817] text-slate-300",
     )}>
       <ReactQuill
         theme="snow"

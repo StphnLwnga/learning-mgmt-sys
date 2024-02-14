@@ -30,16 +30,12 @@ const VideoPlayer = ({
 
   const { toast } = useToast();
   
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const confetti = useConfettiStore();
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
-    setIsDarkTheme(theme === "dark" ?? false);
-  }, [theme]);
 
   const onEnd = async () => {
     try {
@@ -75,7 +71,7 @@ const VideoPlayer = ({
           <Loader2 
             className={cn(
               "w-8 h-8 animate-spin text-secondary",
-              isDarkTheme && "text-slate-300",
+              resolvedTheme === 'dark' && "text-slate-300",
             )}
            />
         </div>
@@ -83,7 +79,7 @@ const VideoPlayer = ({
       {isLocked && (
         <div className={cn(
           "flex flex-col gap-y-2 items-center justify-center absolute inset-0 bg-slate-800 rounded text-secondary",
-          isDarkTheme && "text-slate-300",
+          resolvedTheme === 'dark' && "text-slate-300",
         )}>
           <Lock className="h-8 w-8" />
           <p className="text-sm">Chapter locked.</p>
