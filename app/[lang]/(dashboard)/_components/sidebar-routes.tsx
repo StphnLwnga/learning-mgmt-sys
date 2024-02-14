@@ -36,6 +36,7 @@ const SidebarRoutes = ({ lang, dict }: { lang: Locale, dict: Record<string, any>
           label={route.label}
           href={route.href}
           icon={route.icon}
+          lang={lang}
         />
       ))}
     </div>

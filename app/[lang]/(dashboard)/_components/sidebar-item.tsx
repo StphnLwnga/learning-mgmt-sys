@@ -1,5 +1,6 @@
 "use client"
 
+import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -10,6 +11,7 @@ interface SidebarItemProps {
   icon: LucideIcon;
   label: string;
   href: string;
+  lang: Locale;
 }
 
 /**
@@ -24,13 +26,14 @@ interface SidebarItemProps {
 const SidebarItem = ({
   icon: Icon,
   label,
-  href
+  href,
+  lang,
 }: SidebarItemProps): JSX.Element => {
   const pathname = usePathname();
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
-  const isActive = (pathname === "/" && href === "/")
+  const isActive = (pathname === `/${lang}` && href === `/${lang}`)
     || pathname === href
     || pathname?.startsWith(`${href}/`);
 
