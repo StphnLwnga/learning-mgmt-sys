@@ -10,15 +10,18 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/format";
+import { Locale } from "@/i18n";
+import ColumnCell from "./column-cell";
 
 // interface CourseCols extends Omit<Course, 'isPublished'> {
 //   isPublished: string;
 // }
 
-export const columns: ColumnDef<Course>[] = [
+export const columns: ColumnDef<Course>[] = ([
   {
     accessorKey: "title",
     header: ({ column }) => {
+
       return (
         <Button
           variant="ghost"
@@ -94,6 +97,7 @@ export const columns: ColumnDef<Course>[] = [
       const { id } = row.original;
 
       return (
+        // <ColumnCell id={id} lang={lang} t={t} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-4 w-8 p-0">
@@ -102,7 +106,7 @@ export const columns: ColumnDef<Course>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/creator/courses/${id}`}>
+            <Link href={`en/creator/courses/${id}`}>
               <DropdownMenuItem className="justify-center hover:cursor-pointer">
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
@@ -113,4 +117,4 @@ export const columns: ColumnDef<Course>[] = [
       );
     }
   }
-];
+]);
