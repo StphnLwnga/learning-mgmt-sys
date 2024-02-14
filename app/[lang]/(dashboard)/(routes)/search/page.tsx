@@ -6,6 +6,7 @@ import SearchInput from "@/components/search-input";
 import CoursesList from "@/components/courses-list";
 
 import Categories from "./_components/categories";
+import { Locale } from "@/i18n";
 
 
 interface SearchPageProps {
@@ -13,13 +14,21 @@ interface SearchPageProps {
     title: string;
     categoryId: string;
   }
-};
+}
 
-const SearchPage = async ({ searchParams }: SearchPageProps): Promise<JSX.Element> => {
+interface SearchPagePropsWithLang extends SearchPageProps {
+  params: {
+    lang: Locale;
+  }
+}
+
+const SearchPage = async ({ searchParams, params }: SearchPagePropsWithLang): Promise<JSX.Element> => {
   const { userId } = auth();
   if (!userId) return redirect("/");
 
   const courses: CoursesWithProgressWithCategory[] | [] = await getCourses({ userId, ...searchParams });
+
+  const { lang } = params;
 
   return (
     <>

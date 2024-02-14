@@ -9,10 +9,12 @@ import InfoCard from "./_components/infocard";
 import { CheckCircle, Clock } from "lucide-react";
 
 export default async function Dashboard({ params }: { params: { lang: Locale } }): Promise<JSX.Element> {
-  const { userId } = auth();
-  if (!userId) return redirect('/');
+  const {lang} = params;
 
-  const dicProps = await getDictionary(params.lang); // usage: {dicProps.<prop1>.<prop2>}
+  const { userId } = auth();
+  if (!userId) return redirect(`/${lang}`);
+
+  const t = await getDictionary(lang);
 
   const { completedCourses, coursesInProgress } = await getDashboardCourses(userId);
 
@@ -21,12 +23,12 @@ export default async function Dashboard({ params }: { params: { lang: Locale } }
       <div className="grid grid-cols sm:grid-cols-2 gap-4">
         <InfoCard
           icon={Clock}
-          label="In Progress"
+          label={t.infocard.inProgress}
           numebrOfItems={coursesInProgress.length}
         />
         <InfoCard
           icon={CheckCircle}
-          label="Completed"
+          label={t.infocard.completed}
           numebrOfItems={completedCourses.length}
           variant="success"
         />

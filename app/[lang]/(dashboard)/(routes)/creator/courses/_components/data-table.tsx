@@ -29,18 +29,26 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input"
 import TooltipComponent from "@/components/tooltip-component";
+import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
+import { useCoursesData } from "@/lib/hooks";
+import { useTheme } from "next-themes";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  isDarkTheme: boolean;
+  lang?: Locale;
+  t: any;
 }
 
 export function DataTable<TData, TValue>({
-  columns,
-  data,
-  isDarkTheme
+  columns, lang, t,
 }: DataTableProps<TData, TValue>) {
+  const { courses } = useCoursesData();
+
+  const { resolvedTheme } = useTheme();
+
+  const data = React.useMemo(() => courses as TData[], [courses]);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
@@ -63,24 +71,24 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4 justify-between">
         <Input
-          placeholder="Filter titles..."
+          placeholder={t.course.filterTitles}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={e => table.getColumn("title")?.setFilterValue(e.target.value)}
+          onChange={(e: { target: { value: any; }; }) => table.getColumn("title")?.setFilterValue(e.target.value)}
           className="max-w-sm focus-visible:ring-slate-200"
         />
         <TooltipComponent
           tooltipTrigger={
-            <Link href={`/creator/create`}>
+            <Link href={`${lang || "en"}/creator/create`}>
               <Button
                 variant="ghost"
-                className={cn("p-3", !isDarkTheme && "text-muted-foreground")}
+                className={cn("p-3", resolvedTheme !== 'dark' && "text-muted-foreground")}
               >
-                Add a course
+                {t.course.addCourse}
                 <PlusCircle className="ml-2 h-6 w-5" />
               </Button>
             </Link>
           }
-          tooltipContent="Create a course"
+          tooltipContent={t?.courseTooltips?.createCourse}
         />
 
       </div>
@@ -122,7 +130,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
                   <Skeleton className="h-24 text-center flex items-center justify-center" >
-                    No Results.
+                    {t.course.noResults}
                   </Skeleton>
                 </TableCell>
               </TableRow>
@@ -137,7 +145,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          {t.course.previous}
         </Button>
         <Button
           variant="outline"
@@ -145,7 +153,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          {t.course.next}
         </Button>
       </div>
     </div>
