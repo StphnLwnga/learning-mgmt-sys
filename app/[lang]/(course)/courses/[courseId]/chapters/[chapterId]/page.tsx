@@ -13,19 +13,20 @@ import VideoPlayer from "./_components/video-player";
 import CourseEnrollButton from "./_components/course-enroll-button";
 import CourseProgressButton from "./_components/course-progress-button";
 import AttachmentLink from "./_components/attachment-link";
+import { Locale } from "@/i18n";
 
 
-const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId: string } }): Promise<JSX.Element> => {
-  const { courseId, chapterId } = params;
+const ChapterIdPage = async ({ params }: { params: { courseId: string, chapterId: string, lang: Locale } }): Promise<JSX.Element> => {
+  const { courseId, chapterId, lang } = params;
 
   const { userId } = auth();
-  if (!userId) return redirect("/");
+  if (!userId) return redirect(`/${lang}`);
 
   const {
     chapter, course, muxData, attachments, nextChapter, userProgress, purchase,
   } = await getChapter({ userId, courseId, chapterId });
 
-  if (!chapter || !course) return redirect("/");
+  if (!chapter || !course) return redirect(`/${lang}`);
 
   const isLocked = !chapter.isFree && !purchase;
 

@@ -8,6 +8,7 @@ import { Check, ChevronRight, Lock, PlayCircle } from "lucide-react";
 import { FaCircleRight } from "react-icons/fa6";
 
 import { cn } from "@/lib/utils";
+import { Locale } from "@/i18n";
 
 interface CourseSidebarItemProps {
   id: string;
@@ -15,9 +16,10 @@ interface CourseSidebarItemProps {
   courseId: string;
   isCompleted: boolean;
   isLocked: boolean;
+  lang: Locale;
 }
 
-const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: CourseSidebarItemProps): JSX.Element => {
+const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked, lang }: CourseSidebarItemProps): JSX.Element => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -27,7 +29,7 @@ const CourseSidebarItem = ({ id, label, courseId, isCompleted, isLocked }: Cours
 
   const isActive = pathname?.includes(id);
 
-  const onClick = (): void => router.push(`/courses/${courseId}/chapters/${id}`);
+  const onClick = (): void => router.push(`/${lang}/courses/${courseId}/chapters/${id}`);
 
   return (
     <button type="button"
