@@ -37,7 +37,7 @@ const SearchPage = async ({ searchParams, params }: SearchPagePropsWithLang): Pr
       </div>
       <div className="p-6 space-y-4">
         <Categories />
-        <CoursesList items={courses} />
+        <CoursesList items={courses} lang={lang} />
       </div>
     </>
   );

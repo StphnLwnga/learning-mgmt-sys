@@ -7,12 +7,14 @@ import { CoursesWithProgressWithCategory } from "@/actions/get-courses";
 
 import CourseCard from "./course-card";
 import { CoursesListSkeleton } from "./skeletons";
+import { Locale } from "@/i18n";
 
 interface CoursesListProps {
   items: CoursesWithProgressWithCategory[];
+  lang: Locale;
 }
 
-const CoursesList = ({ items }: CoursesListProps): JSX.Element => {
+const CoursesList = ({ items, lang }: CoursesListProps): JSX.Element => {
   return (
     <div className="">
       {items.length > 0
@@ -27,6 +29,7 @@ const CoursesList = ({ items }: CoursesListProps): JSX.Element => {
                 price={course.price!}
                 progress={course.progress}
                 category={course?.category?.name!}
+                lang={lang}
               />
             ))}
           </div>
