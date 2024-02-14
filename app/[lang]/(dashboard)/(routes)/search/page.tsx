@@ -7,6 +7,7 @@ import CoursesList from "@/components/courses-list";
 
 import Categories from "./_components/categories";
 import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
 
 
 interface SearchPageProps {
@@ -23,21 +24,23 @@ interface SearchPagePropsWithLang extends SearchPageProps {
 }
 
 const SearchPage = async ({ searchParams, params }: SearchPagePropsWithLang): Promise<JSX.Element> => {
+  const { lang } = params;
+  
   const { userId } = auth();
-  if (!userId) return redirect("/");
+  if (!userId) return redirect(`/${lang}`);
+
+  const t = await getDictionary(lang);
 
   const courses: CoursesWithProgressWithCategory[] | [] = await getCourses({ userId, ...searchParams });
-
-  const { lang } = params;
 
   return (
     <>
       <div className="px-6 pt-6 md:hidden md:mb-0 block">
-        <SearchInput />
+        <SearchInput t={t} />
       </div>
       <div className="p-6 space-y-4">
         <Categories />
-        <CoursesList items={courses} lang={lang} />
+        <CoursesList items={courses} lang={lang} t={t} />
       </div>
     </>
   );

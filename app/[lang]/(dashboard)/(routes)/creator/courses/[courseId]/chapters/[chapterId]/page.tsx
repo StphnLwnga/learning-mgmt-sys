@@ -35,13 +35,13 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
   const { chapterId, courseId, lang } = params;
 
   const { userId } = auth();
-  if (!userId) return redirect(`${lang}/`);
+  if (!userId) return redirect(`/${lang}`);
 
   const chapter = await db.chapter.findUnique({
     where: { id: chapterId, courseId, },
     include: { muxData: true, },
   });
-  if (!chapter) return redirect('/');
+  if (!chapter) return redirect(`/${lang}`);
 
   const requiredFields = [
     chapter.title, chapter.description, chapter.videoUrl,
@@ -67,7 +67,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps): Promise<JSX.Elemen
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`${lang}/creator/courses/${courseId}`}
+              href={`/${lang}/creator/courses/${courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />

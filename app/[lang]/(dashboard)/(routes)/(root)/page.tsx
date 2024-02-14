@@ -34,6 +34,7 @@ export default async function Dashboard({ params }: { params: { lang: Locale } }
         />
       </div>
       <CoursesList
+        t={t}
         lang={lang}
         items={[...coursesInProgress, ...completedCourses]}
       />

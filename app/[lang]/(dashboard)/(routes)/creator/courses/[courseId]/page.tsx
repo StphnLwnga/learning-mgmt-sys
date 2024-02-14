@@ -9,6 +9,8 @@ import Banner from "@/components/banner";
 import {
   Actions, AttachmentForm, CategoryForm, DescriptionForm, ImageForm, PriceForm, TitleForm, ChaptersForm,
 } from './_components';
+import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
 
 /**
  * Renders the CourseIdPage component.
@@ -17,12 +19,11 @@ import {
  * @param {string} params.courseId - The ID of the course.
  * @return {Promise<JSX.Element>} The JSX Element representing the CourseIdPage component.
  */
-const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promise<JSX.Element> => {
+const CourseIdPage = async ({ params }: { params: { lang: Locale, courseId: string } }): Promise<JSX.Element> => {
+  const { courseId, lang } = params;
+  
   const { userId } = auth();
-
-  if (!userId) return redirect('/');
-
-  const { courseId } = params;
+  if (!userId) return redirect(`/${lang}`)
 
   const course = await db.course.findUnique({
     where: { id: courseId, userId },
@@ -33,7 +34,9 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
     },
   });
 
-  if (!course) return redirect('/');
+  if (!course) return redirect(`/${lang}`)
+
+  const t = await getDictionary(lang);
 
   const categories = await db.category.findMany({
     orderBy: { name: 'asc', },
@@ -67,14 +70,14 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-2xl font-mediu">
-              Course Setup
+              {t.course.courseId.setup}
             </h1>
             <span className={cn(
               "text-sm",
               completedFields === totalField ? "opacity-100" : "opacity-50",
 
             )}>
-              Complete all fields {completionText}
+              {t.course.courseId.completeFields} {completionText}
             </span>
           </div>
           <Actions initialData={course} courseId={courseId} disabled={!isCourseComplete} />
@@ -84,7 +87,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
               <h2 className="text-xl">
-                Customize your course
+                {t.course.courseId.customize}
               </h2>
             </div>
             <TitleForm initialData={course} courseId={course.id} userId={userId} />
@@ -102,7 +105,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={ListChecks} />
                 <h2 className="text-xl">
-                  Course Chapters
+                  {t.course.courseId.chapters}
                 </h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} userId={userId} />
@@ -111,7 +114,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={CircleDollarSign} />
                 <h2 className="text-xl">
-                  Sell your course
+                  {t.course.courseId.sell}
                 </h2>
               </div>
               <PriceForm initialData={course} courseId={course.id} userId={userId} />
@@ -120,7 +123,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }): Promi
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={File} />
                 <h2 className="text-xl">
-                  Resources & Attachments
+                {t.course.courseId.resources}
                 </h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} userId={userId} />
