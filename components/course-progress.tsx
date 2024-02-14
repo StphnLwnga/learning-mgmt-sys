@@ -12,6 +12,7 @@ interface CourseProgressProps {
   value: number;
   variant?: "default" | "success";
   color?: "primary" | "success";
+  t: Record<string, any>;
 }
 
 const sizeByVariant = {
@@ -24,7 +25,7 @@ const colorByVariant = {
   success: "text-emerald-600",
 }
 
-const CourseProgress = ({ size, value, variant, color }: CourseProgressProps) => {
+const CourseProgress = ({ size, value, variant, color, t }: CourseProgressProps) => {
   return (
     <div className="">
       {/* <Progress value={value} variant={variant} className="h-2" /> */}
@@ -51,7 +52,7 @@ const CourseProgress = ({ size, value, variant, color }: CourseProgressProps) =>
           colorByVariant[variant || "default"],
         )}
       >
-        {Math.round(value)}% Complete
+        {Math.round(value)}% {t.course.complete}
       </p>
     </div>
   );

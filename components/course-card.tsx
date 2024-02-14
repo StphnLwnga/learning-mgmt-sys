@@ -18,14 +18,15 @@ interface CourseCardProps {
   progress: number | null;
   category: string;
   lang: Locale;
+  t: Record<string, any>;
 }
 
 const CourseCard: React.FC<CourseCardProps> = (
-  { id, title, imageUrl, chaptersLength, price, progress, category, lang }: CourseCardProps
+  { id, title, imageUrl, chaptersLength, price, progress, category, lang, t }: CourseCardProps
 ) => {
 
   return (
-    <Link href={`${lang}/courses/${id}`}>
+    <Link href={`/${lang}/courses/${id}`}>
       <div className="group hover:shadow-sm transition overflow:hidden border rounded-lg p-3 h-full">
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
           <Image
@@ -55,6 +56,7 @@ const CourseCard: React.FC<CourseCardProps> = (
           {progress !== null
             ? (
               <CourseProgress
+                t={t}
                 size="sm"
                 value={progress}
                 variant={progress === 100 ? "success" : "default"}

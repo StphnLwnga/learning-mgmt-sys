@@ -11,7 +11,7 @@ import { useDebounce } from "@/lib/hooks";
 import { Input } from "@/components/ui/input";
 
 
-const SearchInput = (): JSX.Element => {
+const SearchInput = ({t}: {t: Record<string, any>}): JSX.Element => {
   const { resolvedTheme } = useTheme();
 
   const [value, setValue] = useState<undefined | string>();
@@ -47,7 +47,7 @@ const SearchInput = (): JSX.Element => {
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search course title..."
+        placeholder={t.searchInput.placeholder}
         className={cn(
           "w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200",
           resolvedTheme === 'dark' && "bg-sky-300/30"

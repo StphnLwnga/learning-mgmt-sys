@@ -20,24 +20,28 @@ import {
   DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import IconBadge from "@/components/icon-badge";
+import { Locale } from "@/i18n";
 
+interface SettingsProps {
+  lang: Locale;
+  t: Record<string, any>;
+}
 
-const menuItems: { name?: string; icon?: IconType, }[] = [
-  { name: "Language", icon: FaLanguage },
-  { name: "Logout", icon: IoMdLogOut },
-];
-
-const languages: string[] = [
-  "English", "French", "Swahili"
-];
-
-const Settings = () => {
+const Settings = ({ lang, t }: SettingsProps) => {
   const { signOut } = useClerk();
+
   const router = useRouter();
 
   const { resolvedTheme } = useTheme();
 
-  const [currentLanguage, setCurrentLanguage] = useState("English");
+  const languages: string[] = [t.languages.english, t.languages.french, t.languages.swahili];
+
+  const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
+
+  const menuItems: { name?: string; icon?: IconType, }[] = [
+    { name: t.navbar.language, icon: FaLanguage },
+    { name: t.navbar.logout, icon: IoMdLogOut },
+  ]
 
   return (
     <TooltipComponent
@@ -56,7 +60,7 @@ const Settings = () => {
             <DropdownMenuGroup>
               {menuItems.map((item, i) => {
                 switch (true) {
-                  case item.name === "Language":
+                  case item.name === t.navbar.language:
                     return (
                       <DropdownMenuSub key={`sub-${i}`}>
                         <DropdownMenuSubTrigger className="hover:cursor-pointer gap-x-1">
@@ -68,9 +72,9 @@ const Settings = () => {
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent>
                             <DropdownMenuRadioGroup value={currentLanguage} onValueChange={setCurrentLanguage}>
-                              {languages.map((lang, i) => (
-                                <DropdownMenuRadioItem value={lang} key={`sub-lang-${i}`}>
-                                  {lang}
+                              {languages.map((language, i) => (
+                                <DropdownMenuRadioItem value={language} key={`sub-lang-${i}`}>
+                                  {language}
                                 </DropdownMenuRadioItem>
                               ))}
                             </DropdownMenuRadioGroup>
@@ -87,7 +91,7 @@ const Settings = () => {
                         <DropdownMenuItem
                           key={`sub-${i}`}
                           className="hover:cursor-pointer gap-x-1"
-                          onClick={() => item.name === "Logout" && signOut(() => router.push("/"))}
+                          onClick={() => item.name === t.navbar.logout && signOut(() => router.push(`/${lang}`))}
                         >
                           {item.icon && (
                             <IconBadge icon={item.icon} variant={resolvedTheme === 'dark' ? "ghostDark" : "ghostLight"} />
