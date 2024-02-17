@@ -66,9 +66,9 @@
     "placeholder": "Rechercher le titre du cours..."
   },
   "languages": {
-    "english": "Anglaise",
-    "french": "Française",
-    "swahili": "Swahili"
+    "en": "English",
+    "fr": "French",
+    "sw": "Swahili"
   },
   "cancel": "Annuler",
   "continue": "Continuer"

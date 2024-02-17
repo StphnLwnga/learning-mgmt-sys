@@ -66,9 +66,9 @@
     "placeholder": "Search course title..."
   },
   "languages": {
-    "english": "English",
-    "french": "French",
-    "swahili": "Swahili"
+    "en": "English",
+    "fr": "French",
+    "sw": "Swahili"
   },
   "cancel": "Cancel",
   "continue": "Continue"

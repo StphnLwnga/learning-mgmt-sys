@@ -66,9 +66,9 @@
     "placeholder": "Tafuta kichwa cha kozi..."
   },
   "languages": {
-    "english": "Kiingereza",
-    "french": "Kifaransa",
-    "swahili": "Kiswahili"
+    "en": "English",
+    "fr": "French",
+    "sw": "Swahili"
   },
   "cancel": "Ghairi",
   "continue": "Endelea"
