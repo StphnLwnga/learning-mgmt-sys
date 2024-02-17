@@ -9,5 +9,9 @@ import { SignIn } from "@clerk/nextjs";
 export default function Page({ params }: { params: { lang: Locale } }): JSX.Element {
   const { lang } = params;
 
-  return <SignIn redirectUrl={`${process.env.NEXT_PUBLIC_APP_URL}/${lang}`} />;
+  return (
+  <div className="p-10">
+    <SignIn redirectUrl={`${process.env.NEXT_PUBLIC_APP_URL}/${lang}`} />
+  </div>
+  );
 }
