@@ -17,3 +17,5 @@ const Logo = ({ isDarkTheme, lang }: { isDarkTheme: boolean, lang?: string }): J
     </Link >
   );
 }
+
+export default Logo
