@@ -14,6 +14,7 @@ import TooltipComponent from "@/components/tooltip-component";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import ConfirmModal from "@/components/modals/confirm-modal";
+import { useLanguageStore } from "@/lib/hooks";
 
 
 interface ChapterActionsProps {
@@ -32,6 +33,8 @@ interface ChapterActionsProps {
  */
 const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps): JSX.Element => {
   const router = useRouter();
+
+  const lang = useLanguageStore(state => state.lang);
 
   const { toast } = useToast();
 
@@ -86,7 +89,7 @@ const ChapterActions = ({ initialData, courseId, disabled }: ChapterActionsProps
         className: `${resolvedTheme === 'dark' && 'text-slate-100'} bg-emerald-500 border-0 border-slate-200`,
       });
       router.refresh();
-      router.push(`/creator/courses/${courseId}`);
+      router.push(`/${lang}/creator/courses/${courseId}`);
     } catch (error) {
       console.error("[CHAPTER_ACTIONS]", error);
       toast({

@@ -8,7 +8,7 @@ import MuxPlayer from '@mux/mux-player-react';
 import { Loader2, Lock } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { useConfettiStore } from '@/lib/hooks';
+import { useConfettiStore, useLanguageStore } from '@/lib/hooks';
 
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -27,6 +27,8 @@ const VideoPlayer = ({
   chapterId, title, courseId, nextChapterId, playbackId, isLocked, completeOnEnd,
 }: VideoPlayerProps) => {
   const router = useRouter();
+
+  const lang = useLanguageStore(state => state.lang);
 
   const { toast } = useToast();
   
@@ -53,7 +55,7 @@ const VideoPlayer = ({
         });
         router.refresh();
 
-        if (nextChapterId) router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+        if (nextChapterId) router.push(`/${lang}/courses/${courseId}/chapters/${nextChapterId}`);
       }
     } catch (error) {
       console.log("[COURSE_PROGRESS]", error);  

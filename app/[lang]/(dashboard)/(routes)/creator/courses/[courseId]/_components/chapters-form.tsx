@@ -16,6 +16,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Course, Chapter } from '@prisma/client';
 import { ChaptersList } from '.';
+import { useLanguageStore } from '@/lib/hooks';
 
 
 interface ChaptersFormProps {
@@ -37,6 +38,8 @@ const formSchema = z.object({
  */
 const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX.Element => {
   const router = useRouter();
+
+  const lang = useLanguageStore(state => state.lang);
 
   const { resolvedTheme } = useTheme();
 
@@ -120,7 +123,7 @@ const ChaptersForm = ({ initialData, courseId, userId }: ChaptersFormProps): JSX
   }
 
   const onEdit = async (id: string): Promise<void> => {
-    router.push(`/creator/courses/${courseId}/chapters/${id}`);
+    router.push(`/${lang}/creator/courses/${courseId}/chapters/${id}`);
   }
 
   return (

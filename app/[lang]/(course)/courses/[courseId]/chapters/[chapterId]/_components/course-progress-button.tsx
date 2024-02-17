@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { useConfettiStore } from "@/lib/hooks";
+import { useConfettiStore, useLanguageStore } from "@/lib/hooks";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 
@@ -20,6 +20,8 @@ interface CourseProgressButtonProps {
 
 const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted }: CourseProgressButtonProps): JSX.Element => {
   const router = useRouter();
+
+  const lang = useLanguageStore(state => state.lang);
 
   const confetti = useConfettiStore();
 
@@ -40,7 +42,7 @@ const CourseProgressButton = ({ courseId, chapterId, nextChapterId, isCompleted 
 
       if (!isCompleted && !nextChapterId) confetti.onOpen();
 
-      if(!isCompleted && nextChapterId) router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+      if(!isCompleted && nextChapterId) router.push(`/${lang}/courses/${courseId}/chapters/${nextChapterId}`);
 
       toast({
         title: "Success",
