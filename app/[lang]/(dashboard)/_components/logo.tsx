@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useLanguageStore } from "@/lib/hooks";
 
-const Logo = ({ isDarkTheme, lang }: { isDarkTheme: boolean, lang?: string }): JSX.Element => {
+const Logo = ({ isDarkTheme }: { isDarkTheme: boolean }): JSX.Element => {
+  const { lang } = useLanguageStore();
   return (
-    <Link href={lang ? `/${lang}` : "/"}>
+    <Link href={`/${lang}`}>
       <div className="flex justify-center items-center">
         <Image
           height={180}
